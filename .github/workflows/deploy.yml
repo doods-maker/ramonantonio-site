@@ -36,7 +36,7 @@ jobs:
           # Pasta de destino no servidor. Em geral é a raiz do domínio:
           #   ./public_html/        (domínio principal)
           #   ./public_html/sub/    (subdomínio ou subpasta)
-          server-dir: /public_html/
+          server-dir: /ramonantonio.adv.br/
           # Protocolo: "ftp" simples (HostGator costuma aceitar melhor a partir de servidores externos).
           protocol: ftp
           timeout: 60000
