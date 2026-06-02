@@ -27,7 +27,7 @@ const jsonLd = {
   description,
   url: Astro.site?.href,
   telephone: site.telefone,
-  areaServed: site.cidadesAtendidas,
+  areaServed: { '@type': 'State', name: 'Santa Catarina' },
   address: {
     '@type': 'PostalAddress',
     streetAddress: site.endereco.logradouro,

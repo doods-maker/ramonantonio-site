@@ -1,18 +1,16 @@
 ---
-import { site } from '../data/site.ts';
+import { site, instagramPosts } from '../data/site.ts';
 
-// Embed do feed do Instagram.
-// O Instagram não permite ler o feed sem API/token, então o caminho confiável
-// para um site estático é um widget gratuito que gera um <script>/<iframe>:
-//   • LightWidget  → https://lightwidget.com  (conecte @ramonantonioadvogados, copie o embed)
-//   • Elfsight / SnapWidget também funcionam.
-// Cole o código gerado em `public/instagram-embed.html` ou substitua o bloco
-// abaixo. Enquanto não houver widget, mostramos um CTA da marca.
+// Embed OFICIAL do Instagram (sem cadastro/token).
+// Os posts vêm de `instagramPosts` em src/data/site.ts. O script embed.js do
+// próprio Instagram transforma cada <blockquote> no card real da publicação.
+const posts = instagramPosts.filter(Boolean);
+const hasPosts = posts.length > 0;
 ---
 
 <section class="ig section section--cream" id="instagram" aria-labelledby="ig-title">
   <div class="container text-center">
-    <span class="eyebrow">@ramonantonioadvogados</span>
+    <span class="eyebrow">{site.redes.instagramHandle}</span>
     <h2 id="ig-title">Acompanhe nosso Instagram</h2>
     <hr class="divider" />
     <p class="lead" style="margin-inline:auto">
@@ -20,14 +18,23 @@ import { site } from '../data/site.ts';
       seus direitos. Siga o escritório e fique por dentro.
     </p>
 
-    <!-- INÍCIO: ponto de inserção do widget de feed (LightWidget/Elfsight/SnapWidget).
-         Cole aqui o <script>/<iframe> gerado e remova o .ig__placeholder abaixo. -->
-    <div class="ig__placeholder" aria-hidden="true">
-      {Array.from({ length: 4 }).map(() => (
-        <div class="ig__cell"><svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></div>
-      ))}
-    </div>
-    <!-- FIM: ponto de inserção do widget -->
+    {hasPosts ? (
+      <div class="ig__grid">
+        {posts.map((url) => (
+          <blockquote
+            class="instagram-media"
+            data-instgrm-permalink={url}
+            data-instgrm-version="14"
+          ></blockquote>
+        ))}
+      </div>
+    ) : (
+      <div class="ig__placeholder" aria-hidden="true">
+        {Array.from({ length: 4 }).map(() => (
+          <div class="ig__cell"><svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></div>
+        ))}
+      </div>
+    )}
 
     <a href={site.redes.instagram} class="btn btn--primary" target="_blank" rel="noopener" style="margin-top:2rem">
       Seguir no Instagram
@@ -35,11 +42,21 @@ import { site } from '../data/site.ts';
   </div>
 </section>
 
+{hasPosts && <script async src="https://www.instagram.com/embed.js"></script>}
+
 <style>
-  .ig__placeholder {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
-    margin-top: 2.4rem;
+  .ig__grid {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 1.2rem; margin-top: 2.4rem;
   }
+  .ig__grid :global(.instagram-media) {
+    margin: 0 !important;
+    flex: 0 0 328px !important;
+    width: 328px !important;
+    min-width: 0 !important;
+    max-width: 328px !important;
+  }
+  .ig__placeholder { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2.4rem; }
   .ig__cell {
     aspect-ratio: 1; border-radius: var(--radius);
     background: linear-gradient(150deg, var(--cream-dk), #fff);

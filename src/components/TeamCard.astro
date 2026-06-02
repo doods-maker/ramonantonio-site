@@ -1,13 +1,14 @@
 ---
-interface Props { nome: string; funcao: string; foto?: string; }
-const { nome, funcao, foto = '' } = Astro.props;
+interface Props { nome: string; funcao: string; foto?: string; foco?: string; zoom?: number; }
+const { nome, funcao, foto = '', foco = 'center', zoom = 1 } = Astro.props;
 const iniciais = nome.split(' ').slice(0, 2).map((p) => p[0]).join('').toUpperCase();
+const imgStyle = `object-position:${foco};transform:scale(${zoom});transform-origin:top center`;
 ---
 
 <article class="team-card">
   <div class="team-card__photo">
     {foto
-      ? <img src={foto} alt={`Foto de ${nome}`} loading="lazy" />
+      ? <img src={foto} alt={`Foto de ${nome}`} loading="lazy" style={imgStyle} />
       : <span class="team-card__initials" aria-hidden="true">{iniciais}</span>}
   </div>
   <h3>{nome}</h3>

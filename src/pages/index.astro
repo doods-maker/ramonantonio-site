@@ -21,7 +21,7 @@ import { site, areas, equipe, depoimentos, waLink, mapsLink } from '../data/site
         <hr class="divider" />
         <p class="lead">
           O <strong>{site.nomeCompleto}</strong> é referência em Direito Previdenciário
-          em {site.endereco.cidade} e região. São mais de {site.anosExperiencia} anos
+          em {site.endereco.cidade} e em todo o estado de Santa Catarina. São mais de {site.anosExperiencia} anos
           de atuação especializada e mais de {site.beneficios} benefícios previdenciários
           conquistados para nossos clientes.
         </p>
@@ -37,7 +37,7 @@ import { site, areas, equipe, depoimentos, waLink, mapsLink } from '../data/site
       <ul class="sobre__pillars">
         <li><strong>Especialização real</strong><span>Foco em previdenciário, não generalismo.</span></li>
         <li><strong>Transparência</strong><span>Você acompanha cada fase do seu processo.</span></li>
-        <li><strong>Atuação regional</strong><span>{site.cidadesAtendidas.join(' • ')}</span></li>
+        <li><strong>Atuação estadual</strong><span>Sede em {site.endereco.cidade} • Atendemos todo o estado de Santa Catarina</span></li>
       </ul>
     </div>
   </section>
@@ -68,7 +68,7 @@ import { site, areas, equipe, depoimentos, waLink, mapsLink } from '../data/site
         <hr class="divider" />
       </div>
       <div class="grid grid--4 equipe__grid">
-        {equipe.map((m) => <TeamCard nome={m.nome} funcao={m.funcao} foto={m.foto} />)}
+        {equipe.map((m) => <TeamCard nome={m.nome} funcao={m.funcao} foto={m.foto} foco={'foco' in m ? m.foco : 'center'} zoom={'zoom' in m ? m.zoom : 1} />)}
       </div>
     </div>
   </section>
@@ -97,7 +97,7 @@ import { site, areas, equipe, depoimentos, waLink, mapsLink } from '../data/site
         <span class="eyebrow">Fale conosco</span>
         <h2>Entre em contato</h2>
         <hr class="divider" />
-        <p class="lead">Atendemos {site.endereco.cidade} e toda a região. Tire suas dúvidas sem compromisso.</p>
+        <p class="lead">Sede em {site.endereco.cidade}, com atuação em todo o estado de Santa Catarina. Tire suas dúvidas sem compromisso.</p>
 
         <ul class="contato__list">
           <li><span class="contato__ic"><Icon name="pin" size={20} /></span>

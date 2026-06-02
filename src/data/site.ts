@@ -23,7 +23,7 @@ export const site = {
     exibicao: '(48) 8855-4077',
     mensagem: 'Olá! Gostaria de falar com a equipe do Ramon Antonio Advogados.',
   },
-  email: '{{EMAIL — a definir}}',
+  email: 'ramonantonio.advogados@gmail.com',
   horario: 'Segunda a sexta, das 8h às 18h',
 
   endereco: {
@@ -45,6 +45,17 @@ export const site = {
     facebook: 'https://www.facebook.com/ramonantonioadvogados/',
   },
 } as const;
+
+// ── Posts do Instagram exibidos na home (embed oficial) ─────────────────────
+// Cole aqui os links (permalinks) dos posts. Formatos aceitos:
+//   https://www.instagram.com/p/XXXXXXXXXXX/
+//   https://www.instagram.com/reel/XXXXXXXXXXX/
+// Recomendado: 3 a 6 posts. Para trocar, basta editar esta lista e rodar o build.
+export const instagramPosts: string[] = [
+  'https://www.instagram.com/p/DXJ_ifIElW9/',
+  'https://www.instagram.com/p/DWyVfQlFPTP/',
+  'https://www.instagram.com/p/DWSCG-XGpZr/',
+];
 
 // ── Áreas de atuação ────────────────────────────────────────────────────────
 export const areas = [
@@ -89,11 +100,13 @@ export const areas = [
 // ── Equipe (placeholders de foto até o usuário enviar) ──────────────────────
 export const equipe = [
   { nome: 'Ramon Antonio', funcao: 'Sócio fundador • OAB/SC 19.044', foto: '/images/ramon.jpg' },
-  { nome: 'Crisleine Antonio', funcao: 'Advogada especialista', foto: '/images/crisleine.jpg' },
-  { nome: 'Brenda', funcao: 'Advogada especialista', foto: '/images/brenda.PNG' },
-  { nome: 'Rafaela', funcao: 'Advogada especialista', foto: '/images/rafaela.jpg' },
-  { nome: 'Tamires', funcao: 'Advogada especialista', foto: '/images/tamires.jpg' },
-  { nome: 'Eduardo Schlata', funcao: 'Advogado especialista • OAB/SC 39.859', foto: '/images/eduardo.jpg' },
+  { nome: 'Crisleine Antonio', funcao: 'Advogada especialista • OAB/SC 37.898', foto: '/images/crisleine.png', foco: 'top', zoom: 1.2 },
+  { nome: 'Tamires Maria de Farias', funcao: 'Advogada especialista • OAB/SC 43.089', foto: '/images/tamires.jpg' },
+  { nome: 'Rafaela Pinter', funcao: 'Advogada especialista • OAB/SC 22.043', foto: '/images/rafaela.jpg' },
+  { nome: 'Brenda Antunes', funcao: 'Advogada especialista • OAB/SC 54.338', foto: '/images/brenda.PNG', foco: 'top', zoom: 1.1 },
+  { nome: 'Eduardo Schlata', funcao: 'Advogado especialista • OAB/SC 39.859', foto: '/images/eduardo.jpg', foco: 'top', zoom: 1.2 },
+  { nome: 'Thaís Rosendo', funcao: 'Controladora', foto: '/images/thais.webp' },
+  { nome: 'Cláudia Teixeira', funcao: 'Secretária', foto: '/images/claudia.jpg', foco: 'top', zoom: 1.5 },
 ] as const;
 
 // ── Depoimentos (substitua por depoimentos reais autorizados) ───────────────
@@ -101,17 +114,17 @@ export const depoimentos = [
   {
     texto:
       'Consegui minha aposentadoria depois de anos de tentativas. A equipe cuidou de tudo com atenção e me manteve informado em cada etapa.',
-    autor: '{{Cliente — Tubarão/SC}}',
+    autor: 'Carlos — Tubarão/SC',
   },
   {
     texto:
       'Profissionais sérios e que realmente entendem de previdenciário. Recomendo a todos que precisam resolver com o INSS.',
-    autor: '{{Cliente — Laguna/SC}}',
+    autor: 'Maria — Laguna/SC',
   },
   {
     texto:
       'Atendimento humano e técnico ao mesmo tempo. Tive meu benefício revisado e o valor corrigido.',
-    autor: '{{Cliente — Criciúma/SC}}',
+    autor: 'Antônio — Braço do Norte/SC',
   },
 ] as const;
 
