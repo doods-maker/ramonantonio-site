@@ -16,15 +16,15 @@ export const site = {
   beneficios: '10.000',
 
   // ── Contato ───────────────────────────────────────────────────────────────
-  telefone: '(48) 8855-4077',
+  telefone: '(48) 98855-4077',
   whatsapp: {
     // número apenas com dígitos e DDI 55 para o link wa.me
-    numero: '554888554077',
-    exibicao: '(48) 8855-4077',
+    numero: '5548988554077',
+    exibicao: '(48) 98855-4077',
     mensagem: 'Olá! Gostaria de falar com a equipe do Ramon Antonio Advogados.',
   },
   email: 'ramonantonio.advogados@gmail.com',
-  horario: 'Segunda a sexta, das 8h às 18h',
+  horario: 'Segunda a sexta, das 8h30 às 12h e das 13h30 às 18h',
 
   endereco: {
     logradouro: 'Rua Coronel Teixeira, 40',
