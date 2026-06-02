@@ -1,0 +1,28 @@
+---
+interface Props { nome: string; funcao: string; foto?: string; }
+const { nome, funcao, foto = '' } = Astro.props;
+const iniciais = nome.split(' ').slice(0, 2).map((p) => p[0]).join('').toUpperCase();
+---
+
+<article class="team-card">
+  <div class="team-card__photo">
+    {foto
+      ? <img src={foto} alt={`Foto de ${nome}`} loading="lazy" />
+      : <span class="team-card__initials" aria-hidden="true">{iniciais}</span>}
+  </div>
+  <h3>{nome}</h3>
+  <p>{funcao}</p>
+</article>
+
+<style>
+  .team-card { text-align: center; }
+  .team-card__photo {
+    aspect-ratio: 1; border-radius: 14px; overflow: hidden; margin-bottom: 1rem;
+    background: linear-gradient(160deg, var(--dark-3), var(--dark));
+    display: grid; place-items: center; border: 1px solid var(--cream-dk);
+  }
+  .team-card__photo img { width: 100%; height: 100%; object-fit: cover; }
+  .team-card__initials { font-family: var(--font-serif); font-size: 2.6rem; color: var(--bronze-pl); }
+  .team-card h3 { font-size: 1.2rem; margin-bottom: .2rem; }
+  .team-card p { font-size: .9rem; color: var(--text-soft); }
+</style>

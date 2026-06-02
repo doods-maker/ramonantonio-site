@@ -1,0 +1,15 @@
+# build output
+dist/
+ramonantonio-site.zip
+# dependencies
+node_modules/
+# generated types
+.astro/
+# logs
+npm-debug.log*
+preview.log
+# environment
+.env
+.env.production
+# macOS / editores
+.DS_Store

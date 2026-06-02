@@ -1,0 +1,154 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import AreaCard from '../components/AreaCard.astro';
+import TeamCard from '../components/TeamCard.astro';
+import Testimonial from '../components/Testimonial.astro';
+import InstagramFeed from '../components/InstagramFeed.astro';
+import Icon from '../components/Icon.astro';
+import { site, areas, equipe, depoimentos, waLink, mapsLink } from '../data/site.ts';
+---
+
+<Base>
+  <Hero />
+
+  <!-- ── Sobre ──────────────────────────────────────────────────────────── -->
+  <section class="section" id="sobre">
+    <div class="container sobre__grid">
+      <div>
+        <span class="eyebrow">Sobre o escritório</span>
+        <h2>Mais de duas décadas dedicadas a quem precisa do INSS</h2>
+        <hr class="divider" />
+        <p class="lead">
+          O <strong>{site.nomeCompleto}</strong> é referência em Direito Previdenciário
+          em {site.endereco.cidade} e região. São mais de {site.anosExperiencia} anos
+          de atuação especializada e mais de {site.beneficios} benefícios previdenciários
+          conquistados para nossos clientes.
+        </p>
+        <p style="margin-top:1rem;color:var(--text-soft)">
+          Acreditamos em um atendimento próximo, técnico e humano: explicamos cada etapa,
+          cuidamos da documentação e lutamos para que você receba o que é seu por direito —
+          seja na via administrativa junto ao INSS ou na Justiça.
+        </p>
+        <a href={waLink} class="btn btn--primary" target="_blank" rel="noopener" style="margin-top:1.8rem">
+          Agende uma avaliação
+        </a>
+      </div>
+      <ul class="sobre__pillars">
+        <li><strong>Especialização real</strong><span>Foco em previdenciário, não generalismo.</span></li>
+        <li><strong>Transparência</strong><span>Você acompanha cada fase do seu processo.</span></li>
+        <li><strong>Atuação regional</strong><span>{site.cidadesAtendidas.join(' • ')}</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── Áreas ──────────────────────────────────────────────────────────── -->
+  <section class="section section--cream" id="areas">
+    <div class="container">
+      <div class="text-center">
+        <span class="eyebrow">Áreas de atuação</span>
+        <h2>Como podemos ajudar você</h2>
+        <hr class="divider" />
+      </div>
+      <div class="grid grid--3 areas__grid">
+        {areas.map((a) => (
+          <AreaCard titulo={a.titulo} descricao={a.descricao} icone={a.icone}
+                    itens={a.itens} destaque={'destaque' in a ? a.destaque : false} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Equipe ─────────────────────────────────────────────────────────── -->
+  <section class="section" id="equipe">
+    <div class="container">
+      <div class="text-center">
+        <span class="eyebrow">Nossa equipe</span>
+        <h2>Profissionais ao seu lado</h2>
+        <hr class="divider" />
+      </div>
+      <div class="grid grid--4 equipe__grid">
+        {equipe.map((m) => <TeamCard nome={m.nome} funcao={m.funcao} foto={m.foto} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Depoimentos ────────────────────────────────────────────────────── -->
+  <section class="section section--dark" id="depoimentos">
+    <div class="container">
+      <div class="text-center">
+        <span class="eyebrow">Depoimentos</span>
+        <h2>Quem confia no nosso trabalho</h2>
+        <hr class="divider" />
+      </div>
+      <div class="grid grid--3" style="margin-top:2.6rem">
+        {depoimentos.map((d) => <Testimonial texto={d.texto} autor={d.autor} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Instagram ──────────────────────────────────────────────────────── -->
+  <InstagramFeed />
+
+  <!-- ── Contato ────────────────────────────────────────────────────────── -->
+  <section class="section" id="contato">
+    <div class="container contato__grid">
+      <div>
+        <span class="eyebrow">Fale conosco</span>
+        <h2>Entre em contato</h2>
+        <hr class="divider" />
+        <p class="lead">Atendemos {site.endereco.cidade} e toda a região. Tire suas dúvidas sem compromisso.</p>
+
+        <ul class="contato__list">
+          <li><span class="contato__ic"><Icon name="pin" size={20} /></span>
+            <a href={mapsLink} target="_blank" rel="noopener">{site.endereco.logradouro} — {site.endereco.bairro}, {site.endereco.cidade}/{site.endereco.uf}</a></li>
+          <li><span class="contato__ic"><Icon name="phone" size={20} /></span>
+            <a href={`tel:+${site.whatsapp.numero}`}>{site.telefone}</a></li>
+          <li><span class="contato__ic"><Icon name="mail" size={20} /></span>
+            <a href={`mailto:${site.email}`}>{site.email}</a></li>
+          <li><span class="contato__ic"><Icon name="clock" size={20} /></span>
+            <span>{site.horario}</span></li>
+        </ul>
+
+        <a href={waLink} class="btn btn--primary" target="_blank" rel="noopener" style="margin-top:1.8rem">
+          Conversar no WhatsApp
+        </a>
+      </div>
+
+      <div class="contato__map">
+        <iframe
+          title={`Mapa — ${site.nomeCompleto}`}
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src={`https://www.google.com/maps?q=${encodeURIComponent(site.endereco.mapsQuery)}&output=embed`}
+        ></iframe>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .sobre__grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 3rem; align-items: start; }
+  .sobre__pillars { display: grid; gap: 1rem; }
+  .sobre__pillars li {
+    background: #fff; border: 1px solid var(--cream-dk); border-left: 3px solid var(--bronze);
+    border-radius: var(--radius); padding: 1.1rem 1.3rem;
+  }
+  .sobre__pillars strong { display: block; color: var(--bronze-dk); font-family: var(--font-serif); font-size: 1.15rem; }
+  .sobre__pillars span { font-size: .92rem; color: var(--text-soft); }
+
+  .areas__grid, .equipe__grid { margin-top: 2.6rem; }
+
+  .contato__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+  .contato__list { display: grid; gap: 1rem; margin-top: 1.8rem; }
+  .contato__list li { display: flex; align-items: center; gap: .9rem; }
+  .contato__ic { display: grid; place-items: center; width: 42px; height: 42px; flex: none;
+    border-radius: 10px; background: var(--cream); color: var(--bronze); }
+  .contato__map { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--cream-dk); }
+  .contato__map iframe { width: 100%; height: 420px; border: 0; display: block; }
+
+  @media (max-width: 860px) {
+    .sobre__grid, .contato__grid { grid-template-columns: 1fr; gap: 2rem; }
+    .contato__map iframe { height: 320px; }
+  }
+</style>

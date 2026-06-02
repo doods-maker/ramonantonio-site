@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-Command claude -ErrorAction SilentlyContinue)",
+      "PowerShell(npm --version)",
+      "PowerShell(node --version)",
+      "PowerShell(npm root -g)"
+    ]
+  }
+}

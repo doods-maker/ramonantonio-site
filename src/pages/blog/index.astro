@@ -1,0 +1,62 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { site } from '../../data/site.ts';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+---
+
+<Base title={`Blog — ${site.nome}`} description="Artigos sobre direito previdenciário, INSS e seus direitos.">
+  <section class="blog-hero">
+    <div class="container">
+      <span class="eyebrow">Blog</span>
+      <h1>Direito previdenciário descomplicado</h1>
+      <p class="lead">Artigos e atualizações sobre INSS, aposentadorias, benefícios e seus direitos.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      {posts.length === 0 ? (
+        <p>Em breve, novos artigos.</p>
+      ) : (
+        <div class="grid grid--3">
+          {posts.map((post) => (
+            <a class="post-card" href={`/blog/${post.slug}`}>
+              {post.data.image && <img class="post-card__img" src={post.data.image} alt="" loading="lazy" />}
+              <div class="post-card__body">
+                <time datetime={post.data.pubDate.toISOString()}>{fmt(post.data.pubDate)}</time>
+                <h3>{post.data.title}</h3>
+                <p>{post.data.description}</p>
+                <span class="post-card__more">Ler artigo →</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .blog-hero { background: var(--dark); color: var(--ink); padding-block: clamp(3rem, 8vw, 5rem); }
+  .blog-hero h1 { color: var(--cream); margin: .6rem 0 1rem; }
+  .blog-hero .lead { color: var(--ink-dim); }
+
+  .post-card {
+    display: flex; flex-direction: column; background: #fff; border: 1px solid var(--cream-dk);
+    border-radius: var(--radius); overflow: hidden; color: inherit;
+    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  }
+  .post-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--bronze-pl); }
+  .post-card__img { aspect-ratio: 16/9; object-fit: cover; width: 100%; }
+  .post-card__body { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; }
+  .post-card time { font-size: .82rem; color: var(--bronze-lt); text-transform: uppercase; letter-spacing: .05em; }
+  .post-card h3 { margin: .5rem 0 .6rem; }
+  .post-card p { color: var(--text-soft); font-size: .95rem; flex: 1; }
+  .post-card__more { margin-top: 1rem; color: var(--bronze); font-weight: 600; font-size: .9rem; }
+</style>

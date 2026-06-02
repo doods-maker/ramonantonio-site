@@ -1,0 +1,78 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { waLink } from '../../data/site.ts';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props as { post: CollectionEntry<'blog'> };
+const { Content } = await post.render();
+const fmt = (d: Date) =>
+  d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+---
+
+<Base title={`${post.data.title} — Blog`} description={post.data.description} image={post.data.image}>
+  <article class="post section">
+    <div class="container post__container">
+      <a href="/blog" class="post__back">← Voltar ao blog</a>
+      <header class="post__header">
+        <div class="post__meta">
+          <time datetime={post.data.pubDate.toISOString()}>{fmt(post.data.pubDate)}</time>
+          <span>•</span><span>{post.data.author}</span>
+        </div>
+        <h1>{post.data.title}</h1>
+        {post.data.tags.length > 0 && (
+          <ul class="post__tags">{post.data.tags.map((t) => <li>#{t}</li>)}</ul>
+        )}
+      </header>
+
+      {post.data.image && <img class="post__cover" src={post.data.image} alt="" />}
+
+      <div class="post__body">
+        <Content />
+      </div>
+
+      <aside class="post__cta">
+        <h3>Precisa de ajuda com o seu caso?</h3>
+        <p>Nossa equipe analisa o seu histórico e indica o melhor caminho.</p>
+        <a href={waLink} class="btn btn--primary" target="_blank" rel="noopener">Falar no WhatsApp</a>
+      </aside>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .post__container { max-width: 760px; }
+  .post__back { display: inline-block; margin-bottom: 1.5rem; font-weight: 600; font-size: .9rem; }
+  .post__meta { display: flex; gap: .5rem; align-items: center; color: var(--bronze-lt); font-size: .88rem; text-transform: uppercase; letter-spacing: .04em; }
+  .post__header h1 { margin: .7rem 0 1rem; }
+  .post__tags { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .post__tags li { background: var(--cream); color: var(--bronze-dk); padding: .25rem .7rem; border-radius: 999px; font-size: .8rem; }
+  .post__cover { width: 100%; border-radius: var(--radius); margin: 1.8rem 0; }
+
+  .post__body { font-size: 1.08rem; line-height: 1.8; color: var(--text); }
+  .post__body :global(h2) { margin: 2.2rem 0 .8rem; }
+  .post__body :global(h3) { margin: 1.6rem 0 .6rem; }
+  .post__body :global(p) { margin-bottom: 1.1rem; }
+  .post__body :global(ul), .post__body :global(ol) { margin: 0 0 1.1rem 1.3rem; }
+  .post__body :global(ul) { list-style: disc; }
+  .post__body :global(ol) { list-style: decimal; }
+  .post__body :global(li) { margin-bottom: .4rem; }
+  .post__body :global(a) { text-decoration: underline; }
+  .post__body :global(blockquote) {
+    border-left: 3px solid var(--bronze); background: var(--cream-lt);
+    padding: 1rem 1.3rem; margin: 1.4rem 0; border-radius: 0 var(--radius) var(--radius) 0;
+    color: var(--text-soft); font-style: italic;
+  }
+  .post__body :global(strong) { color: var(--bronze-dk); }
+
+  .post__cta {
+    margin-top: 3rem; padding: 2rem; text-align: center;
+    background: var(--dark); color: var(--ink); border-radius: var(--radius);
+  }
+  .post__cta h3 { color: var(--cream); margin-bottom: .5rem; }
+  .post__cta p { color: var(--ink-dim); margin-bottom: 1.3rem; }
+</style>

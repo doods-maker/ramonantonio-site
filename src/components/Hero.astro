@@ -1,0 +1,47 @@
+---
+import { site, waLink } from '../data/site.ts';
+---
+
+<section class="hero">
+  <div class="container hero__inner">
+    <div class="hero__content">
+      <span class="eyebrow">Tubarão/SC • Atuação em toda a região</span>
+      <h1>{site.slogan}<span class="hero__accent">.</span></h1>
+      <p class="hero__lead">{site.destaque}</p>
+      <div class="hero__actions">
+        <a href={waLink} class="btn btn--primary" target="_blank" rel="noopener">Fale com um especialista</a>
+        <a href="/#areas" class="btn btn--outline-light">Conheça as áreas</a>
+      </div>
+      <div class="hero__stats">
+        <div><strong>+{site.anosExperiencia}</strong><span>anos de experiência</span></div>
+        <div><strong>+{site.beneficios}</strong><span>benefícios conquistados</span></div>
+        <div><strong>{site.cidadesAtendidas.length}+</strong><span>cidades atendidas</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    background:
+      radial-gradient(120% 100% at 80% 0%, var(--dark-3) 0%, var(--dark) 55%);
+    color: var(--ink);
+    overflow: hidden;
+  }
+  .hero::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent 60%, rgba(196,168,130,.08));
+    pointer-events: none;
+  }
+  .hero__inner { padding-block: clamp(4rem, 11vw, 8rem); position: relative; z-index: 1; }
+  .hero__content { max-width: 760px; }
+  .hero h1 { color: var(--cream); margin-bottom: 1.3rem; }
+  .hero__accent { color: var(--bronze-pl); }
+  .hero__lead { font-size: clamp(1.1rem, 2.2vw, 1.4rem); color: var(--ink-dim); max-width: 56ch; margin-bottom: 2rem; }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: .9rem; margin-bottom: 3rem; }
+  .hero__stats { display: flex; flex-wrap: wrap; gap: 2.6rem; padding-top: 2rem; border-top: 1px solid var(--ink-ghost); }
+  .hero__stats strong { display: block; font-family: var(--font-serif); font-size: 2.3rem; color: var(--bronze-pl); line-height: 1; }
+  .hero__stats span { font-size: .9rem; color: var(--ink-dim); }
+  @media (max-width: 520px) { .hero__stats { gap: 1.6rem; } .hero__stats strong { font-size: 1.9rem; } }
+</style>
