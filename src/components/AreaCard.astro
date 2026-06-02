@@ -30,7 +30,7 @@ const { titulo, descricao, icone, itens = [], destaque = false } = Astro.props;
   }
   .area-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--bronze-pl); }
   .area-card--destaque {
-    grid-column: span 2; background: var(--dark); border-color: var(--bronze-dk); color: var(--ink);
+    grid-column: 1 / -1; background: var(--dark); border-color: var(--bronze-dk); color: var(--ink);
   }
   .area-card--destaque h3 { color: var(--cream); }
   .area-card--destaque p { color: var(--ink-dim); }
@@ -47,7 +47,7 @@ const { titulo, descricao, icone, itens = [], destaque = false } = Astro.props;
   .area-card h3 { margin-bottom: .6rem; }
   .area-card p { color: var(--text-soft); margin-bottom: 1rem; }
   .area-card__list { display: grid; gap: .45rem; }
-  .area-card--destaque .area-card__list { grid-template-columns: 1fr 1fr; }
+  .area-card--destaque .area-card__list { grid-template-columns: repeat(3, 1fr); }
   .area-card__list li { position: relative; padding-left: 1.4rem; font-size: .94rem; }
   .area-card__list li::before {
     content: ''; position: absolute; left: 0; top: .55em;
