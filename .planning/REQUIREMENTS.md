@@ -77,31 +77,31 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| PLUGIN-01 | TBD | Pending |
-| PLUGIN-02 | TBD | Pending |
-| PLUGIN-03 | TBD | Pending |
-| OUT-01 | TBD | Pending |
-| OUT-02 | TBD | Pending |
-| OUT-03 | TBD | Pending |
-| OUT-04 | TBD | Pending |
-| OUT-05 | TBD | Pending |
-| MEL-01 | TBD | Pending |
-| MEL-02 | TBD | Pending |
-| MEL-03 | TBD | Pending |
-| MEL-04 | TBD | Pending |
-| MEL-05 | TBD | Pending |
-| MEL-06 | TBD | Pending |
-| CRI-01 | TBD | Pending |
-| CRI-02 | TBD | Pending |
-| CRI-03 | TBD | Pending |
-| PROVA-01 | TBD | Pending |
-| PROVA-02 | TBD | Pending |
+| PLUGIN-01 | Phase 3 | Pending |
+| PLUGIN-02 | Phase 1 | Pending |
+| PLUGIN-03 | Phase 1 | Pending |
+| OUT-01 | Phase 1 | Pending |
+| OUT-02 | Phase 1 | Pending |
+| OUT-03 | Phase 1 | Pending |
+| OUT-04 | Phase 1 | Pending |
+| OUT-05 | Phase 1 | Pending |
+| MEL-01 | Phase 2 | Pending |
+| MEL-02 | Phase 2 | Pending |
+| MEL-03 | Phase 2 | Pending |
+| MEL-04 | Phase 2 | Pending |
+| MEL-05 | Phase 2 | Pending |
+| MEL-06 | Phase 2 | Pending |
+| CRI-01 | Phase 3 | Pending |
+| CRI-02 | Phase 3 | Pending |
+| CRI-03 | Phase 3 | Pending |
+| PROVA-01 | Phase 2 | Pending |
+| PROVA-02 | Phase 3 | Pending |
 
 **Coverage:**
 - v1 requirements: 19 total
-- Mapped to phases: 0 (filled by roadmap)
-- Unmapped: 19 ⚠️
+- Mapped to phases: 19
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-06-08*
-*Last updated: 2026-06-08 after initial definition*
+*Last updated: 2026-06-08 after roadmap creation*
