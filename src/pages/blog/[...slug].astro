@@ -1,15 +1,15 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
 import { waLink } from '../../data/site.ts';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
-  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
 }
 
 const { post } = Astro.props as { post: CollectionEntry<'blog'> };
-const { Content } = await post.render();
+const { Content } = await render(post);
 const fmt = (d: Date) =>
   d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
 ---
