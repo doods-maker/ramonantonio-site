@@ -78,13 +78,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | PLUGIN-01 | Phase 3 | Pending |
-| PLUGIN-02 | Phase 1 | Pending |
-| PLUGIN-03 | Phase 1 | Pending |
-| OUT-01 | Phase 1 | Pending |
-| OUT-02 | Phase 1 | Pending |
-| OUT-03 | Phase 1 | Pending |
-| OUT-04 | Phase 1 | Pending |
-| OUT-05 | Phase 1 | Pending |
+| PLUGIN-02 | Phase 1 | Complete |
+| PLUGIN-03 | Phase 1 | Complete |
+| OUT-01 | Phase 1 | Complete |
+| OUT-02 | Phase 1 | Complete |
+| OUT-03 | Phase 1 | Complete |
+| OUT-04 | Phase 1 | Complete |
+| OUT-05 | Phase 1 | Complete |
 | MEL-01 | Phase 2 | Pending |
 | MEL-02 | Phase 2 | Pending |
 | MEL-03 | Phase 2 | Pending |
