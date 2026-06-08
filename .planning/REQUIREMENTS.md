@@ -77,7 +77,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| PLUGIN-01 | Phase 3 | Pending |
+| PLUGIN-01 | Phase 3 | Complete |
 | PLUGIN-02 | Phase 1 | Complete |
 | PLUGIN-03 | Phase 1 | Complete |
 | OUT-01 | Phase 1 | Complete |
@@ -91,11 +91,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | MEL-04 | Phase 2 | Complete |
 | MEL-05 | Phase 2 | Complete |
 | MEL-06 | Phase 2 | Complete |
-| CRI-01 | Phase 3 | Pending |
-| CRI-02 | Phase 3 | Pending |
-| CRI-03 | Phase 3 | Pending |
+| CRI-01 | Phase 3 | Complete |
+| CRI-02 | Phase 3 | Complete |
+| CRI-03 | Phase 3 | Complete |
 | PROVA-01 | Phase 2 | Complete |
-| PROVA-02 | Phase 3 | Pending |
+| PROVA-02 | Phase 3 | Complete |
 
 **Coverage:**
 - v1 requirements: 19 total

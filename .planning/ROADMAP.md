@@ -12,9 +12,9 @@ O plugin parte de uma fundacao tecnica solida (estrutura do agente + especificac
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Fundacao e Gerador** - Plugin instalavel com spec LiderHub canonico e gerador de prompts validado
-- [ ] **Phase 2: Pipeline MELHORAR** - Fatia vertical completa: ingere conversas reais, diagnostica funil, entrega prompts revisados prontos para colar
-- [ ] **Phase 3: Pipeline CRIAR e Orquestrador** - Fatia vertical completa: recebe tese, compoe conhecimento juridico, gera cadeia de agentes + checklist de setup
+- [x] **Phase 1: Fundacao e Gerador** - Plugin instalavel com spec LiderHub canonico e gerador de prompts validado
+- [x] **Phase 2: Pipeline MELHORAR** - Fatia vertical completa: ingere conversas reais, diagnostica funil, entrega prompts revisados prontos para colar
+- [x] **Phase 3: Pipeline CRIAR e Orquestrador** - Fatia vertical completa: recebe tese, compoe conhecimento juridico, gera cadeia de agentes + checklist de setup
 
 ## Phase Details
 
@@ -64,6 +64,10 @@ Phases execute in numeric order: 1 → 2 → 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Fundacao e Gerador | 0/TBD | Not started | - |
-| 2. Pipeline MELHORAR | 0/TBD | Not started | - |
-| 3. Pipeline CRIAR e Orquestrador | 0/TBD | Not started | - |
+| 1. Fundacao e Gerador | built (direct) | ✓ Complete | 2026-06-08 |
+| 2. Pipeline MELHORAR | built (direct) | ✓ Complete | 2026-06-08 |
+| 3. Pipeline CRIAR e Orquestrador | built (direct) | ✓ Complete | 2026-06-08 |
+
+> Nota: as 3 fases foram construídas diretamente (sem o fluxo formal plan/execute do GSD),
+> a pedido do operador. Entregável: plugin `arquiteto-liderhub` em `C:\Users\dudsl\plugins-juridico\`
+> (git próprio: commits 4cc9bc5, 21d018e, 1654760). UAT formal pendente via `/gsd-verify-work`.
