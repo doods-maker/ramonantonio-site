@@ -85,16 +85,16 @@ Which phases cover which requirements. Updated during roadmap creation.
 | OUT-03 | Phase 1 | Complete |
 | OUT-04 | Phase 1 | Complete |
 | OUT-05 | Phase 1 | Complete |
-| MEL-01 | Phase 2 | Pending |
-| MEL-02 | Phase 2 | Pending |
-| MEL-03 | Phase 2 | Pending |
-| MEL-04 | Phase 2 | Pending |
-| MEL-05 | Phase 2 | Pending |
-| MEL-06 | Phase 2 | Pending |
+| MEL-01 | Phase 2 | Complete |
+| MEL-02 | Phase 2 | Complete |
+| MEL-03 | Phase 2 | Complete |
+| MEL-04 | Phase 2 | Complete |
+| MEL-05 | Phase 2 | Complete |
+| MEL-06 | Phase 2 | Complete |
 | CRI-01 | Phase 3 | Pending |
 | CRI-02 | Phase 3 | Pending |
 | CRI-03 | Phase 3 | Pending |
-| PROVA-01 | Phase 2 | Pending |
+| PROVA-01 | Phase 2 | Complete |
 | PROVA-02 | Phase 3 | Pending |
 
 **Coverage:**
