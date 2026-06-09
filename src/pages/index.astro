@@ -25,7 +25,7 @@ import { site, areas, equipe, depoimentos, waLink, mapsLink } from '../data/site
           de atuação especializada e mais de {site.beneficios} benefícios previdenciários
           conquistados para nossos clientes.
         </p>
-        <p style="margin-top:1rem;color:var(--text-soft)">
+        <p class="sobre__p" style="margin-top:1rem;color:var(--text-soft)">
           Acreditamos em um atendimento próximo, técnico e humano: explicamos cada etapa,
           cuidamos da documentação e lutamos para que você receba o que é seu por direito —
           seja na via administrativa junto ao INSS ou na Justiça.
@@ -133,7 +133,9 @@ import { site, areas, equipe, depoimentos, waLink, mapsLink } from '../data/site
   .sobre__pillars li {
     background: #fff; border: 1px solid var(--cream-dk); border-left: 3px solid var(--bronze);
     border-radius: var(--radius); padding: 1.1rem 1.3rem;
+    transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-left-color .3s ease;
   }
+  .sobre__pillars li:hover { transform: translateX(6px); box-shadow: var(--shadow); border-left-color: var(--bronze-pl); }
   .sobre__pillars strong { display: block; color: var(--bronze-dk); font-family: var(--font-serif); font-size: 1.15rem; }
   .sobre__pillars span { font-size: .92rem; color: var(--text-soft); }
 
@@ -143,7 +145,9 @@ import { site, areas, equipe, depoimentos, waLink, mapsLink } from '../data/site
   .contato__list { display: grid; gap: 1rem; margin-top: 1.8rem; }
   .contato__list li { display: flex; align-items: center; gap: .9rem; }
   .contato__ic { display: grid; place-items: center; width: 42px; height: 42px; flex: none;
-    border-radius: 10px; background: var(--cream); color: var(--bronze); }
+    border-radius: 10px; background: var(--cream); color: var(--bronze);
+    transition: transform .3s var(--ease), background .3s ease, color .3s ease; }
+  .contato__list li:hover .contato__ic { transform: translateY(-3px); background: var(--bronze); color: var(--cream-lt); }
   .contato__map { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--cream-dk); }
   .contato__map iframe { width: 100%; height: 420px; border: 0; display: block; }
 

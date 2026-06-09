@@ -13,7 +13,9 @@ const { texto, autor } = Astro.props;
   .testimonial {
     position: relative; background: var(--dark-2); border: 1px solid var(--dark-3);
     border-radius: var(--radius); padding: 2.2rem 1.9rem 1.9rem;
+    transition: transform .35s var(--ease), border-color .35s ease;
   }
+  .testimonial:hover { transform: translateY(-5px); border-color: var(--bronze-dk); }
   .testimonial__quote {
     position: absolute; top: .2rem; left: 1.2rem;
     font-family: var(--font-serif); font-size: 4rem; color: var(--bronze-pl); opacity: .5; line-height: 1;
