@@ -170,7 +170,9 @@ body:not(.is-home) main { padding-top: var(--header-h); }
 /* O estado inicial escondido só é aplicado quando o JS está ativo
    (html.js-reveal), evitando "sumiço" de conteúdo sem JS. */
 html.js-reveal .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
-.reveal.in { opacity: 1; transform: none; }
+/* Escopo sob html.js-reveal para superar a especificidade da regra que esconde
+   (0,2,1) — senão o opacity:0 venceria o .in e o conteúdo nunca apareceria. */
+html.js-reveal .reveal.in { opacity: 1; transform: none; }
 .reveal[data-d="1"] { transition-delay: .08s; }
 .reveal[data-d="2"] { transition-delay: .16s; }
 .reveal[data-d="3"] { transition-delay: .24s; }
@@ -179,7 +181,7 @@ html.js-reveal .reveal { opacity: 0; transform: translateY(28px); transition: op
 .reveal[data-d="6"] { transition-delay: .48s; }
 html.js-reveal .divider.grow { transform: scaleX(0); transform-origin: left center; transition: transform .9s var(--ease) .2s; }
 .text-center .divider.grow { transform-origin: center; }
-.divider.grow.in { transform: scaleX(1); }
+html.js-reveal .divider.grow.in { transform: scaleX(1); }
 
 /* ── Refinos de botões usados no hero ─────────────────────────────────── */
 .btn svg { transition: transform .3s var(--ease); }
