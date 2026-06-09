@@ -6,9 +6,10 @@
 
 ## Objetivo
 
-Ganhos de ranking e de compartilhamento **sem reescrever conteúdo dos posts**. Tudo em
-código, com commits atômicos e verificação no build e no servidor ao vivo. Reescrita de
-conteúdo, breadcrumbs, RSS e OG dinâmico por post ficam para a Fase 2.
+Ganhos de ranking e de compartilhamento via melhorias técnicas **e** ampliação do
+conteúdo dos posts (que estava raso). Tudo com commits atômicos e verificação no build e
+no servidor ao vivo. Otimização de imagens/Core Web Vitals, breadcrumbs, RSS e OG dinâmico
+por post ficam para a Fase 2.
 
 ## Contexto da auditoria (estado atual)
 
@@ -67,39 +68,42 @@ Lacunas que esta fase resolve:
   "Áreas de atuação" (`/#areas`) além do WhatsApp. (Mapa tag→seção fica para a Fase 2;
   por ora link genérico para `/#areas`.)
 
-### 5. Otimização de imagens
-- Script Node one-off `scripts/optimize-images.mjs` (`sharp`): para as fotos da equipe
-  em `public/images/`, redimensionar para largura máx. ~700px e recomprimir.
-- PNGs de foto (brenda.PNG, crisleine.png) convertidos para WebP/JPG otimizado; demais
-  recomprimidos. **Atualizar os caminhos correspondentes em `src/data/site.ts`** quando a
-  extensão mudar; remover os originais grandes. `thais.webp` e `logo.jpeg` (12KB) ficam.
-- Outputs commitados; script roda só localmente (não no CI).
+### 5. Conteúdo dos posts (reescrita e profundidade)
+- Ampliar os 5 posts de 175–275 → **~700–1000 palavras**, estrutura consistente:
+  intro curta, "O que é", "Quem tem direito / requisitos", "Documentos / como solicitar",
+  e **H2s em forma de pergunta** (que alimentam o `FAQPage` do item 2 — sinergia direta),
+  encerrando com CTA.
+- Usar apenas **fatos previdenciários consolidados**; **não inventar** prazos, valores,
+  carências ou números específicos dos quais não haja certeza.
+- Para cada post, produzir uma nota **"Validação jurídica necessária"** (entregue ao
+  operador, fora do corpo publicado) listando as afirmações específicas (prazos, valores,
+  carências, percentuais) que o advogado deve confirmar antes/depois de publicar.
+- `pubDate` preservado; `tags` mantidas/ajustadas; capas continuam opcionais (Fase 2).
 
 ## Arquivos afetados
 - `package.json` — `sharp` como devDependency (uso local; não entra no build CI).
 - `scripts/generate-og.mjs` (novo, one-off).
-- `scripts/optimize-images.mjs` (novo, one-off).
 - `public/images/og-default.jpg` (novo, commitado).
-- `public/images/*` (fotos otimizadas/convertidas).
 - `src/layouts/Base.astro` — props `type`/`publishedTime`/`author`, `og:site_name`,
   `og:image:width/height`, controle do `LegalService`.
 - `src/pages/blog/[...slug].astro` — JSON-LD `BlogPosting`+`FAQPage`, OG de artigo,
   posts relacionados, link `/#areas`.
 - `src/pages/index.astro` (se o `LegalService` migrar para a home).
-- `src/data/site.ts` — caminhos de foto, se extensões mudarem.
+- `src/content/blog/*.md` (5 posts) — reescrita/ampliação de conteúdo.
+- `docs/superpowers/validacao-juridica-blog.md` (novo) — notas de validação por post.
 
 ## Fora de escopo (Fase 2)
-Reescrita/ampliação do conteúdo dos posts (800–1500 palavras), breadcrumbs + schema,
-RSS feed, OG dinâmico por post, `dateModified` real por histórico de edição,
-mapa tag→seção para links contextuais.
+Otimização/conversão das imagens da equipe (PNG→WebP, resize) e Core Web Vitals,
+breadcrumbs + schema, RSS feed, OG dinâmico por post, capas dos posts,
+`dateModified` real por histórico de edição, mapa tag→seção para links contextuais.
 
 ## Verificação
 - `npm run build` conclui sem erros; 7 páginas.
 - JSON-LD válido no HTML gerado: `BlogPosting` presente em cada post; `FAQPage` presente
   onde aplicável; `LegalService` só na home. (Conferir estrutura e URLs absolutas.)
 - `og:image` resolve **200** ao vivo; `og:type=article` nos posts; `og:site_name` em todas.
-- Tamanho das fotos reduzido (somatório bem abaixo dos ~4MB atuais); imagens ainda
-  renderizam corretamente na home.
+- Posts ampliados para ~700–1000 palavras, com H2s de pergunta que casam com o `FAQPage`;
+  nenhuma afirmação específica inventada — pendências listadas em `validacao-juridica-blog.md`.
 - Deploy na `main` → workflow "Deploy para HostGator" = success → verificação no servidor
   (mesmo método das etapas anteriores: buscar artefatos servidos e validar).
 
