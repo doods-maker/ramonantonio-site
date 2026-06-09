@@ -26,6 +26,10 @@ forma geral quando havia incerteza; ainda assim, recomenda-se a conferência fin
 - Lista de segurados elegíveis (empregado, trabalhador avulso, segurado especial) — seção
   **Quem tem direito ao auxílio-acidente?** → confirmar a **lista exata** de segurados com
   direito ao benefício.
+- Inclusão do **empregado doméstico** (acidentes a partir da **LC 150/2015**) — seção
+  **Quem tem direito ao auxílio-acidente?** → confirmar a redação e a vigência atuais.
+- Exclusão, em regra, do **contribuinte individual e do segurado facultativo** — seção
+  **Quem tem direito ao auxílio-acidente?** → confirmar a redação e a vigência atuais.
 - Não acumulação com aposentadoria / cessação ao aposentar e influência no cálculo —
   seção **É possível acumular...?** → confirmar a regra de cessação e o tratamento no
   cálculo da aposentadoria.
@@ -36,6 +40,9 @@ forma geral quando havia incerteza; ainda assim, recomenda-se a conferência fin
   suas exceções (ampliação, inclusive por via judicial) — seção **Qual é a renda máxima
   para receber o BPC?** → confirmar o critério de **1/4** e as exceções/atualizações
   vigentes.
+- Ampliação do limite de renda de **1/4 para até 1/2 do salário mínimo** por pessoa
+  (**Lei 13.982/2020, art. 20-A**; **STF Tema 27 / RE 567.985**) — seção **Qual é a renda
+  máxima para receber o BPC?** → confirmar a vigência e a redação atuais.
 - "BPC não paga 13º e não gera pensão por morte" — seção **O que é o BPC/LOAS?** →
   confirmar (base consolidada, mas reconferir).
 - Idade de **65 anos** para o idoso e exigência de **CadÚnico atualizado** — seções **Quem

@@ -27,17 +27,24 @@ perfeitamente possível receber o auxílio-acidente e continuar trabalhando norm
 
 ## Quem tem direito ao auxílio-acidente?
 
-Tem direito o segurado que sofreu um **acidente de qualquer natureza** — de trabalho, de
-trânsito ou até doméstico — e ficou com uma **sequela permanente que reduz a capacidade**
-para a sua atividade habitual, ainda que de forma parcial. Não é preciso que a pessoa fique
-incapacitada por completo; basta que o trabalho tenha se tornado mais difícil em razão da
-sequela.
+Tem direito o segurado que sofreu um **acidente de qualquer natureza** — pode ser um
+acidente de trabalho, de trânsito ou até **um acidente doméstico**, ocorrido em casa — e
+ficou com uma **sequela permanente que reduz a capacidade** para a sua atividade habitual,
+ainda que de forma parcial. Não é preciso que a pessoa fique incapacitada por completo;
+basta que o trabalho tenha se tornado mais difícil em razão da sequela.
 
 De modo geral, costumam ter direito as seguintes categorias de segurados:
 
 - **Empregado** (com carteira assinada);
+- **Empregado doméstico** — a inclusão dessa categoria vale, em regra, para acidentes
+  ocorridos a partir da vigência da **Lei Complementar 150/2015 (LC 150/2015)**, o que
+  deve ser confirmado caso a caso;
 - **Trabalhador avulso**;
 - **Segurado especial** (como o trabalhador rural em regime de economia familiar).
+
+Por outro lado, **em regra NÃO têm direito ao auxílio-acidente** o **contribuinte
+individual** (autônomo, MEI, empresário) e o **segurado facultativo** — ponto que costuma
+gerar expectativa equivocada e que deve ser confirmado no caso concreto.
 
 A lista exata de segurados elegíveis deve ser confirmada caso a caso, mas o ponto central
 é sempre o mesmo: é preciso existir o **nexo** entre o acidente e a sequela, e essa sequela
