@@ -139,3 +139,57 @@ h3 { font-size: clamp(1.25rem, 2.2vw, 1.6rem); }
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* ════════════════════════════════════════════════════════════════════════
+   REDESIGN — adições ao global.css
+   Cole TODO este bloco no FINAL de src/styles/global.css
+   (mantém tudo que já existe; só acrescenta tokens, animações e ajustes)
+   ════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  --header-h: 84px;
+  --shadow-lg: 0 30px 70px rgba(25, 19, 16, .28);
+}
+
+/* Header agora é fixo: páginas SEM hero (ex.: blog) precisam de espaço no topo.
+   Na home (body.is-home) o próprio hero reserva o espaço do header. */
+body:not(.is-home) main { padding-top: var(--header-h); }
+
+/* Eyebrow com tracinho (usado em todas as seções) */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: .7rem;
+  letter-spacing: .24em;
+}
+.eyebrow::before {
+  content: ''; width: 26px; height: 1.5px; background: var(--bronze-pl); display: inline-block;
+}
+.text-center .eyebrow { justify-content: center; }
+
+/* ── Reveal on scroll ─────────────────────────────────────────────────── */
+/* O estado inicial escondido só é aplicado quando o JS está ativo
+   (html.js-reveal), evitando "sumiço" de conteúdo sem JS. */
+html.js-reveal .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+.reveal.in { opacity: 1; transform: none; }
+.reveal[data-d="1"] { transition-delay: .08s; }
+.reveal[data-d="2"] { transition-delay: .16s; }
+.reveal[data-d="3"] { transition-delay: .24s; }
+.reveal[data-d="4"] { transition-delay: .32s; }
+.reveal[data-d="5"] { transition-delay: .40s; }
+.reveal[data-d="6"] { transition-delay: .48s; }
+html.js-reveal .divider.grow { transform: scaleX(0); transform-origin: left center; transition: transform .9s var(--ease) .2s; }
+.text-center .divider.grow { transform-origin: center; }
+.divider.grow.in { transform: scaleX(1); }
+
+/* ── Refinos de botões usados no hero ─────────────────────────────────── */
+.btn svg { transition: transform .3s var(--ease); }
+.btn:hover svg { transform: translateX(3px); }
+.btn--light { background: var(--cream); color: var(--bronze-dk); }
+.btn--light:hover { background: #fff; transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.btn--outline-light { background: rgba(255,255,255,.04); color: var(--cream); border-color: rgba(237,224,200,.4); backdrop-filter: blur(4px); }
+.btn--outline-light:hover { border-color: var(--bronze-pl); background: rgba(196,168,130,.16); color: #fff; }
+
+@media (prefers-reduced-motion: reduce) {
+  html.js-reveal .reveal { opacity: 1 !important; transform: none !important; }
+  html.js-reveal .divider.grow { transform: scaleX(1) !important; }
+}

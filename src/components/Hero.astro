@@ -1,64 +1,205 @@
 ---
 import { site, waLink } from '../data/site.ts';
+
+// Vídeo institucional — coloque o arquivo em public/videos/institucional.mp4
+// (renomeie o "Ramon ADV Video.mp4" que já está em public/ para evitar espaços na URL)
+const videoSrc = '/videos/institucional.mp4';
 ---
 
-<section class="hero">
+<section class="hero" id="inicio">
+  <div class="hero__bg" aria-hidden="true"></div>
+
   <div class="container hero__inner">
     <div class="hero__content">
-      <span class="eyebrow">Sede em Tubarão/SC • Atuação em todo o estado de Santa Catarina</span>
-      <h1>{site.slogan}<span class="hero__accent">.</span></h1>
-      <p class="hero__lead">{site.destaque}</p>
-      <div class="hero__actions">
-        <a href={waLink} class="btn btn--primary" target="_blank" rel="noopener">Fale com um especialista</a>
+      <span class="eyebrow reveal">Sede em {site.endereco.cidade}/{site.endereco.uf} • Atuação em todo o estado de Santa Catarina</span>
+      <h1 class="reveal" data-d="1">{site.slogan}<span class="hero__accent">.</span></h1>
+      <p class="hero__lead reveal" data-d="2">{site.destaque}</p>
+      <div class="hero__actions reveal" data-d="3">
+        <a href={waLink} class="btn btn--light" target="_blank" rel="noopener">Fale com um especialista
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+        </a>
         <a href="/#areas" class="btn btn--outline-light">Conheça as áreas</a>
       </div>
-      <div class="hero__stats">
-        <div><strong>+{site.anosExperiencia}</strong><span>anos de experiência</span></div>
-        <div><strong>+{site.beneficios}</strong><span>benefícios conquistados</span></div>
+      <div class="hero__stats reveal" data-d="4">
+        <div><strong data-count={site.anosExperiencia} data-prefix="+">+{site.anosExperiencia}</strong><span>anos de experiência</span></div>
+        <div><strong data-count="10000" data-prefix="+" data-sep="1">+{site.beneficios}</strong><span>benefícios conquistados</span></div>
         <div><strong>SC</strong><span>atuação em todo o estado</span></div>
       </div>
     </div>
-    <div class="hero__aside">
-      <img class="hero__logo" src="/images/logo.jpeg" alt={site.nomeCompleto} width="320" height="138" />
+
+    <!-- Card de vídeo (clique para ampliar) -->
+    <div class="hero__media reveal" data-d="2" role="button" tabindex="0" aria-label="Assistir ao vídeo institucional">
+      <video class="hero__video" autoplay muted loop playsinline preload="auto">
+        <source src={videoSrc} type="video/mp4" />
+      </video>
+      <div class="hero__media-play" aria-hidden="true"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+      <span class="hero__media-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> Assistir vídeo institucional</span>
     </div>
+  </div>
+
+  <div class="hero__cue" aria-hidden="true">
+    <span></span>
+    Role
   </div>
 </section>
 
+<!-- Lightbox do vídeo institucional -->
+<div class="video-modal" id="videoModal" role="dialog" aria-modal="true" aria-label="Vídeo institucional">
+  <button class="video-modal__close" type="button" aria-label="Fechar vídeo">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <div class="video-modal__inner">
+    <video id="modalVideo" playsinline controls preload="none">
+      <source src={videoSrc} type="video/mp4" />
+    </video>
+  </div>
+</div>
+
 <style>
   .hero {
-    position: relative;
-    background:
-      radial-gradient(120% 100% at 80% 0%, var(--dark-3) 0%, var(--dark) 55%);
-    color: var(--ink);
-    overflow: hidden;
+    position: relative; min-height: 100svh;
+    display: flex; align-items: center; color: var(--ink);
+    overflow: hidden; isolation: isolate;
   }
-  .hero::after {
+  .hero__bg {
+    position: absolute; inset: 0; z-index: -2;
+    background:
+      radial-gradient(130% 110% at 88% 8%, var(--dark-3) 0%, var(--dark) 58%),
+      var(--dark);
+  }
+  .hero__bg::after {
     content: ''; position: absolute; inset: 0;
-    background: linear-gradient(90deg, transparent 60%, rgba(196,168,130,.08));
-    pointer-events: none;
+    background: radial-gradient(60% 50% at 78% 38%, rgba(196,168,130,.16), transparent 70%);
   }
   .hero__inner {
-    padding-block: clamp(4rem, 11vw, 8rem); position: relative; z-index: 1;
-    display: grid; grid-template-columns: 1fr auto; gap: clamp(2rem, 5vw, 4rem);
-    align-items: center;
+    padding-block: calc(var(--header-h) + 2.5rem) 5rem; width: 100%;
+    display: grid; grid-template-columns: 1.05fr .95fr;
+    gap: clamp(2rem, 5vw, 4.5rem); align-items: start;
   }
-  .hero__content { max-width: 760px; }
-  .hero__aside { justify-self: end; }
-  .hero__logo {
-    width: clamp(260px, 30vw, 400px); height: auto; border-radius: 14px;
-    box-shadow: var(--shadow-lg);
-  }
-  @media (max-width: 860px) {
-    .hero__inner { grid-template-columns: 1fr; }
-    .hero__aside { grid-row: 1; justify-self: center; }
-    .hero__logo { width: clamp(200px, 60vw, 260px); margin-bottom: .5rem; }
-  }
-  .hero h1 { color: var(--cream); margin-bottom: 1.3rem; }
+  .hero__content { max-width: 640px; }
+  .hero h1 { color: #fff; margin-bottom: 1.4rem; }
   .hero__accent { color: var(--bronze-pl); }
-  .hero__lead { font-size: clamp(1.1rem, 2.2vw, 1.4rem); color: var(--ink-dim); max-width: 56ch; margin-bottom: 2rem; }
-  .hero__actions { display: flex; flex-wrap: wrap; gap: .9rem; margin-bottom: 3rem; }
-  .hero__stats { display: flex; flex-wrap: wrap; gap: 2.6rem; padding-top: 2rem; border-top: 1px solid var(--ink-ghost); }
-  .hero__stats strong { display: block; font-family: var(--font-serif); font-size: 2.3rem; color: var(--bronze-pl); line-height: 1; }
-  .hero__stats span { font-size: .9rem; color: var(--ink-dim); }
-  @media (max-width: 520px) { .hero__stats { gap: 1.6rem; } .hero__stats strong { font-size: 1.9rem; } }
+  .hero__lead { font-size: clamp(1.1rem, 1.9vw, 1.35rem); color: rgba(237,224,200,.82); max-width: 52ch; margin-bottom: 2.2rem; }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 3.2rem; }
+
+  .hero__media {
+    position: relative; align-self: start; justify-self: end;
+    aspect-ratio: 9 / 16; height: min(82vh, 720px); width: auto; max-width: 100%;
+    border-radius: 20px; overflow: hidden; cursor: pointer;
+    background: #000; box-shadow: var(--shadow-lg); border: 1px solid rgba(196,168,130,.28);
+  }
+  .hero__video {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    animation: heroZoom 26s var(--ease) infinite alternate;
+  }
+  @keyframes heroZoom { from { transform: scale(1.02); } to { transform: scale(1.12); } }
+  .hero__media::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none; border-radius: 20px;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
+    background: linear-gradient(0deg, rgba(20,15,12,.55) 0%, transparent 34%);
+  }
+  .hero__media-play {
+    position: absolute; inset: 0; z-index: 2; display: grid; place-items: center;
+    background: radial-gradient(closest-side, rgba(20,15,12,.34), rgba(20,15,12,.06));
+    opacity: 0; transition: opacity .35s var(--ease);
+  }
+  .hero__media:hover .hero__media-play,
+  .hero__media:focus-visible .hero__media-play { opacity: 1; }
+  .hero__media:focus-visible { outline: 2px solid var(--bronze-pl); outline-offset: 3px; }
+  .hero__media-play span {
+    width: 74px; height: 74px; border-radius: 50%;
+    background: rgba(250,243,232,.94); color: var(--bronze-dk);
+    display: grid; place-items: center; box-shadow: 0 12px 34px rgba(0,0,0,.4);
+    transform: scale(.88); transition: transform .35s var(--ease);
+  }
+  .hero__media:hover .hero__media-play span { transform: scale(1); }
+  .hero__media-play svg { width: 28px; height: 28px; fill: currentColor; margin-left: 4px; }
+  .hero__media-badge {
+    position: absolute; left: 16px; bottom: 16px; z-index: 2;
+    display: inline-flex; align-items: center; gap: .55rem;
+    font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--cream); background: rgba(20,15,12,.5); backdrop-filter: blur(6px);
+    border: 1px solid rgba(237,224,200,.22); padding: .5rem .85rem; border-radius: 999px;
+  }
+  .hero__media-badge svg { width: 13px; height: 13px; fill: var(--bronze-pl); }
+
+  .hero__stats { display: flex; flex-wrap: wrap; gap: clamp(1.6rem, 5vw, 3.4rem); padding-top: 2.1rem; border-top: 1px solid var(--ink-ghost); }
+  .hero__stats strong { display: block; font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 2.7rem); color: var(--bronze-pl); line-height: 1; }
+  .hero__stats span { font-size: .9rem; color: rgba(237,224,200,.7); margin-top: .35rem; display: block; }
+
+  .hero__cue {
+    position: absolute; bottom: 1.6rem; left: 50%; transform: translateX(-50%);
+    z-index: 1; color: var(--bronze-pl); display: grid; place-items: center; gap: .4rem;
+    font-size: .68rem; letter-spacing: .25em; text-transform: uppercase; opacity: .75;
+  }
+  .hero__cue span { width: 1px; height: 34px; background: linear-gradient(var(--bronze-pl), transparent); animation: cue 1.8s ease-in-out infinite; }
+  @keyframes cue { 0%,100% { transform: scaleY(.4); opacity: .4; } 50% { transform: scaleY(1); opacity: 1; } }
+
+  @media (max-width: 920px) {
+    .hero { min-height: 0; }
+    .hero__inner { grid-template-columns: 1fr; gap: 2.4rem; padding-block: calc(var(--header-h) + 2.5rem) 3.5rem; }
+    .hero__content { max-width: none; }
+    .hero__media { order: -1; justify-self: center; height: auto; width: min(74%, 290px); }
+  }
+
+  /* Lightbox */
+  .video-modal {
+    position: fixed; inset: 0; z-index: 200; display: grid; place-items: center;
+    padding: clamp(1rem, 4vw, 3rem); background: rgba(12,9,7,.88); backdrop-filter: blur(10px);
+    opacity: 0; visibility: hidden; transition: opacity .35s var(--ease), visibility .35s;
+  }
+  .video-modal.open { opacity: 1; visibility: visible; }
+  .video-modal__inner {
+    position: relative; width: min(92vw, calc(86vh * 0.5625)); aspect-ratio: 9 / 16;
+    border-radius: 16px; overflow: hidden; background: #000; box-shadow: var(--shadow-lg);
+    transform: scale(.95); transition: transform .4s var(--ease);
+  }
+  .video-modal.open .video-modal__inner { transform: scale(1); }
+  .video-modal__inner video { width: 100%; height: 100%; object-fit: contain; background: #000; display: block; }
+  .video-modal__close {
+    position: absolute; top: 18px; right: 22px; z-index: 3;
+    width: 48px; height: 48px; border-radius: 50%;
+    border: 1px solid rgba(237,224,200,.3); background: rgba(20,15,12,.55); color: var(--cream);
+    cursor: pointer; display: grid; place-items: center;
+    transition: background .25s ease, transform .35s var(--ease);
+  }
+  .video-modal__close:hover { background: var(--bronze); transform: rotate(90deg); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__video, .hero__cue span { animation: none !important; }
+  }
 </style>
+
+<script>
+  // Autoplay garantido + lightbox
+  const media = document.querySelector('.hero__media');
+  const modal = document.getElementById('videoModal');
+  const modalVideo = document.getElementById('modalVideo') as HTMLVideoElement | null;
+  const closeBtn = modal?.querySelector('.video-modal__close');
+  const bgVideo = document.querySelector('.hero__video') as HTMLVideoElement | null;
+  bgVideo?.play().catch(() => {});
+
+  function openModal() {
+    if (!modal || !modalVideo) return;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    try { modalVideo.currentTime = 0; } catch (e) {}
+    modalVideo.muted = false;
+    modalVideo.play().catch(() => {});
+  }
+  function closeModal() {
+    if (!modal || !modalVideo) return;
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+    modalVideo.pause();
+  }
+  media?.addEventListener('click', openModal);
+  media?.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(); }
+  });
+  closeBtn?.addEventListener('click', closeModal);
+  modal?.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal?.classList.contains('open')) closeModal();
+  });
+</script>

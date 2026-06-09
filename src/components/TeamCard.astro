@@ -1,14 +1,16 @@
 ---
 interface Props { nome: string; funcao: string; foto?: string; foco?: string; zoom?: number; }
-const { nome, funcao, foto = '', foco = 'center', zoom = 1 } = Astro.props;
+// `foco` e `zoom` mantidos por compatibilidade com src/data/site.ts, mas o
+// enquadramento agora é sempre pelo topo (center top) — garante que nenhuma
+// cabeça seja cortada nos retratos verticais da equipe.
+const { nome, funcao, foto = '' } = Astro.props;
 const iniciais = nome.split(' ').slice(0, 2).map((p) => p[0]).join('').toUpperCase();
-const imgStyle = `object-position:${foco};transform:scale(${zoom});transform-origin:top center`;
 ---
 
 <article class="team-card">
   <div class="team-card__photo">
     {foto
-      ? <img src={foto} alt={`Foto de ${nome}`} loading="lazy" style={imgStyle} />
+      ? <img src={foto} alt={`Foto de ${nome}`} loading="lazy" />
       : <span class="team-card__initials" aria-hidden="true">{iniciais}</span>}
   </div>
   <h3>{nome}</h3>
@@ -18,12 +20,23 @@ const imgStyle = `object-position:${foco};transform:scale(${zoom});transform-ori
 <style>
   .team-card { text-align: center; }
   .team-card__photo {
-    aspect-ratio: 1; border-radius: 14px; overflow: hidden; margin-bottom: 1rem;
+    position: relative; aspect-ratio: 4 / 5; border-radius: 16px; overflow: hidden; margin-bottom: 1.1rem;
     background: linear-gradient(160deg, var(--dark-3), var(--dark));
-    display: grid; place-items: center; border: 1px solid var(--cream-dk);
+    display: grid; place-items: center; border: 1px solid var(--cream-dk); box-shadow: var(--shadow);
   }
-  .team-card__photo img { width: 100%; height: 100%; object-fit: cover; }
+  .team-card__photo img {
+    width: 100%; height: 100%; object-fit: cover; object-position: center top;
+    filter: grayscale(.5) contrast(1.02);
+    transition: transform .6s var(--ease), filter .5s ease;
+  }
+  .team-card:hover .team-card__photo img { transform: scale(1.06); filter: grayscale(0); }
+  .team-card__photo::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(0deg, rgba(20,15,12,.55), transparent 45%);
+    opacity: .7; transition: opacity .4s ease;
+  }
+  .team-card:hover .team-card__photo::after { opacity: .35; }
   .team-card__initials { font-family: var(--font-serif); font-size: 2.6rem; color: var(--bronze-pl); }
-  .team-card h3 { font-size: 1.2rem; margin-bottom: .2rem; }
+  .team-card h3 { font-size: 1.18rem; margin-bottom: .15rem; }
   .team-card p { font-size: .9rem; color: var(--text-soft); }
 </style>
