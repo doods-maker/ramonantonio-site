@@ -8,11 +8,26 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 
 const fmt = (d: Date) =>
   d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+
+const abs = (p: string) => new URL(p, Astro.site).href;
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Início', item: abs('/') },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: abs('/blog/') },
+  ],
+};
 ---
 
 <Base title={`Blog — ${site.nome}`} description="Artigos sobre direito previdenciário, INSS e seus direitos.">
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumb)} />
   <section class="blog-hero">
     <div class="container">
+      <nav class="blog-crumbs" aria-label="Trilha de navegação">
+        <a href="/">Início</a><span aria-hidden="true">›</span>
+        <span>Blog</span>
+      </nav>
       <span class="eyebrow">Blog</span>
       <h1>Direito previdenciário descomplicado</h1>
       <p class="lead">Artigos e atualizações sobre INSS, aposentadorias, benefícios e seus direitos.</p>
@@ -46,6 +61,9 @@ const fmt = (d: Date) =>
   .blog-hero { background: var(--dark); color: var(--ink); padding-block: clamp(3rem, 8vw, 5rem); }
   .blog-hero h1 { color: var(--cream); margin: .6rem 0 1rem; }
   .blog-hero .lead { color: var(--ink-dim); }
+  .blog-crumbs { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; font-size: .85rem; margin-bottom: 1rem; color: var(--ink-dim); }
+  .blog-crumbs a { color: var(--bronze-pl); font-weight: 600; }
+  .blog-crumbs span[aria-hidden] { color: var(--bronze-pl); }
 
   .post-card {
     display: flex; flex-direction: column; background: #fff; border: 1px solid var(--cream-dk);

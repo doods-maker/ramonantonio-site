@@ -72,6 +72,16 @@ const faqPage = faq.length
       })),
     }
   : null;
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Início', item: abs('/') },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: abs('/blog/') },
+    { '@type': 'ListItem', position: 3, name: post.data.title, item: abs(`/blog/${post.id}/`) },
+  ],
+};
 ---
 
 <Base
@@ -84,9 +94,14 @@ const faqPage = faq.length
 >
   <script type="application/ld+json" set:html={JSON.stringify(blogPosting)} />
   {faqPage && <script type="application/ld+json" set:html={JSON.stringify(faqPage)} />}
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumb)} />
   <article class="post section">
     <div class="container post__container">
-      <a href="/blog" class="post__back">← Voltar ao blog</a>
+      <nav class="post__crumbs" aria-label="Trilha de navegação">
+        <a href="/">Início</a><span aria-hidden="true">›</span>
+        <a href="/blog">Blog</a><span aria-hidden="true">›</span>
+        <span class="post__crumbs-current">{post.data.title}</span>
+      </nav>
       <header class="post__header">
         <div class="post__meta">
           <time datetime={post.data.pubDate.toISOString()}>{fmt(post.data.pubDate)}</time>
@@ -127,7 +142,10 @@ const faqPage = faq.length
 
 <style>
   .post__container { max-width: 760px; }
-  .post__back { display: inline-block; margin-bottom: 1.5rem; font-weight: 600; font-size: .9rem; }
+  .post__crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin-bottom: 1.5rem; font-size: .85rem; color: var(--text-soft); }
+  .post__crumbs a { font-weight: 600; }
+  .post__crumbs span[aria-hidden] { color: var(--bronze-pl); }
+  .post__crumbs-current { color: var(--text-soft); }
   .post__meta { display: flex; gap: .5rem; align-items: center; color: var(--bronze-lt); font-size: .88rem; text-transform: uppercase; letter-spacing: .04em; }
   .post__header h1 { margin: .7rem 0 1rem; }
   .post__tags { display: flex; flex-wrap: wrap; gap: .5rem; }
