@@ -25,7 +25,7 @@ const related = all
 // FAQ derivado dos H2 do corpo que são perguntas
 const QUESTION_RE = /\?\s*$/;
 const START_RE = /^(o que|quem|quando|como|qual|quais|por que|é possível|preciso|posso)\b/i;
-const lines = post.body.split('\n');
+const lines = (post.body ?? '').split('\n');
 const faq: { q: string; a: string }[] = [];
 for (let i = 0; i < lines.length; i++) {
   const m = lines[i].match(/^##\s+(.*)$/);
@@ -34,9 +34,11 @@ for (let i = 0; i < lines.length; i++) {
   if (!(QUESTION_RE.test(q) || START_RE.test(q))) continue;
   const buf: string[] = [];
   for (let j = i + 1; j < lines.length && !/^#{1,6}\s/.test(lines[j]); j++) buf.push(lines[j]);
-  const a = buf.join(' ')
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-    .replace(/[*_`>#-]/g, ' ')
+  const a = buf
+    .map((l) => l.replace(/^\s*[-*>]\s+/, '').trim())  // remove leading bullet/quote markers
+    .join(' ')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')            // [texto](url) -> texto
+    .replace(/[*_`#]/g, '')                              // inline markdown, mas mantém hífens
     .replace(/\s+/g, ' ')
     .trim();
   if (a.length > 40) faq.push({ q: q.endsWith('?') ? q : q + '?', a });
