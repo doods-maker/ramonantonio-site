@@ -9,15 +9,22 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  type?: 'website' | 'article';
+  publishedTime?: string;
+  author?: string;
 }
 
 const {
   title = `${site.nome} — ${site.slogan}`,
   description = `${site.nomeCompleto} em ${site.endereco.cidade}/${site.endereco.uf}. ${site.destaque}`,
   image = '/images/og-default.jpg',
+  type = 'website',
+  publishedTime,
+  author,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(image, Astro.site).href;
 const isHome = Astro.url.pathname === '/';
 
 const jsonLd = {
@@ -49,13 +56,21 @@ const jsonLd = {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={site.nome} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={image} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="pt_BR" />
+    {type === 'article' && publishedTime && (
+      <meta property="article:published_time" content={publishedTime} />
+    )}
+    {type === 'article' && author && <meta property="article:author" content={author} />}
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -67,7 +82,7 @@ const jsonLd = {
     <!-- Marca o estado inicial de "reveal" antes da primeira pintura (evita flash) -->
     <script is:inline>document.documentElement.classList.add('js-reveal');</script>
 
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    {isHome && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   </head>
   <body class={isHome ? 'is-home' : ''}>
     <a href="#main" class="sr-only">Pular para o conteúdo</a>
