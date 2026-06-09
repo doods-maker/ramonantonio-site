@@ -100,10 +100,10 @@ export const areas = [
 // ── Equipe (placeholders de foto até o usuário enviar) ──────────────────────
 export const equipe = [
   { nome: 'Ramon Antonio', funcao: 'Sócio fundador • OAB/SC 19.044', foto: '/images/ramon.jpg' },
-  { nome: 'Crisleine Antonio', funcao: 'Advogada especialista • OAB/SC 37.898', foto: '/images/crisleine.png', foco: 'top', zoom: 1.2 },
+  { nome: 'Crisleine Antonio', funcao: 'Advogada especialista • OAB/SC 37.898', foto: '/images/crisleine.webp', foco: 'top', zoom: 1.2 },
   { nome: 'Tamires Maria de Farias', funcao: 'Advogada especialista • OAB/SC 43.089', foto: '/images/tamires.jpg' },
   { nome: 'Rafaela Pinter', funcao: 'Advogada especialista • OAB/SC 22.043', foto: '/images/rafaela.jpg' },
-  { nome: 'Brenda Antunes', funcao: 'Advogada especialista • OAB/SC 54.338', foto: '/images/brenda.PNG', foco: 'top', zoom: 1.1 },
+  { nome: 'Brenda Antunes', funcao: 'Advogada especialista • OAB/SC 54.338', foto: '/images/brenda.webp', foco: 'top', zoom: 1.1 },
   { nome: 'Eduardo Schlata', funcao: 'Advogado especialista • OAB/SC 39.859', foto: '/images/eduardo.jpg', foco: 'top', zoom: 1.2 },
   { nome: 'Thaís Rosendo', funcao: 'Controladora', foto: '/images/thais.webp' },
   { nome: 'Cláudia Teixeira', funcao: 'Secretária', foto: '/images/claudia.jpg', foco: 'top', zoom: 1.5 },
