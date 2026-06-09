@@ -12,9 +12,76 @@ const { post } = Astro.props as { post: CollectionEntry<'blog'> };
 const { Content } = await render(post);
 const fmt = (d: Date) =>
   d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+
+// Posts relacionados (>=1 tag em comum; fallback: mais recentes), no máx. 3
+const all = (await getCollection('blog', ({ data }) => !data.draft))
+  .filter((p) => p.id !== post.id);
+const related = all
+  .map((p) => ({ p, score: p.data.tags.filter((t) => post.data.tags.includes(t)).length }))
+  .sort((a, b) => b.score - a.score || b.p.data.pubDate.valueOf() - a.p.data.pubDate.valueOf())
+  .slice(0, 3)
+  .map((x) => x.p);
+
+// FAQ derivado dos H2 do corpo que são perguntas
+const QUESTION_RE = /\?\s*$/;
+const START_RE = /^(o que|quem|quando|como|qual|quais|por que|é possível|preciso|posso)\b/i;
+const lines = post.body.split('\n');
+const faq: { q: string; a: string }[] = [];
+for (let i = 0; i < lines.length; i++) {
+  const m = lines[i].match(/^##\s+(.*)$/);
+  if (!m) continue;
+  const q = m[1].trim();
+  if (!(QUESTION_RE.test(q) || START_RE.test(q))) continue;
+  const buf: string[] = [];
+  for (let j = i + 1; j < lines.length && !/^#{1,6}\s/.test(lines[j]); j++) buf.push(lines[j]);
+  const a = buf.join(' ')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/[*_`>#-]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (a.length > 40) faq.push({ q: q.endsWith('?') ? q : q + '?', a });
+}
+
+const abs = (p: string) => new URL(p, Astro.site).href;
+const blogPosting = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.pubDate.toISOString(),
+  dateModified: post.data.pubDate.toISOString(),
+  author: { '@type': 'Organization', name: post.data.author },
+  image: abs(post.data.image ?? '/images/og-default.jpg'),
+  publisher: {
+    '@type': 'Organization',
+    name: 'Ramon Antonio Advogados',
+    logo: { '@type': 'ImageObject', url: abs('/images/logo.jpeg') },
+  },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': abs(`/blog/${post.id}/`) },
+};
+const faqPage = faq.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faq.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    }
+  : null;
 ---
 
-<Base title={`${post.data.title} — Blog`} description={post.data.description} image={post.data.image}>
+<Base
+  title={`${post.data.title} — Blog`}
+  description={post.data.description}
+  image={post.data.image}
+  type="article"
+  publishedTime={post.data.pubDate.toISOString()}
+  author={post.data.author}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(blogPosting)} />
+  {faqPage && <script type="application/ld+json" set:html={JSON.stringify(faqPage)} />}
   <article class="post section">
     <div class="container post__container">
       <a href="/blog" class="post__back">← Voltar ao blog</a>
@@ -35,10 +102,22 @@ const fmt = (d: Date) =>
         <Content />
       </div>
 
+      {related.length > 0 && (
+        <section class="post__related">
+          <h2>Leia também</h2>
+          <ul>
+            {related.map((r) => (
+              <li><a href={`/blog/${r.id}`}>{r.data.title}</a></li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       <aside class="post__cta">
         <h3>Precisa de ajuda com o seu caso?</h3>
         <p>Nossa equipe analisa o seu histórico e indica o melhor caminho.</p>
         <a href={waLink} class="btn btn--primary" target="_blank" rel="noopener">Falar no WhatsApp</a>
+        <a href="/#areas" class="post__cta-link">Ver áreas de atuação →</a>
       </aside>
     </div>
   </article>
@@ -75,4 +154,10 @@ const fmt = (d: Date) =>
   }
   .post__cta h3 { color: var(--cream); margin-bottom: .5rem; }
   .post__cta p { color: var(--ink-dim); margin-bottom: 1.3rem; }
+
+  .post__related { margin-top: 3rem; border-top: 1px solid var(--cream-dk); padding-top: 1.6rem; }
+  .post__related h2 { font-size: 1.3rem; margin-bottom: .9rem; }
+  .post__related ul { display: grid; gap: .6rem; }
+  .post__related a { font-weight: 600; }
+  .post__cta-link { display: inline-block; margin-top: .9rem; color: var(--bronze-pl); font-weight: 600; font-size: .92rem; }
 </style>
