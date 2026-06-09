@@ -3,6 +3,7 @@ title: "Auxílio-acidente: quem tem direito e como solicitar"
 description: "Entenda o que é o auxílio-acidente, quando ele é devido e quais documentos comprovam a redução da capacidade para o trabalho."
 pubDate: 2026-06-02
 author: "Ramon Antonio Advogados"
+image: "/images/posts/auxilio-acidente-quem-tem-direito.jpg"
 tags: ["previdenciário", "auxílio-acidente", "INSS"]
 draft: false
 ---

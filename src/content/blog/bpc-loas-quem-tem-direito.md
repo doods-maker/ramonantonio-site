@@ -3,6 +3,7 @@ title: "BPC/LOAS: quem tem direito ao Benefício de Prestação Continuada"
 description: "O BPC garante um salário mínimo a idosos e pessoas com deficiência em situação de vulnerabilidade. Veja os requisitos e como solicitar."
 pubDate: 2026-05-28
 author: "Ramon Antonio Advogados"
+image: "/images/posts/bpc-loas-quem-tem-direito.jpg"
 tags: ["previdenciário", "BPC", "LOAS", "INSS"]
 draft: false
 ---

@@ -3,6 +3,7 @@ title: "Hérnia de disco: quando dá direito a benefício do INSS"
 description: "A hérnia de disco pode impedir o trabalho, principalmente em atividades de esforço. Veja quais benefícios são possíveis e como comprovar a incapacidade."
 pubDate: 2026-06-02
 author: "Ramon Antonio Advogados"
+image: "/images/posts/hernia-de-disco-beneficio-inss.jpg"
 tags: ["previdenciário", "hérnia de disco", "auxílio por incapacidade", "INSS"]
 draft: false
 ---

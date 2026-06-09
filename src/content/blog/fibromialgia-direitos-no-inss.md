@@ -3,6 +3,7 @@ title: "Fibromialgia: é possível conseguir benefício no INSS?"
 description: "A fibromialgia pode incapacitar para o trabalho. Saiba quando ela dá direito a auxílio por incapacidade ou aposentadoria e como comprovar a doença."
 pubDate: 2026-06-02
 author: "Ramon Antonio Advogados"
+image: "/images/posts/fibromialgia-direitos-no-inss.jpg"
 tags: ["previdenciário", "fibromialgia", "auxílio por incapacidade", "INSS"]
 draft: false
 ---

@@ -3,6 +3,7 @@ title: "Aposentadoria por tempo de contribuição: o que mudou e como se planeja
 description: "Entenda as regras de transição após a Reforma da Previdência e como organizar sua documentação para garantir o melhor benefício."
 pubDate: 2026-05-20
 author: "Ramon Antonio Advogados"
+image: "/images/posts/aposentadoria-por-tempo-de-contribuicao.jpg"
 tags: ["previdenciário", "aposentadoria", "INSS"]
 draft: false
 ---

@@ -98,7 +98,7 @@ const faqPage = faq.length
         )}
       </header>
 
-      {post.data.image && <img class="post__cover" src={post.data.image} alt="" />}
+      {post.data.image && <img class="post__cover" src={post.data.image} alt={post.data.title} />}
 
       <div class="post__body">
         <Content />
