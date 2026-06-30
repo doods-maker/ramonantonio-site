@@ -42,7 +42,36 @@ const hasPosts = posts.length > 0;
   </div>
 </section>
 
-{hasPosts && <script async src="https://www.instagram.com/embed.js"></script>}
+{hasPosts && (
+  <script is:inline>
+    // Só carrega o embed.js (pesado, de terceiro) quando o usuário chega perto
+    // da seção do Instagram — economiza bytes/CPU no carregamento inicial.
+    (function () {
+      var sec = document.getElementById('instagram');
+      if (!sec) return;
+      var done = false;
+      function load() {
+        if (done) return;
+        done = true;
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.instagram.com/embed.js';
+        document.body.appendChild(s);
+      }
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          if (entries.some(function (e) { return e.isIntersecting; })) {
+            load();
+            io.disconnect();
+          }
+        }, { rootMargin: '400px 0px' });
+        io.observe(sec);
+      } else {
+        load();
+      }
+    })();
+  </script>
+)}
 
 <style>
   .ig__grid {
