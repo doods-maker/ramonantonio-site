@@ -87,7 +87,7 @@ export const areas = [
     icone: 'briefcase',
     descricao:
       'Defesa dos direitos do trabalhador em rescisões, verbas e reconhecimento de vínculo.',
-    itens: ['Rescisões e verbas', 'Reconhecimento de vínculo', { texto: 'Reclamatórias trabalhistas', href: '/lp/trabalhista-geral' }],
+    itens: [{ texto: 'Reclamatórias trabalhistas', href: '/lp/trabalhista-geral' }, 'Rescisões e verbas', 'Reconhecimento de vínculo'],
   },
   {
     titulo: 'Direito Administrativo',
