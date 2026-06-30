@@ -67,8 +67,9 @@ export const areas = [
       'Nossa especialidade. Aposentadorias, auxílios, pensões, revisões de benefícios e ações contra o INSS — com mais de duas décadas de atuação dedicada.',
     itens: [
       'Aposentadorias (idade, tempo de contribuição, especial, rural)',
-      'Auxílio-doença e auxílio-acidente',
-      'BPC/LOAS — Benefício de Prestação Continuada',
+      { texto: 'Auxílio-doença e auxílio-acidente', href: '/lp/auxilio-acidente' },
+      { texto: 'BPC/LOAS — Benefício de Prestação Continuada', href: '/lp/bpc-loas' },
+      { texto: 'Salário-maternidade', href: '/lp/salario-maternidade' },
       'Pensão por morte',
       'Revisão e recálculo de benefícios',
       'Planejamento previdenciário',
@@ -86,7 +87,7 @@ export const areas = [
     icone: 'briefcase',
     descricao:
       'Defesa dos direitos do trabalhador em rescisões, verbas e reconhecimento de vínculo.',
-    itens: ['Rescisões e verbas', 'Reconhecimento de vínculo', 'Reclamatórias trabalhistas'],
+    itens: ['Rescisões e verbas', 'Reconhecimento de vínculo', { texto: 'Reclamatórias trabalhistas', href: '/lp/trabalhista-geral' }],
   },
   {
     titulo: 'Direito Administrativo',
