@@ -46,4 +46,4 @@ Para sustentar o pedido, costumam ser essenciais os **laudos e exames médicos**
 
 O auxílio-acidente é um direito frequentemente esquecido: metade do salário de benefício, recebida junto com o salário, pela vida toda até a aposentadoria. Se você sofreu um acidente de qualquer natureza e ficou com alguma limitação permanente, reúna os laudos médicos e os documentos do acidente e procure um(a) advogado(a) de sua confiança para avaliar, com calma, se esse direito se aplica ao seu caso.
 
-Se quiser entender melhor os requisitos antes disso, você pode conferir a nossa [página sobre o auxílio-acidente](/auxilio-acidente/), com um resumo de quem pode ter direito ao benefício.
+Se quiser entender melhor os requisitos antes disso, você pode conferir a nossa [página sobre o auxílio-acidente](/lp/auxilio-acidente/), com um resumo de quem pode ter direito ao benefício.
