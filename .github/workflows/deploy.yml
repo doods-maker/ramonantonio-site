@@ -36,8 +36,8 @@ jobs:
           # Pasta de destino no servidor. Em geral é a raiz do domínio:
           #   ./public_html/        (domínio principal)
           #   ./public_html/sub/    (subdomínio ou subpasta)
-          # Raiz da conta de FTP — a conta deve ter como diretório o docroot do dominio
-          # (/home2/edua3819/ramonantonio.adv.br). Assim os arquivos vao direto para o site.
+          # Raiz da conta de FTP — a conta deve ter como diretório o docroot do domínio.
+          # Assim os arquivos vão direto para o site.
           server-dir: ./
           # Protocolo: "ftp" simples (HostGator costuma aceitar melhor a partir de servidores externos).
           protocol: ftp
