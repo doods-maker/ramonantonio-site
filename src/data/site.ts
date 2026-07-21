@@ -107,7 +107,6 @@ export const equipe = [
   { nome: 'Brenda Antunes', funcao: 'Advogada especialista • OAB/SC 54.338', foto: '/images/brenda.webp', foco: 'top', zoom: 1.1 },
   { nome: 'Eduardo Schlata', funcao: 'Advogado especialista • OAB/SC 39.859', foto: '/images/eduardo.jpg', foco: 'top', zoom: 1.2 },
   { nome: 'Thaís Rosendo', funcao: 'Controladora', foto: '/images/thais.webp' },
-  { nome: 'Cláudia Teixeira', funcao: 'Secretária', foto: '/images/claudia.jpg', foco: 'top', zoom: 1.5 },
 ] as const;
 
 // ── Depoimentos (substitua por depoimentos reais autorizados) ───────────────

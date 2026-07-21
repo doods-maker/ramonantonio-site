@@ -12,7 +12,6 @@ const jobs = [
   { src: 'public/images/ramon.jpg',     out: 'public/images/ramon.jpg',      fmt: 'jpeg' },
   { src: 'public/images/rafaela.jpg',   out: 'public/images/rafaela.jpg',    fmt: 'jpeg' },
   { src: 'public/images/tamires.jpg',   out: 'public/images/tamires.jpg',    fmt: 'jpeg' },
-  { src: 'public/images/claudia.jpg',   out: 'public/images/claudia.jpg',    fmt: 'jpeg' },
   { src: 'public/images/thais.webp',    out: 'public/images/thais.webp',     fmt: 'webp' },
 ];
 
