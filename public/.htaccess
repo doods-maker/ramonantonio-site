@@ -1,11 +1,12 @@
 # ── HostGator / Apache — Ramon Antonio Advogados ───────────────────────────
 # Este arquivo vai junto com o conteúdo de dist/ para public_html/.
 
-# Forçar HTTPS
+# Forçar HTTPS + domínio sem www (evita conteúdo duplicado no Google)
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  RewriteCond %{HTTPS} off
-  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+  RewriteCond %{HTTPS} off [OR]
+  RewriteCond %{HTTP_HOST} ^www\. [NC]
+  RewriteRule ^ https://ramonantonio.adv.br%{REQUEST_URI} [L,R=301]
 </IfModule>
 
 # Página de erro 404 amigável (Astro gera 404.html)

@@ -14,5 +14,16 @@ export default defineConfig({
     format: 'directory',
   },
 
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      // LPs de captação vivem no repo landing-pages (deploy na subpasta /lp/),
+      // mas o sitemap do domínio é gerado aqui — listar as LPs manualmente.
+      customPages: [
+        'https://ramonantonio.adv.br/lp/auxilio-acidente/',
+        'https://ramonantonio.adv.br/lp/bpc-loas/',
+        'https://ramonantonio.adv.br/lp/salario-maternidade/',
+        'https://ramonantonio.adv.br/lp/trabalhista-geral/',
+      ],
+    }),
+  ],
 });

@@ -99,7 +99,7 @@ const breadcrumb = {
     <div class="container post__container">
       <nav class="post__crumbs" aria-label="Trilha de navegação">
         <a href="/">Início</a><span aria-hidden="true">›</span>
-        <a href="/blog">Blog</a><span aria-hidden="true">›</span>
+        <a href="/blog/">Blog</a><span aria-hidden="true">›</span>
         <span class="post__crumbs-current">{post.data.title}</span>
       </nav>
       <header class="post__header">
@@ -124,7 +124,7 @@ const breadcrumb = {
           <h2>Leia também</h2>
           <ul>
             {related.map((r) => (
-              <li><a href={`/blog/${r.id}`}>{r.data.title}</a></li>
+              <li><a href={`/blog/${r.id}/`}>{r.data.title}</a></li>
             ))}
           </ul>
         </section>
