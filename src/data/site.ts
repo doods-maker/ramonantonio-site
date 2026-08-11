@@ -52,9 +52,9 @@ export const site = {
 //   https://www.instagram.com/reel/XXXXXXXXXXX/
 // Recomendado: 3 a 6 posts. Para trocar, basta editar esta lista e rodar o build.
 export const instagramPosts: string[] = [
-  'https://www.instagram.com/p/DXJ_ifIElW9/',
-  'https://www.instagram.com/p/DWyVfQlFPTP/',
-  'https://www.instagram.com/p/DWSCG-XGpZr/',
+  'https://www.instagram.com/reel/DaS7XC-xnrR/',
+  'https://www.instagram.com/reel/DX_0lRaPRgT/',
+  'https://www.instagram.com/p/Db6EkgfCSeP/',
 ];
 
 // ── Áreas de atuação ────────────────────────────────────────────────────────
