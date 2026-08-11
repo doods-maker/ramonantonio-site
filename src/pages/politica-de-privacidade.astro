@@ -1,0 +1,180 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site.ts';
+
+const atualizacao = '11 de agosto de 2026';
+---
+
+<Base
+  title="Política de Privacidade"
+  description={`Política de privacidade do ${site.nome}: como coletamos, usamos e protegemos seus dados pessoais, conforme a LGPD.`}
+>
+  <article class="policy section">
+    <div class="container policy__container">
+      <header class="policy__header">
+        <h1>Política de Privacidade</h1>
+        <p class="policy__updated">Última atualização: {atualizacao}</p>
+      </header>
+
+      <div class="policy__body">
+        <p>
+          Esta Política de Privacidade descreve como o <strong>{site.nomeCompleto}</strong>
+          (CNPJ {site.cnpj}, {site.oab}), com sede na {site.endereco.logradouro},
+          {site.endereco.bairro}, {site.endereco.cidade}/{site.endereco.uf},
+          CEP {site.endereco.cep} ("nós" ou "escritório"), coleta, utiliza, armazena e
+          protege os dados pessoais de quem visita nosso site, nossas páginas de captação
+          ou entra em contato conosco pelo WhatsApp, Instagram, Facebook, telefone ou e-mail,
+          em conformidade com a Lei Geral de Proteção de Dados Pessoais
+          (Lei nº 13.709/2018 — LGPD).
+        </p>
+
+        <h2>1. Quais dados coletamos</h2>
+        <p>Coletamos apenas os dados necessários para atender você:</p>
+        <ul>
+          <li>
+            <strong>Dados de contato e identificação</strong> — nome, telefone/WhatsApp,
+            e-mail e cidade, informados por você em formulários do site, em páginas de
+            captação ou em conversas conosco.
+          </li>
+          <li>
+            <strong>Dados sobre o seu caso</strong> — informações que você nos relata para
+            análise da sua situação previdenciária ou trabalhista (histórico de trabalho,
+            benefícios, documentos e, quando necessário à análise, <strong>dados de
+            saúde</strong>, que são dados pessoais sensíveis e recebem proteção reforçada).
+          </li>
+          <li>
+            <strong>Dados de mensagens</strong> — o conteúdo das conversas mantidas com o
+            escritório pelo WhatsApp e pelo Instagram/Facebook, recebidas por meio da
+            plataforma oficial da Meta (WhatsApp Business Platform e Messenger/Instagram).
+          </li>
+          <li>
+            <strong>Dados de navegação</strong> — cookies e identificadores coletados por
+            ferramentas de medição e publicidade (como o Pixel da Meta), usados de forma
+            agregada para medir o desempenho do site e de campanhas.
+          </li>
+        </ul>
+
+        <h2>2. Para que usamos os seus dados</h2>
+        <ul>
+          <li>Responder ao seu contato e prestar atendimento;</li>
+          <li>Analisar seu caso e verificar se você tem direito a algum benefício;</li>
+          <li>Prestar os serviços advocatícios contratados;</li>
+          <li>Cumprir obrigações legais e regulatórias da advocacia;</li>
+          <li>Medir e melhorar nosso site, conteúdo e campanhas de divulgação.</li>
+        </ul>
+        <p>
+          Tratamos dados com base no consentimento (art. 7º, I), na execução de contrato ou
+          de procedimentos preliminares (art. 7º, V), no cumprimento de obrigação legal
+          (art. 7º, II), no exercício regular de direitos (art. 7º, VI) e no legítimo
+          interesse (art. 7º, IX) da LGPD. Dados sensíveis, como dados de saúde, são
+          tratados apenas com seu consentimento ou para o exercício regular de direitos
+          (art. 11 da LGPD).
+        </p>
+
+        <h2>3. Com quem compartilhamos</h2>
+        <p>
+          <strong>Não vendemos nem alugamos seus dados pessoais.</strong> Compartilhamos
+          dados apenas quando necessário:
+        </p>
+        <ul>
+          <li>
+            <strong>Meta Platforms</strong> (WhatsApp, Instagram, Facebook) — para viabilizar
+            a troca de mensagens pelos canais oficiais e a veiculação de anúncios. O
+            tratamento feito pela Meta segue as políticas de privacidade dela;
+          </li>
+          <li>
+            <strong>Fornecedores de tecnologia</strong> — hospedagem, armazenamento em nuvem
+            e sistemas de atendimento usados pelo escritório, contratados com dever de
+            segurança e confidencialidade;
+          </li>
+          <li>
+            <strong>Órgãos públicos e Poder Judiciário</strong> — quando necessário à
+            prestação do serviço advocatício (por exemplo, INSS e Justiça Federal) ou por
+            obrigação legal.
+          </li>
+        </ul>
+
+        <h2>4. Por quanto tempo guardamos</h2>
+        <p>
+          Mantemos seus dados pelo tempo necessário às finalidades desta política: durante o
+          atendimento e a prestação do serviço e, depois, pelos prazos de guarda exigidos
+          pela legislação e pelos prazos prescricionais aplicáveis. Dados de contato de quem
+          não se tornou cliente são mantidos apenas pelo período necessário ao atendimento e
+          eliminados ou anonimizados em seguida.
+        </p>
+
+        <h2>5. Como protegemos</h2>
+        <p>
+          Adotamos medidas técnicas e administrativas de segurança para proteger seus dados
+          contra acessos não autorizados, perda ou alteração — incluindo controle de acesso,
+          criptografia em trânsito e sigilo profissional, que é dever de todo advogado
+          (art. 34, VII, da Lei nº 8.906/94).
+        </p>
+
+        <h2>6. Seus direitos</h2>
+        <p>
+          Como titular de dados, você pode, a qualquer momento e gratuitamente, nos pedir
+          (art. 18 da LGPD):
+        </p>
+        <ul>
+          <li>Confirmação de que tratamos seus dados e acesso a eles;</li>
+          <li>Correção de dados incompletos, inexatos ou desatualizados;</li>
+          <li>
+            <strong>Eliminação dos seus dados</strong> — inclusive dos dados recebidos pelo
+            WhatsApp e Instagram —, ressalvadas as hipóteses de guarda legal;
+          </li>
+          <li>Anonimização, bloqueio ou eliminação de dados desnecessários;</li>
+          <li>Portabilidade, informação sobre compartilhamentos e revogação do consentimento.</li>
+        </ul>
+        <p>
+          Para exercer qualquer direito — inclusive <strong>solicitar a exclusão dos seus
+          dados</strong> —, envie um e-mail para
+          <a href={`mailto:${site.email}`}>{site.email}</a> com o assunto
+          "Dados pessoais". Responderemos no prazo da LGPD. Você também pode apresentar
+          reclamação à Autoridade Nacional de Proteção de Dados (ANPD).
+        </p>
+
+        <h2>7. Cookies</h2>
+        <p>
+          Usamos cookies essenciais ao funcionamento do site e cookies de medição e
+          publicidade (como o Pixel da Meta). Você pode bloquear ou apagar cookies nas
+          configurações do seu navegador; o site continua funcionando normalmente.
+        </p>
+
+        <h2>8. Contato e encarregado</h2>
+        <p>
+          Dúvidas sobre esta política ou sobre o tratamento dos seus dados podem ser
+          dirigidas ao encarregado de proteção de dados do escritório:
+        </p>
+        <ul>
+          <li><strong>E-mail:</strong> <a href={`mailto:${site.email}`}>{site.email}</a></li>
+          <li><strong>Telefone/WhatsApp:</strong> {site.whatsapp.exibicao}</li>
+          <li>
+            <strong>Endereço:</strong> {site.endereco.logradouro}, {site.endereco.bairro},
+            {site.endereco.cidade}/{site.endereco.uf}, CEP {site.endereco.cep}
+          </li>
+        </ul>
+
+        <h2>9. Alterações desta política</h2>
+        <p>
+          Esta política pode ser atualizada para refletir mudanças legais ou operacionais.
+          A versão vigente estará sempre nesta página, com a data de atualização no topo.
+        </p>
+      </div>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .policy__container { max-width: 760px; }
+  .policy__header { margin-bottom: 2rem; }
+  .policy__header h1 { margin-bottom: .5rem; }
+  .policy__updated { color: var(--text-soft); font-size: .9rem; }
+  .policy__body { font-size: 1.05rem; line-height: 1.8; color: var(--text); }
+  .policy__body h2 { margin: 2.2rem 0 .8rem; }
+  .policy__body p { margin-bottom: 1.1rem; }
+  .policy__body ul { margin: 0 0 1.1rem 1.3rem; list-style: disc; }
+  .policy__body li { margin-bottom: .4rem; }
+  .policy__body a { text-decoration: underline; }
+  .policy__body strong { color: var(--bronze-dk); }
+</style>
