@@ -21,7 +21,7 @@ export const site = {
     // número apenas com dígitos e DDI 55 para o link wa.me
     numero: '5548988554077',
     exibicao: '(48) 98855-4077',
-    mensagem: 'Olá! Gostaria de falar com a equipe do Ramon Antonio Advogados.',
+    mensagem: 'Olá! Vim pelo site do escritório e gostaria de falar com a equipe.',
   },
   email: 'ramonantonio.advogados@gmail.com',
   horario: 'Segunda a sexta, das 8h30 às 12h e das 13h30 às 18h',
