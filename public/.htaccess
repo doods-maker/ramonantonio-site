@@ -7,6 +7,10 @@
   RewriteCond %{HTTPS} off [OR]
   RewriteCond %{HTTP_HOST} ^www\. [NC]
   RewriteRule ^ https://ramonantonio.adv.br%{REQUEST_URI} [L,R=301]
+
+  # /avalie → avaliação no Google (placa QR da recepção — projeto qrcode-radv).
+  # 302 de propósito: o destino pode ser trocado sem esperar cache de 301 expirar.
+  RewriteRule ^avalie/?$ https://g.page/r/CapwqbZ5L5OXEAE/review [L,R=302]
 </IfModule>
 
 # Página de erro 404 amigável (Astro gera 404.html)
