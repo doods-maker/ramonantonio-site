@@ -1,0 +1,57 @@
+---
+/**
+ * /palestra/qrcode/ — o QR code da inscrição, pronto para projetar no telão
+ * ou imprimir (Ctrl+P esconde cabeçalho/rodapé). Os arquivos PNG/SVG em
+ * public/images/palestra/ também servem para colar nos slides.
+ */
+import Base from '../../layouts/Base.astro';
+import { site } from '../../data/site.ts';
+import { palestra } from '../../data/palestra.ts';
+
+const urlInscricao = new URL(palestra.path, Astro.site).href;
+const urlCurta = urlInscricao.replace(/^https?:\/\//, '').replace(/\/$/, '');
+---
+
+<Base title={`QR code da palestra — ${site.nome}`} description="QR code de inscrição da palestra." noindex>
+  <section class="section qr">
+    <div class="container qr__wrap text-center">
+      <span class="eyebrow">{palestra.eyebrow}</span>
+      <h1>Aponte a câmera do celular</h1>
+      <p class="lead qr__lead">Escaneie para deixar seus dados e receber o material da palestra.</p>
+
+      <figure class="qr__figure">
+        <img src="/images/palestra/qrcode.svg" alt={`QR code para ${urlInscricao}`} width="480" height="480" />
+        <figcaption>{urlCurta}</figcaption>
+      </figure>
+
+      <p class="qr__acoes">
+        <a class="btn btn--ghost" href="/images/palestra/qrcode.png" download="qrcode-palestra.png">Baixar PNG (slides)</a>
+        <a class="btn btn--ghost" href="/images/palestra/qrcode.svg" download="qrcode-palestra.svg">Baixar SVG (impressão)</a>
+        <button type="button" class="btn btn--primary" onclick="window.print()">Imprimir</button>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .qr__wrap { max-width: 720px; }
+  .qr__lead { margin-inline: auto; }
+  .qr__figure {
+    margin: 2rem auto 0; width: min(480px, 88vw);
+    background: #fff; border: 1px solid var(--cream-dk); border-radius: 20px; box-shadow: var(--shadow);
+    padding: clamp(1rem, 3vw, 1.6rem);
+  }
+  .qr__figure img { width: 100%; height: auto; }
+  .qr__figure figcaption {
+    margin-top: .9rem; font-family: var(--font-serif); font-size: clamp(1.3rem, 3.5vw, 1.9rem);
+    font-weight: 600; color: var(--bronze-dk); letter-spacing: .01em; word-break: break-all;
+  }
+  .qr__acoes { display: flex; flex-wrap: wrap; gap: .8rem; justify-content: center; margin-top: 2rem; }
+
+  @media print {
+    :global(header), :global(footer), :global(.wa-float), :global(.whatsapp-float), .qr__acoes, .eyebrow { display: none !important; }
+    .qr { padding: 0; }
+    .qr__figure { box-shadow: none; border: 0; width: 70vw; }
+    .qr__figure img { width: 100%; }
+  }
+</style>

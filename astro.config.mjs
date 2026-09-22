@@ -16,6 +16,8 @@ export default defineConfig({
 
   integrations: [
     sitemap({
+      // /palestra/ é acessada só pelo QR code do evento — fora do sitemap (e noindex).
+      filter: (page) => !page.includes('/palestra'),
       // LPs de captação vivem no repo landing-pages (deploy na subpasta /lp/),
       // mas o sitemap do domínio é gerado aqui — listar as LPs manualmente.
       customPages: [

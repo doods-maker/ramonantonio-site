@@ -12,6 +12,8 @@ interface Props {
   type?: 'website' | 'article';
   publishedTime?: string;
   author?: string;
+  /** Página fora dos buscadores (ex.: /palestra/). */
+  noindex?: boolean;
 }
 
 const {
@@ -21,6 +23,7 @@ const {
   type = 'website',
   publishedTime,
   author,
+  noindex = false,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
@@ -57,6 +60,7 @@ const jsonLd = {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonical} />
     <link rel="alternate" type="application/rss+xml" title={`${site.nome} — Blog`} href="/rss.xml" />
 

@@ -1,0 +1,250 @@
+---
+/**
+ * /palestra/ — formulário de inscrição aberto pelo QR code da palestra.
+ * Campos: nome, data de nascimento, e-mail e WhatsApp.
+ * Destino: planilha do Drive via Apps Script (PUBLIC_PALESTRA_SHEET_ENDPOINT,
+ * src/lib/enviarInscricao.ts) e, opcionalmente, o CRM ramon-hub
+ * (PUBLIC_LEADS_ENDPOINT, src/lib/enviarLead.ts). Sem nenhum dos dois no build,
+ * encaminha os dados por WhatsApp. Página fora do Google (noindex/sitemap).
+ */
+import Base from '../../layouts/Base.astro';
+import { site } from '../../data/site.ts';
+import { palestra } from '../../data/palestra.ts';
+
+const hoje = new Date().toISOString().slice(0, 10);
+---
+
+<Base
+  title={`${palestra.titulo} — ${site.nome}`}
+  description={palestra.subtitulo}
+  noindex
+>
+  <section class="section palestra">
+    <div class="container palestra__wrap">
+      <header class="palestra__header text-center">
+        <span class="eyebrow">{palestra.eyebrow}</span>
+        <h1>{palestra.titulo}</h1>
+        <hr class="divider" />
+        <p class="lead">{palestra.subtitulo}</p>
+      </header>
+
+      <div class="palestra__card">
+        <form
+          class="palestra__form"
+          data-form-palestra
+          data-campanha={palestra.campanha}
+          data-sucesso-titulo={palestra.sucessoTitulo}
+          data-sucesso-texto={palestra.sucessoTexto}
+          novalidate
+        >
+          <label class="field">
+            <span class="field__label">Nome completo</span>
+            <input type="text" name="nome" placeholder="Seu nome completo" required autocomplete="name" inputmode="text" />
+          </label>
+
+          <label class="field">
+            <span class="field__label">Data de nascimento</span>
+            <input type="date" name="data_nascimento" required autocomplete="bday" max={hoje} min="1906-01-01" />
+          </label>
+
+          <label class="field">
+            <span class="field__label">E-mail</span>
+            <input type="email" name="email" placeholder="voce@exemplo.com" required autocomplete="email" inputmode="email" />
+          </label>
+
+          <label class="field">
+            <span class="field__label">WhatsApp</span>
+            <input type="tel" name="telefone" placeholder="(48) 9 0000-0000" required autocomplete="tel-national" inputmode="tel" maxlength="16" />
+          </label>
+
+          <!-- honeypot: invisível para humanos -->
+          <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" />
+
+          <label class="field-consent">
+            <input type="checkbox" name="consent" />
+            <span>{palestra.consentimento} <a href="/politica-de-privacidade/">Política de privacidade</a></span>
+          </label>
+
+          <button type="submit" class="btn btn--primary palestra__submit">{palestra.botao}</button>
+          <p data-msg class="form-msg" role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="palestra__sucesso" data-sucesso hidden>
+          <span class="palestra__check" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          </span>
+          <h2 data-sucesso-h>Obrigado!</h2>
+          <p data-sucesso-p></p>
+          <a href={`https://wa.me/${site.whatsapp.numero}`} class="btn btn--ghost" target="_blank" rel="noopener">Falar com o escritório no WhatsApp</a>
+        </div>
+      </div>
+
+      <p class="palestra__rodape">
+        {site.nomeCompleto} · {site.oab} · Seus dados são usados apenas para o contato do escritório,
+        conforme a <a href="/politica-de-privacidade/">Política de Privacidade</a>.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .palestra { min-height: 70vh; }
+  .palestra [hidden] { display: none !important; }
+  /* O botão flutuante do WhatsApp cobria o campo no celular; a página já tem CTA próprio. */
+  :global(.wa-float) { display: none !important; }
+  .palestra__wrap { max-width: 640px; }
+  .palestra__header h1 { font-size: clamp(2rem, 5vw, 3rem); }
+  .palestra__header .lead { margin-inline: auto; }
+
+  .palestra__card {
+    margin-top: 2.2rem;
+    background: #fff;
+    border: 1px solid var(--cream-dk);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: clamp(1.4rem, 4vw, 2.4rem);
+  }
+  .palestra__form { display: grid; gap: 1.1rem; }
+
+  .field { display: grid; gap: .4rem; }
+  .field__label { font-size: .82rem; font-weight: 600; color: var(--text-soft); letter-spacing: .02em; }
+  .field input {
+    font: inherit; font-size: 1.05rem; color: var(--text);
+    width: 100%; min-height: 54px; padding: .8rem 1rem;
+    background: var(--cream-lt); border: 1px solid var(--cream-dk); border-radius: var(--radius);
+    transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+    -webkit-appearance: none; appearance: none;
+  }
+  .field input:focus { outline: none; border-color: var(--bronze); background: #fff; box-shadow: 0 0 0 3px rgba(117, 77, 42, .14); }
+  .field input[aria-invalid="true"] { border-color: #b3261e; }
+  .field input[type="date"] { color-scheme: light; }
+
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
+  .field-consent { display: flex; gap: .6rem; align-items: flex-start; font-size: .85rem; color: var(--text-soft); line-height: 1.5; }
+  .field-consent input { accent-color: var(--bronze); width: 18px; height: 18px; margin-top: 3px; flex: none; }
+  .field-consent a { text-decoration: underline; }
+
+  .palestra__submit { justify-content: center; width: 100%; min-height: 56px; font-size: 1.05rem; }
+  .palestra__submit:disabled { opacity: .6; cursor: default; transform: none; box-shadow: none; }
+
+  .form-msg { min-height: 1.3em; margin: 0; font-size: .92rem; text-align: center; }
+  .form-msg.ok { color: var(--bronze); }
+  .form-msg.erro { color: #b3261e; }
+
+  .palestra__sucesso { text-align: center; display: grid; gap: .9rem; justify-items: center; padding-block: .6rem; }
+  .palestra__check { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: var(--cream); color: var(--bronze); }
+  /* O bloco nasce escondido: o observer de 'reveal' do layout nunca o vê — força visível. */
+  .palestra__sucesso h2 { font-size: clamp(1.7rem, 4vw, 2.2rem); opacity: 1 !important; transform: none !important; }
+  .palestra__sucesso p { color: var(--text-soft); max-width: 40ch; }
+
+  .palestra__rodape { margin-top: 1.6rem; font-size: .78rem; color: var(--text-soft); text-align: center; opacity: .85; }
+  .palestra__rodape a { text-decoration: underline; }
+</style>
+
+<script>
+  import { enviarLead, normalizarTelefone, emailValido, dataNascimentoValida, capturarUtm } from '../../lib/enviarLead';
+  import { enviarInscricao, formatarDataBr } from '../../lib/enviarInscricao';
+  import { site } from '../../data/site';
+
+  const sheetEndpoint = import.meta.env.PUBLIC_PALESTRA_SHEET_ENDPOINT as string | undefined;
+  const crmEndpoint = import.meta.env.PUBLIC_LEADS_ENDPOINT as string | undefined;
+
+  // Máscara leve do telefone: (48) 98855-4077 / (48) 3333-4444
+  function mascararTelefone(v: string): string {
+    const d = v.replace(/\D/g, '').replace(/^55(?=\d{10,11}$)/, '').slice(0, 11);
+    if (d.length <= 2) return d.length ? `(${d}` : '';
+    if (d.length <= 6) return `(${d.slice(0, 2)}) ${d.slice(2)}`;
+    if (d.length <= 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
+    return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
+  }
+
+  document.querySelectorAll<HTMLFormElement>('[data-form-palestra]').forEach((form) => {
+    const msg = form.querySelector<HTMLElement>('[data-msg]')!;
+    const btn = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const tel = form.querySelector<HTMLInputElement>('input[name="telefone"]')!;
+    const campos = ['nome', 'data_nascimento', 'email', 'telefone'].map(
+      (n) => form.querySelector<HTMLInputElement>(`input[name="${n}"]`)!,
+    );
+
+    tel.addEventListener('input', () => { tel.value = mascararTelefone(tel.value); });
+    campos.forEach((c) => c.addEventListener('input', () => c.removeAttribute('aria-invalid')));
+
+    const erro = (texto: string, campo?: HTMLInputElement) => {
+      msg.textContent = texto;
+      msg.className = 'form-msg erro';
+      if (campo) { campo.setAttribute('aria-invalid', 'true'); campo.focus(); }
+    };
+
+    const mostrarSucesso = (nome: string) => {
+      const box = form.parentElement!.querySelector<HTMLElement>('[data-sucesso]')!;
+      const primeiroNome = nome.split(/\s+/)[0];
+      box.querySelector('[data-sucesso-h]')!.textContent =
+        (form.dataset.sucessoTitulo ?? 'Obrigado, {nome}!').replace('{nome}', primeiroNome);
+      box.querySelector('[data-sucesso-p]')!.textContent = form.dataset.sucessoTexto ?? '';
+      form.hidden = true;
+      box.hidden = false;
+      box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const nome = String(fd.get('nome') ?? '').trim();
+      const dataNascimento = String(fd.get('data_nascimento') ?? '').trim();
+      const email = String(fd.get('email') ?? '').trim();
+      const telefoneDigitado = String(fd.get('telefone') ?? '').trim();
+      const honeypot = String(fd.get('website') ?? '');
+      const consent = fd.get('consent') === 'on';
+      const [cNome, cData, cEmail, cTel] = campos;
+
+      if (honeypot) return; // bot: ignora em silêncio
+      if (nome.split(/\s+/).length < 2) return erro('Informe seu nome completo.', cNome);
+      if (!dataNascimentoValida(dataNascimento)) return erro('Confira a data de nascimento.', cData);
+      if (!emailValido(email)) return erro('Confira o e-mail informado.', cEmail);
+      const telefone = normalizarTelefone(telefoneDigitado);
+      if (!telefone) return erro('Informe o WhatsApp com DDD, ex.: (48) 98855-4077.', cTel);
+
+      const nascimentoBr = formatarDataBr(dataNascimento);
+      const campanha = form.dataset.campanha ?? 'palestra';
+
+      // Sem destino configurado no build: encaminha por WhatsApp.
+      if (!sheetEndpoint && !crmEndpoint) {
+        const texto =
+          `Olá! Participei da palestra e quero receber o material.\n` +
+          `Nome: ${nome}\nNascimento: ${nascimentoBr}\nE-mail: ${email}\nWhatsApp: ${telefoneDigitado}`;
+        window.open(`https://wa.me/${site.whatsapp.numero}?text=${encodeURIComponent(texto)}`, '_blank');
+        msg.textContent = 'Abrindo o WhatsApp para você concluir o envio…';
+        msg.className = 'form-msg ok';
+        return;
+      }
+
+      btn.disabled = true;
+      msg.textContent = 'Enviando…';
+      msg.className = 'form-msg';
+
+      // 1) Planilha no Drive (destino principal).
+      let ok = false;
+      if (sheetEndpoint) {
+        ok = (await enviarInscricao(sheetEndpoint, {
+          nome, dataNascimento, email, telefone, campanha, consent, website: honeypot, utm: capturarUtm(),
+        })).ok;
+      }
+
+      // 2) CRM ramon-hub (opcional). Se for o único destino, decide o sucesso.
+      if (crmEndpoint) {
+        const crm = await enviarLead(crmEndpoint, {
+          nome, telefone, email, dataNascimento, campanha, website: honeypot, consent,
+          mensagem: `Inscrição pela palestra (${campanha}) · Nascimento: ${nascimentoBr} · E-mail: ${email}`,
+        });
+        if (!sheetEndpoint) ok = crm.ok;
+      }
+
+      if (!ok) {
+        btn.disabled = false;
+        return erro('Não foi possível enviar agora. Confira os dados e tente novamente.');
+      }
+      mostrarSucesso(nome);
+    });
+  });
+</script>
