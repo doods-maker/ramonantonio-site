@@ -7,7 +7,7 @@
  * para os slides é pego direto em /images/palestra/qrcode.png.
  */
 import Base from '../../layouts/Base.astro';
-import { site } from '../../data/site.ts';
+import { site, waLink } from '../../data/site.ts';
 import { palestra } from '../../data/palestra.ts';
 
 const urlCurta = new URL(palestra.path, Astro.site).href;
@@ -29,7 +29,8 @@ const urlExibicao = urlCurta.replace(/^https?:\/\//, '').replace(/\/$/, '');
       </figure>
 
       <p class="qr__acoes">
-        <button type="button" class="btn btn--primary" onclick="window.print()">Imprimir</button>
+        <a class="btn btn--primary" href={waLink} target="_blank" rel="noopener">Falar com o escritório no WhatsApp</a>
+        <button type="button" class="btn btn--ghost" onclick="window.print()">Imprimir</button>
       </p>
     </div>
   </section>
