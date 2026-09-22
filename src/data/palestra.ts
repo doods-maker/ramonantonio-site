@@ -14,6 +14,6 @@ export const palestra = {
   formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSdKNU8XpnTYVvs6jwBm3K_lKPseU1fZLL0nTunnl5MeiNG4Dw/viewform',
 
   eyebrow: 'Palestra',
-  titulo: 'Aponte a câmera do celular',
-  subtitulo: 'Deixe seus dados no formulário e a equipe do escritório entra em contato com você.',
+  titulo: 'Aponte a câmera ou clique direto no QR code abaixo',
+  subtitulo: 'Preencha o formulário e a equipe do escritório entra em contato com você.',
 } as const;

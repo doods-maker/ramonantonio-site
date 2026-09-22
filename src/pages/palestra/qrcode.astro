@@ -1,10 +1,9 @@
 ---
 /**
- * /palestra/qrcode/ — o QR code da palestra, pronto para projetar no telão ou
- * imprimir (Ctrl+P esconde cabeçalho/rodapé). O QR aponta para o endereço curto
- * ramonantonio.adv.br/palestra, que redireciona (public/.htaccess) ao formulário
- * do Google onde os empresários deixam os dados. Sem botões de download: o PNG
- * para os slides é pego direto em /images/palestra/qrcode.png.
+ * /palestra/qrcode/ — tela única (sem rolagem) com o QR code da palestra, para
+ * projetar no telão. O QR aponta para ramonantonio.adv.br/palestra, que redireciona
+ * (public/.htaccess) ao formulário do Google onde os empresários deixam os dados.
+ * Sem cabeçalho/rodapé nem downloads: o PNG para slides fica em /images/palestra/qrcode.png.
  */
 import Base from '../../layouts/Base.astro';
 import { site, waLink } from '../../data/site.ts';
@@ -15,46 +14,65 @@ const urlExibicao = urlCurta.replace(/^https?:\/\//, '').replace(/\/$/, '');
 ---
 
 <Base title={`QR code da palestra — ${site.nome}`} description={palestra.subtitulo} noindex>
-  <section class="section qr">
-    <div class="container qr__wrap text-center">
-      <span class="eyebrow">{palestra.eyebrow}</span>
-      <h1>{palestra.titulo}</h1>
-      <p class="lead qr__lead">{palestra.subtitulo}</p>
+  <section class="qr">
+    <span class="eyebrow">{palestra.eyebrow}</span>
+    <h1>{palestra.titulo}</h1>
+    <p class="qr__lead">{palestra.subtitulo}</p>
 
-      <figure class="qr__figure">
-        <a href={palestra.formUrl} target="_blank" rel="noopener" aria-label="Abrir o formulário">
-          <img src="/images/palestra/qrcode.svg" alt={`QR code para ${urlCurta}`} width="480" height="480" />
-        </a>
-        <figcaption>{urlExibicao}</figcaption>
-      </figure>
+    <figure class="qr__figure">
+      <a href={palestra.formUrl} target="_blank" rel="noopener" aria-label="Abrir o formulário">
+        <img src="/images/palestra/qrcode.svg" alt={`QR code para ${urlCurta}`} width="480" height="480" />
+      </a>
+      <figcaption>{urlExibicao}</figcaption>
+    </figure>
 
-      <p class="qr__acoes">
-        <a class="btn btn--primary" href={waLink} target="_blank" rel="noopener">Falar com o escritório no WhatsApp</a>
-        <button type="button" class="btn btn--ghost" onclick="window.print()">Imprimir</button>
-      </p>
-    </div>
+    <a class="qr__wa" href={waLink} target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="currentColor">
+        <path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-1.044zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+      </svg>
+      <span>Falar com o escritório no WhatsApp</span>
+    </a>
   </section>
 </Base>
 
 <style>
-  .qr__wrap { max-width: 720px; }
-  .qr__lead { margin-inline: auto; }
+  /* Tela única: sem cabeçalho, rodapé e botão flutuante; conteúdo centralizado na altura da janela. */
+  :global(.site-header), :global(.site-footer), :global(.wa-float) { display: none !important; }
+  :global(html), :global(body) { height: 100%; overflow: hidden; }
+  :global(main#main) { height: 100%; padding-top: 0 !important; } /* o layout reserva a altura do cabeçalho (escondido aqui) */
+
+  .qr {
+    height: 100svh; min-height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: clamp(.4rem, 1.4vh, 1rem);
+    padding: clamp(1rem, 3vh, 2rem) clamp(1rem, 4vw, 2.4rem);
+    text-align: center;
+  }
+  .eyebrow { margin-bottom: 0; font-size: clamp(.7rem, 1.4vh, .85rem); }
+  /* O layout marca h2/eyebrow/lead da .section como 'reveal'; aqui não é .section, então nada some. */
+  h1 { font-size: clamp(1.6rem, 5.5vh, 3rem); line-height: 1.05; }
+  .qr__lead { font-size: clamp(.9rem, 2.2vh, 1.15rem); color: var(--text-soft); max-width: 44ch; margin: 0; }
+
   .qr__figure {
-    margin: 2rem auto 0; width: min(480px, 88vw);
-    background: #fff; border: 1px solid var(--cream-dk); border-radius: 20px; box-shadow: var(--shadow);
-    padding: clamp(1rem, 3vw, 1.6rem);
+    margin: clamp(.4rem, 1.5vh, 1rem) 0 0;
+    width: min(52vh, 86vw, 440px);
+    background: #fff; border: 1px solid var(--cream-dk); border-radius: 18px; box-shadow: var(--shadow);
+    padding: clamp(.6rem, 2vh, 1.2rem);
   }
   .qr__figure img { width: 100%; height: auto; }
   .qr__figure figcaption {
-    margin-top: .9rem; font-family: var(--font-serif); font-size: clamp(1.3rem, 3.5vw, 1.9rem);
-    font-weight: 600; color: var(--bronze-dk); letter-spacing: .01em; word-break: break-all;
+    margin-top: clamp(.3rem, 1vh, .7rem); font-family: var(--font-serif);
+    font-size: clamp(1rem, 3vh, 1.6rem); font-weight: 600; color: var(--bronze-dk); word-break: break-all;
   }
-  .qr__acoes { display: flex; flex-wrap: wrap; gap: .8rem; justify-content: center; margin-top: 2rem; }
-  :global(.wa-float) { display: none !important; }
 
-  @media print {
-    :global(header), :global(footer), .qr__acoes, .eyebrow { display: none !important; }
-    .qr { padding: 0; }
-    .qr__figure { box-shadow: none; border: 0; width: 70vw; }
+  .qr__wa {
+    display: inline-flex; align-items: center; gap: .6rem;
+    margin-top: clamp(.4rem, 1.5vh, 1rem);
+    padding: clamp(.65rem, 1.8vh, .95rem) clamp(1.2rem, 3vw, 1.8rem); border-radius: 999px;
+    background: #25d366; color: #fff; font-weight: 600; font-size: clamp(.9rem, 2.2vh, 1.05rem);
+    box-shadow: 0 10px 28px rgba(37, 211, 102, .4);
+    transition: transform var(--transition), box-shadow var(--transition);
   }
+  .qr__wa:hover { color: #fff; transform: translateY(-2px) scale(1.03); box-shadow: 0 14px 34px rgba(37, 211, 102, .55); }
+  .qr__wa svg { flex: none; }
 </style>
