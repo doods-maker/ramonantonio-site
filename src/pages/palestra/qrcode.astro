@@ -1,0 +1,66 @@
+---
+/**
+ * /palestra/qrcode/ — o QR code da palestra, pronto para projetar no telão ou
+ * imprimir (Ctrl+P esconde cabeçalho/rodapé). O QR aponta para o endereço curto
+ * ramonantonio.adv.br/palestra, que redireciona (public/.htaccess) ao formulário
+ * do Google onde os empresários deixam os dados. Arquivos em public/images/palestra/.
+ */
+import Base from '../../layouts/Base.astro';
+import { site } from '../../data/site.ts';
+import { palestra } from '../../data/palestra.ts';
+
+const urlCurta = new URL(palestra.path, Astro.site).href;
+const urlExibicao = urlCurta.replace(/^https?:\/\//, '').replace(/\/$/, '');
+---
+
+<Base title={`QR code da palestra — ${site.nome}`} description={palestra.subtitulo} noindex>
+  <section class="section qr">
+    <div class="container qr__wrap text-center">
+      <span class="eyebrow">{palestra.eyebrow}</span>
+      <h1>{palestra.titulo}</h1>
+      <p class="lead qr__lead">{palestra.subtitulo}</p>
+
+      <figure class="qr__figure">
+        <a href={palestra.formUrl} target="_blank" rel="noopener" aria-label="Abrir o formulário">
+          <img src="/images/palestra/qrcode.svg" alt={`QR code para ${urlCurta}`} width="480" height="480" />
+        </a>
+        <figcaption>{urlExibicao}</figcaption>
+      </figure>
+
+      <p class="qr__acoes">
+        <a class="btn btn--ghost" href="/images/palestra/qrcode.png" download="qrcode-palestra.png">Baixar PNG (slides)</a>
+        <a class="btn btn--ghost" href="/images/palestra/qrcode.svg" download="qrcode-palestra.svg">Baixar SVG (impressão)</a>
+        <button type="button" class="btn btn--primary" onclick="window.print()">Imprimir</button>
+      </p>
+      <p class="qr__nota">
+        Reserva com o link direto do formulário (caso o site esteja fora do ar):
+        <a href="/images/palestra/qrcode-formulario.png" download="qrcode-palestra-formulario.png">baixar PNG</a>.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .qr__wrap { max-width: 720px; }
+  .qr__lead { margin-inline: auto; }
+  .qr__figure {
+    margin: 2rem auto 0; width: min(480px, 88vw);
+    background: #fff; border: 1px solid var(--cream-dk); border-radius: 20px; box-shadow: var(--shadow);
+    padding: clamp(1rem, 3vw, 1.6rem);
+  }
+  .qr__figure img { width: 100%; height: auto; }
+  .qr__figure figcaption {
+    margin-top: .9rem; font-family: var(--font-serif); font-size: clamp(1.3rem, 3.5vw, 1.9rem);
+    font-weight: 600; color: var(--bronze-dk); letter-spacing: .01em; word-break: break-all;
+  }
+  .qr__acoes { display: flex; flex-wrap: wrap; gap: .8rem; justify-content: center; margin-top: 2rem; }
+  .qr__nota { margin-top: 1.2rem; font-size: .82rem; color: var(--text-soft); }
+  .qr__nota a { text-decoration: underline; }
+  :global(.wa-float) { display: none !important; }
+
+  @media print {
+    :global(header), :global(footer), .qr__acoes, .qr__nota, .eyebrow { display: none !important; }
+    .qr { padding: 0; }
+    .qr__figure { box-shadow: none; border: 0; width: 70vw; }
+  }
+</style>

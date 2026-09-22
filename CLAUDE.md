@@ -55,6 +55,22 @@ Scripts auxiliares em `scripts/` (rodar com `node scripts/<arquivo>`):
 3. Imagens de capa: `public/images/posts/`, referenciar em `image:`.
 4. `npm run build` e publicar (deploy abaixo).
 
+## Palestra — QR code de captação (`/palestra`)
+
+QR code projetado/impresso na palestra: a pessoa escaneia, cai no **formulário do Google**
+e deixa os dados para o escritório retornar. As respostas caem na planilha do Drive
+(gerenciada pelo Google Forms, fora deste repo).
+
+| O quê | Onde |
+|---|---|
+| Link do formulário, endereço curto e textos | `src/data/palestra.ts` |
+| Redirect `/palestra` → formulário (302) | `public/.htaccess` (manter igual ao `formUrl`) |
+| Página com o QR para projetar/baixar/imprimir (`/palestra/qrcode/`, noindex) | `src/pages/palestra/qrcode.astro` |
+| Arquivos do QR (PNG p/ slides, SVG p/ impressão, PNG reserva com link direto) | `public/images/palestra/` — regenerar com `node scripts/generate-qr.mjs` |
+
+O QR aponta para `ramonantonio.adv.br/palestra` (curto, escaneia melhor de longe); para trocar
+o formulário basta atualizar `formUrl` e o `.htaccess` — o QR impresso continua valendo.
+
 ## Deploy
 
 Automático via **GitHub Actions** (`.github/workflows/deploy.yml`): a cada `push` na
