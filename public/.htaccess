@@ -11,6 +11,11 @@
   # /avalie → avaliação no Google (placa QR da recepção — projeto qrcode-radv).
   # 302 de propósito: o destino pode ser trocado sem esperar cache de 301 expirar.
   RewriteRule ^avalie/?$ https://g.page/r/CapwqbZ5L5OXEAE/review [L,R=302]
+
+  # /palestra → formulário do Google (QR code da palestra — captação de contatos de empresários).
+  # 302 de propósito: o formulário pode ser trocado sem reimprimir o QR. Manter em sincronia
+  # com formUrl em src/data/palestra.ts. (/palestra/qrcode/ continua sendo a página do site.)
+  RewriteRule ^palestra/?$ https://docs.google.com/forms/d/e/1FAIpQLSdKNU8XpnTYVvs6jwBm3K_lKPseU1fZLL0nTunnl5MeiNG4Dw/viewform [L,R=302,NE]
 </IfModule>
 
 # Página de erro 404 amigável (Astro gera 404.html)
