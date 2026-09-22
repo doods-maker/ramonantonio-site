@@ -3,7 +3,7 @@
  * /palestra/qrcode/ — tela única (sem rolagem) com o QR code da palestra, para
  * projetar no telão. O QR aponta para ramonantonio.adv.br/palestra, que redireciona
  * (public/.htaccess) ao formulário do Google onde os empresários deixam os dados.
- * Sem cabeçalho/rodapé nem downloads: o PNG para slides fica em /images/palestra/qrcode.png.
+ * Cabeçalho do site fica (navegação); sem rodapé nem downloads: o PNG para slides fica em /images/palestra/qrcode.png.
  */
 import Base from '../../layouts/Base.astro';
 import { site, waLink } from '../../data/site.ts';
@@ -36,16 +36,16 @@ const urlExibicao = urlCurta.replace(/^https?:\/\//, '').replace(/\/$/, '');
 </Base>
 
 <style>
-  /* Tela única: sem cabeçalho, rodapé e botão flutuante; conteúdo centralizado na altura da janela. */
-  :global(.site-header), :global(.site-footer), :global(.wa-float) { display: none !important; }
+  /* Tela única: cabeçalho fica (navegação do site); rodapé e botão flutuante saem; sem rolagem. */
+  :global(.site-footer), :global(.wa-float) { display: none !important; }
   :global(html), :global(body) { height: 100%; overflow: hidden; }
-  :global(main#main) { height: 100%; padding-top: 0 !important; } /* o layout reserva a altura do cabeçalho (escondido aqui) */
+  :global(main#main) { height: 100%; } /* o layout já reserva a altura do cabeçalho (padding-top: var(--header-h)) */
 
   .qr {
-    height: 100svh; min-height: 100%;
+    height: calc(100svh - var(--header-h)); min-height: calc(100% - var(--header-h));
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: clamp(.4rem, 1.4vh, 1rem);
-    padding: clamp(1rem, 3vh, 2rem) clamp(1rem, 4vw, 2.4rem);
+    gap: clamp(.3rem, 1.2vh, .9rem);
+    padding: clamp(.6rem, 2vh, 1.5rem) clamp(1rem, 4vw, 2.4rem);
     text-align: center;
   }
   .eyebrow { margin-bottom: 0; font-size: clamp(.7rem, 1.4vh, .85rem); }
@@ -55,7 +55,7 @@ const urlExibicao = urlCurta.replace(/^https?:\/\//, '').replace(/\/$/, '');
 
   .qr__figure {
     margin: clamp(.4rem, 1.5vh, 1rem) 0 0;
-    width: min(52vh, 86vw, 440px);
+    width: min(44vh, 84vw, 440px);
     background: #fff; border: 1px solid var(--cream-dk); border-radius: 18px; box-shadow: var(--shadow);
     padding: clamp(.6rem, 2vh, 1.2rem);
   }
@@ -75,4 +75,10 @@ const urlExibicao = urlCurta.replace(/^https?:\/\//, '').replace(/\/$/, '');
   }
   .qr__wa:hover { color: #fff; transform: translateY(-2px) scale(1.03); box-shadow: 0 14px 34px rgba(37, 211, 102, .55); }
   .qr__wa svg { flex: none; }
+
+  @media (max-width: 520px) {
+    h1 { font-size: clamp(1.3rem, 4.6vh, 1.8rem); }
+    .qr__lead { font-size: clamp(.85rem, 2vh, 1rem); }
+    .qr__figure { width: min(40vh, 80vw); }
+  }
 </style>
