@@ -14,6 +14,6 @@ export const palestra = {
   formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSdKNU8XpnTYVvs6jwBm3K_lKPseU1fZLL0nTunnl5MeiNG4Dw/viewform',
 
   eyebrow: 'Palestra',
-  titulo: 'Raio-X exclusivo Elites',
+  titulo: 'RAIO-X EXCLUSIVO ELITES SEJA AP',
   subtitulo: 'Aponte a câmera ou clique direto no QR code abaixo para preencher o formulário.',
 } as const;
