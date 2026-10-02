@@ -71,6 +71,20 @@ e deixa os dados para o escritório retornar. As respostas caem na planilha do D
 O QR aponta para `ramonantonio.adv.br/palestra` (curto, escaneia melhor de longe); para trocar
 o formulário basta atualizar `formUrl` e o `.htaccess` — o QR impresso continua valendo.
 
+## Área do time — Manual de POPs (`/equipe/pops/`, com senha)
+
+Página interna protegida por senha. Como o repo é **público**, o HTML original **nunca** entra
+no git: `scripts/encrypt-page.mjs` cifra o arquivo (AES-256-GCM + PBKDF2) e gera
+`public/equipe/pops/index.html`, que só tem o texto cifrado + tela de senha (noindex).
+
+Atualizar o manual ou trocar a senha (a senha **não** fica salva em lugar nenhum do repo):
+
+```bash
+PAGE_PASSWORD='a-senha' node scripts/encrypt-page.mjs "<caminho do .html exportado>" public/equipe/pops/index.html "Manual de POPs"
+```
+
+Depois, commit + push na `main` (deploy normal).
+
 ## Deploy
 
 Automático via **GitHub Actions** (`.github/workflows/deploy.yml`): a cada `push` na
