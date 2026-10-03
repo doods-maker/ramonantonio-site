@@ -104,11 +104,10 @@ const links = [
   // Estado sólido ao rolar para fora do hero (somente na home)
   const header = document.querySelector('.site-header');
   const isHome = document.body.classList.contains('is-home');
-  const hero = document.querySelector('.hero') as HTMLElement | null;
   function onScroll() {
     if (!isHome) return;
-    const threshold = hero ? hero.offsetHeight - 120 : 120;
-    header?.classList.toggle('scrolled', window.scrollY > threshold);
+    // Logo transparente: o fundo escuro entra logo no começo da rolagem (senão o logo cruza o título)
+    header?.classList.toggle('scrolled', window.scrollY > 40);
   }
   if (isHome) {
     window.addEventListener('scroll', onScroll, { passive: true });
