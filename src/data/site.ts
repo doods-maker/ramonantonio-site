@@ -70,13 +70,15 @@ export const areas = [
     descricao:
       'Nossa especialidade. Aposentadorias, auxílios, pensões, revisões de benefícios e ações contra o INSS — com mais de duas décadas de atuação dedicada.',
     itens: [
-      'Aposentadorias (idade, tempo de contribuição, especial, rural)',
+      { texto: 'Aposentadoria por idade e tempo de contribuição', href: '/lp/aposentadoria/' },
+      { texto: 'Aposentadoria especial', href: '/lp/aposentadoria-especial/' },
+      { texto: 'Aposentadoria rural', href: '/lp/aposentadoria-rural/' },
       { texto: 'Auxílio-doença e auxílio-acidente', href: '/lp/auxilio-acidente/' },
       { texto: 'BPC/LOAS — Benefício de Prestação Continuada', href: '/lp/bpc-loas/' },
       { texto: 'Salário-maternidade', href: '/lp/salario-maternidade/' },
-      'Pensão por morte',
-      'Revisão e recálculo de benefícios',
-      'Planejamento previdenciário',
+      { texto: 'Pensão por morte', href: '/lp/pensao-por-morte/' },
+      { texto: 'Revisão e recálculo de benefícios', href: '/lp/revisao-de-beneficio/' },
+      { texto: 'Planejamento previdenciário', href: '/lp/planejamento-previdenciario/' },
     ],
   },
   {
@@ -84,8 +86,11 @@ export const areas = [
     icone: 'scale',
     ilus: 'contrato',
     descricao:
-      'Contratos, responsabilidade civil, questões de família e sucessões com atendimento próximo e personalizado.',
-    itens: ['Contratos', 'Responsabilidade civil', 'Família e sucessões'],
+      'Indenizações por danos sofridos e sucessões: inventário, testamento e planejamento da herança, com atendimento próximo e personalizado.',
+    itens: [
+      { texto: 'Responsabilidade civil', href: '/lp/responsabilidade-civil/' },
+      { texto: 'Sucessões', href: '/lp/sucessoes/' },
+    ],
   },
   {
     titulo: 'Direito do Trabalho',
@@ -93,7 +98,11 @@ export const areas = [
     ilus: 'maleta',
     descricao:
       'Defesa dos direitos do trabalhador em rescisões, verbas e reconhecimento de vínculo.',
-    itens: [{ texto: 'Reclamatórias trabalhistas', href: '/lp/trabalhista-geral/' }, 'Rescisões e verbas', 'Reconhecimento de vínculo'],
+    itens: [
+      { texto: 'Reclamação trabalhista', href: '/lp/trabalhista-geral/' },
+      { texto: 'Rescisões e verbas', href: '/lp/verbas-rescisorias/' },
+      { texto: 'Reconhecimento de vínculo', href: '/lp/reconhecimento-de-vinculo/' },
+    ],
   },
 ] as const;
 

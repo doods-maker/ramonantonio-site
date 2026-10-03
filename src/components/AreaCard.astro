@@ -15,7 +15,7 @@ const { titulo, descricao, icone, itens = [], destaque = false, ilus: desenho } 
 const norm = (i: Item) => (typeof i === 'string' ? { texto: i, href: null } : i);
 // Ilustração de cada benefício (cartão em destaque), pelo começo do texto
 const ilus: [string, string][] = [
-  ['Aposentadoria', 'ampulheta'], ['Auxílio', 'curativo'], ['BPC', 'acolher'], ['Salário-maternidade', 'carrinho'],
+  ['Aposentadoria especial', 'capacete'], ['Aposentadoria rural', 'trigo'], ['Aposentadoria', 'ampulheta'], ['Auxílio', 'curativo'], ['BPC', 'acolher'], ['Salário-maternidade', 'carrinho'],
   ['Pensão', 'aliancas'], ['Revisão', 'calculadora'], ['Planejamento', 'placa'],
 ];
 const ilusDe = (t: string) => ilus.find(([k]) => t.startsWith(k))?.[1] ?? 'documento';
@@ -161,11 +161,11 @@ const sat = desenho ? satelites[desenho] ?? [] : [];
   .area-card__link:hover { color: var(--bronze); text-decoration: underline; }
   .area-card--destaque .area-card__link:hover { color: var(--bronze-pl); }
   .area-card__arrow {
-    display: inline-block; margin-left: .3rem; opacity: 0;
+    display: inline-block; margin-left: .3rem; opacity: .45;
     transform: translateX(-4px); transition: opacity .25s ease, transform .25s ease;
   }
   .area-card__link:hover .area-card__arrow { opacity: 1; transform: translateX(0); }
-  .area-tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .7rem; margin-top: 1.2rem; }
+  .area-tiles { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .7rem; margin-top: 1.2rem; }
   .area-tile > a, .area-tile > div {
     height: 100%; display: flex; flex-direction: column; gap: .5rem; padding: .9rem 1rem 1rem;
     border: 1px solid rgba(196,168,130,.18); border-radius: 14px; color: var(--ink);
@@ -176,7 +176,8 @@ const sat = desenho ? satelites[desenho] ?? [] : [];
   .area-tile--cta > a { background: rgba(196,168,130,.1); border-style: dashed; }
   .area-tile__txt { font-size: .95rem; font-weight: 500; line-height: 1.35; flex: 1; }
   .area-tile__mais { font-size: .8rem; font-weight: 600; color: var(--bronze-pl); }
-  @media (max-width: 1000px) { .area-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 1100px) { .area-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 860px) { .area-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 560px) {
     .area-tiles { grid-template-columns: minmax(0, 1fr); }
     .area-tile > a, .area-tile > div { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 1rem; row-gap: .2rem; align-items: center; }
