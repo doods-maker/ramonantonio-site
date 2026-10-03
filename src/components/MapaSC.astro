@@ -1,0 +1,71 @@
+---
+// Mapa de Santa Catarina (contorno oficial do IBGE, simplificado em src/data/sc-contorno.json)
+// com a sede em Tubarão e linhas até as principais cidades — "atuação estadual".
+import sc from '../data/sc-contorno.json';
+import { site } from '../data/site.ts';
+
+const c = sc.cidades as Record<string, [number, number]>;
+const [tx, ty] = c['Tubarão'];
+// Cidades com nome no mapa: [nome, lado do rótulo]
+const rotuladas: [string, 'e' | 'd'][] = [
+  ['Joinville', 'e'], ['Florianópolis', 'e'], ['Lages', 'e'], ['Chapecó', 'd'],
+];
+const destinos = Object.keys(c).filter((n) => n !== 'Tubarão');
+---
+
+<figure class="mapa-sc">
+  <svg viewBox={`-20 -14 ${sc.w + 40} ${sc.h + 30}`} role="img" aria-label="Mapa de Santa Catarina com a sede em Tubarão e linhas até as principais cidades do estado">
+    <defs>
+      <pattern id="scPontos" width="8" height="8" patternUnits="userSpaceOnUse">
+        <circle cx="1.5" cy="1.5" r=".9" fill="rgba(196,168,130,.42)" />
+      </pattern>
+    </defs>
+    <path class="mapa-sc__estado" d={sc.d} />
+    <g class="mapa-sc__linhas draw">
+      {destinos.map((n) => <path pathLength="1" d={`M${tx} ${ty}L${c[n][0]} ${c[n][1]}`} />)}
+    </g>
+    <g class="mapa-sc__cidades">
+      {destinos.map((n) => <circle cx={c[n][0]} cy={c[n][1]} r="4.5" />)}
+      {rotuladas.map(([n, lado]) => (
+        <text x={c[n][0] + (lado === 'd' ? 13 : -13)} y={c[n][1] + 8} text-anchor={lado === 'd' ? 'start' : 'end'}>{n}</text>
+      ))}
+    </g>
+    <g class="mapa-sc__sede">
+      <circle class="mapa-sc__pulso" cx={tx} cy={ty} r="9" />
+      <circle cx={tx} cy={ty} r="6" />
+      <text x={tx - 18} y={ty + 10} text-anchor="end" class="mapa-sc__sede-nome">Tubarão</text>
+    </g>
+  </svg>
+  <figcaption>
+    <strong>Atuação em todo o estado de Santa Catarina</strong>
+    <span>Sede em {site.endereco.cidade}, {site.endereco.logradouro}</span>
+    <ul>{site.cidadesAtendidas.map((n) => <li>{n}</li>)}</ul>
+  </figcaption>
+</figure>
+
+<style>
+  .mapa-sc {
+    background: var(--dark); color: var(--ink); border-radius: 20px; padding: clamp(1.1rem, 2.2vw, 1.5rem);
+    border: 1px solid var(--dark-3); box-shadow: var(--shadow-lg);
+    display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 1.2rem 1.4rem; align-items: center;
+  }
+  .mapa-sc svg { width: 100%; height: auto; overflow: visible; }
+  .mapa-sc__estado { fill: url(#scPontos); stroke: var(--bronze-pl); stroke-width: 1.2; stroke-linejoin: round; }
+  .mapa-sc__linhas path { stroke: var(--bronze-pl); stroke-width: .9; fill: none; opacity: .7; }
+  .mapa-sc__cidades circle { fill: var(--cream); }
+  .mapa-sc__cidades text { fill: rgba(237,224,200,.78); font: 600 30px var(--font-sans); }
+  .mapa-sc__sede circle { fill: var(--bronze-pl); }
+  /* contorno escuro atrás das letras: legível mesmo cruzando linhas */
+  .mapa-sc text { paint-order: stroke; stroke: var(--dark); stroke-width: 6px; stroke-linejoin: round; }
+  .mapa-sc__sede .mapa-sc__pulso { fill: none; stroke: var(--bronze-pl); stroke-width: 1.5; transform-origin: center; transform-box: fill-box; animation: pulso 2.6s ease-out infinite; }
+  .mapa-sc__sede-nome { fill: #fff; font: 600 48px var(--font-serif); font-style: italic; }
+  @keyframes pulso { from { transform: scale(.7); opacity: 1; } to { transform: scale(2.4); opacity: 0; } }
+
+  .mapa-sc figcaption { display: grid; gap: .3rem; }
+  @media (max-width: 520px) { .mapa-sc { grid-template-columns: minmax(0, 1fr); } }
+  .mapa-sc figcaption strong { font-family: var(--font-serif); font-size: 1.3rem; line-height: 1.15; font-weight: 500; color: var(--cream); }
+  .mapa-sc figcaption span { font-size: .88rem; color: rgba(237,224,200,.62); }
+  .mapa-sc figcaption ul { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .6rem; }
+  .mapa-sc figcaption li { font-size: .72rem; padding: .2rem .6rem; border-radius: 999px; border: 1px solid rgba(196,168,130,.3); color: var(--bronze-pl); }
+  @media (prefers-reduced-motion: reduce) { .mapa-sc__sede .mapa-sc__pulso { animation: none; opacity: .5; } }
+</style>

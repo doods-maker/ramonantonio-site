@@ -1,5 +1,7 @@
 ---
 import Icon from './Icon.astro';
+import Ilus from './Ilus.astro';
+import { waLink } from '../data/site.ts';
 type Item = string | { texto: string; href: string };
 interface Props {
   titulo: string;
@@ -7,17 +9,59 @@ interface Props {
   icone: string;
   itens?: readonly Item[];
   destaque?: boolean;
+  ilus?: string;
 }
-const { titulo, descricao, icone, itens = [], destaque = false } = Astro.props;
+const { titulo, descricao, icone, itens = [], destaque = false, ilus: desenho } = Astro.props;
 const norm = (i: Item) => (typeof i === 'string' ? { texto: i, href: null } : i);
+// Ilustração de cada benefício (cartão em destaque), pelo começo do texto
+const ilus: [string, string][] = [
+  ['Aposentadoria', 'ampulheta'], ['Auxílio', 'capacete'], ['BPC', 'acolher'], ['Salário-maternidade', 'carrinho'],
+  ['Pensão', 'aliancas'], ['Revisão', 'calculadora'], ['Planejamento', 'placa'],
+];
+const ilusDe = (t: string) => ilus.find(([k]) => t.startsWith(k))?.[1] ?? 'documento';
+// Desenhos-satélite em volta do desenho principal (o que cada área cobre)
+const satelites: Record<string, string[]> = {
+  contrato: ['casa', 'balanca', 'aliancas'],
+  maleta: ['relogio', 'ctps', 'moeda'],
+  ctps: ['ampulheta', 'acolher', 'calculadora'],
+};
+const sat = desenho ? satelites[desenho] ?? [] : [];
 ---
 
-<article class={`area-card${destaque ? ' area-card--destaque' : ''}`}>
-  {destaque && <span class="area-card__badge">Nossa especialidade</span>}
-  <span class="area-card__icon"><Icon name={icone} size={28} /></span>
-  <h3>{titulo}</h3>
-  <p>{descricao}</p>
-  {itens.length > 0 && (
+<article class={`area-card spot${destaque ? ' area-card--destaque' : ''}`}>
+  {!destaque && desenho && (
+    <div class="arte" aria-hidden="true">
+      <svg class="arte__fios" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M50 50 L16 30 M50 50 L84 30 M50 50 L72 80" /></svg>
+      <span class="arte__centro"><Ilus nome={desenho} size={54} /></span>
+      {sat.map((n, k) => <span class={`arte__sat arte__sat--${k}`}><Ilus nome={n} size={24} /></span>)}
+    </div>
+  )}
+  <div class="area-card__topo">
+    <div class="area-card__intro">
+      {destaque && <span class="area-card__badge">Nossa especialidade</span>}
+      {(destaque || !desenho) && <span class="area-card__icon"><Icon name={icone} size={28} /></span>}
+      <h3>{titulo}</h3>
+      <p>{descricao}</p>
+    </div>
+    {destaque && desenho && (
+      <div class="arte arte--lado" aria-hidden="true">
+        <span class="arte__orbita"></span>
+        <span class="arte__centro"><Ilus nome={desenho} size={68} /></span>
+        {sat.map((n, k) => <span class={`arte__sat arte__sat--${k}`}><Ilus nome={n} size={24} /></span>)}
+      </div>
+    )}
+  </div>
+  {destaque && itens.length > 0 && (
+    <ul class="area-tiles">
+      {itens.map((i) => {
+        const item = norm(i);
+        const corpo = <><Ilus nome={ilusDe(item.texto)} size={34} /><span class="area-tile__txt">{item.texto}</span>{item.href && <span class="area-tile__mais">Saiba mais →</span>}</>;
+        return <li class="area-tile">{item.href ? <a href={item.href}>{corpo}</a> : <div>{corpo}</div>}</li>;
+      })}
+      <li class="area-tile area-tile--cta"><a href={waLink} target="_blank" rel="noopener"><Ilus nome="conversa" size={34} /><span class="area-tile__txt">Não encontrou o seu caso? Conte pra gente.</span><span class="area-tile__mais">Falar no WhatsApp →</span></a></li>
+    </ul>
+  )}
+  {!destaque && itens.length > 0 && (
     <ul class="area-card__list">
       {itens.map((i) => {
         const item = norm(i);
@@ -36,7 +80,7 @@ const norm = (i: Item) => (typeof i === 'string' ? { texto: i, href: null } : i)
 <style>
   .area-card {
     position: relative; background: #fff; border: 1px solid var(--cream-dk);
-    border-radius: var(--radius); padding: 1.9rem; overflow: hidden;
+    border-radius: 16px; padding: 1.9rem; overflow: hidden;
     transition: transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s ease;
   }
   /* Barra de gradiente no topo que cresce no hover (do protótipo) */
@@ -49,14 +93,48 @@ const norm = (i: Item) => (typeof i === 'string' ? { texto: i, href: null } : i)
   .area-card:hover::before { transform: scaleX(1); }
   .area-card--destaque {
     grid-column: 1 / -1; background: var(--dark); border-color: var(--bronze-dk); color: var(--ink);
+    padding: clamp(1.9rem, 4vw, 2.8rem);
   }
+  .area-card--destaque h3 { font-size: clamp(1.8rem, 3vw, 2.4rem); font-style: italic; }
+  .area-card--destaque.spot::after { background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(196,168,130,.14), transparent 60%); }
   .area-card--destaque h3 { color: var(--cream); }
-  .area-card--destaque p { color: var(--ink-dim); }
+  .area-card.area-card--destaque p { color: rgba(237,224,200,.74); }
+  /* Arte de traço (mesmo estilo do "Como funciona"): círculo grande + satélites ligados por fio */
+  .arte { position: relative; height: 168px; margin: -1.9rem -1.9rem 1.4rem; background: var(--cream); overflow: hidden; }
+  .arte__fios { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .arte__fios path { fill: none; stroke: var(--bronze-pl); stroke-width: 1.4; stroke-dasharray: 2 6; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+  .arte__centro {
+    position: absolute; left: 50%; top: 50%; width: 104px; height: 104px; translate: -50% -50%;
+    display: grid; place-items: center; border-radius: 50%; background: var(--cream-lt); color: var(--bronze);
+    box-shadow: 0 0 0 1px var(--cream-dk), 0 0 0 9px var(--cream), 0 18px 36px rgba(59,32,16,.12);
+    transition: transform .45s var(--ease);
+  }
+  .area-card:hover .arte__centro { transform: translateY(-4px) rotate(-3deg); }
+  .arte__sat {
+    position: absolute; width: 50px; height: 50px; translate: -50% -50%; display: grid; place-items: center;
+    border-radius: 50%; background: #fff; color: var(--bronze-lt); box-shadow: 0 0 0 1px var(--cream-dk), 0 8px 18px rgba(59,32,16,.08);
+    transition: transform .45s var(--ease);
+  }
+  .arte__sat--0 { left: 16%; top: 30%; }
+  .arte__sat--1 { left: 84%; top: 30%; }
+  .arte__sat--2 { left: 72%; top: 80%; }
+  .area-card:hover .arte__sat--0 { transform: translate(-4px, -3px); }
+  .area-card:hover .arte__sat--1 { transform: translate(4px, -3px); }
+  /* No cartão escuro do Previdenciário: arte ao lado do texto, com órbita tracejada */
+  .area-card--destaque .area-card__topo { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 2rem; align-items: center; }
+  .arte--lado { margin: 0; height: 200px; background: none; overflow: visible; }
+  .arte__orbita { position: absolute; left: 50%; top: 50%; width: 176px; height: 176px; translate: -50% -50%; border-radius: 50%; border: 1.5px dashed rgba(196,168,130,.45); }
+  .arte--lado .arte__centro { width: 124px; height: 124px; background: var(--dark-3); color: var(--bronze-pl); box-shadow: 0 0 0 1px rgba(196,168,130,.3), 0 0 0 10px var(--dark), 0 20px 44px rgba(0,0,0,.45); }
+  .arte--lado .arte__sat { background: var(--dark-2); color: var(--bronze-pl); box-shadow: 0 0 0 1px rgba(196,168,130,.35); width: 52px; height: 52px; }
+  .arte--lado .arte__sat--0 { left: calc(50% - 62px); top: calc(50% - 62px); }
+  .arte--lado .arte__sat--1 { left: calc(50% + 62px); top: calc(50% - 62px); }
+  .arte--lado .arte__sat--2 { left: 50%; top: calc(50% + 88px); }
   .area-card__badge {
-    position: absolute; top: 1.3rem; right: 1.3rem;
+    display: inline-block; margin-bottom: 1.1rem;
     font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
     color: var(--dark); background: var(--bronze-pl); padding: .3rem .7rem; border-radius: 999px;
   }
+  .area-card--destaque .area-card__badge { display: table; }
   .area-card__icon {
     display: grid; place-items: center; width: 54px; height: 54px; border-radius: 12px;
     background: var(--cream); color: var(--bronze); margin-bottom: 1.2rem;
@@ -87,7 +165,26 @@ const norm = (i: Item) => (typeof i === 'string' ? { texto: i, href: null } : i)
     transform: translateX(-4px); transition: opacity .25s ease, transform .25s ease;
   }
   .area-card__link:hover .area-card__arrow { opacity: 1; transform: translateX(0); }
+  .area-tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .7rem; margin-top: 1.2rem; }
+  .area-tile > a, .area-tile > div {
+    height: 100%; display: flex; flex-direction: column; gap: .5rem; padding: .9rem 1rem 1rem;
+    border: 1px solid rgba(196,168,130,.18); border-radius: 14px; color: var(--ink);
+    transition: background .3s ease, border-color .3s ease, transform .35s var(--ease);
+  }
+  .area-tile > a:hover { background: rgba(196,168,130,.08); border-color: rgba(196,168,130,.45); transform: translateY(-3px); color: var(--cream); }
+  .area-tile :global(.ilus) { color: var(--bronze-pl); }
+  .area-tile--cta > a { background: rgba(196,168,130,.1); border-style: dashed; }
+  .area-tile__txt { font-size: .95rem; font-weight: 500; line-height: 1.35; flex: 1; }
+  .area-tile__mais { font-size: .8rem; font-weight: 600; color: var(--bronze-pl); }
+  @media (max-width: 1000px) { .area-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 560px) {
+    .area-tiles { grid-template-columns: minmax(0, 1fr); }
+    .area-tile > a, .area-tile > div { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 1rem; row-gap: .2rem; align-items: center; }
+    .area-tile :global(.ilus) { grid-row: span 2; }
+  }
   @media (max-width: 860px) {
+    .area-card--destaque .area-card__topo { grid-template-columns: minmax(0, 1fr); }
+    .arte--lado { order: -1; height: 240px; }
     .area-card--destaque { grid-column: span 1; }
     .area-card--destaque .area-card__list { grid-template-columns: 1fr; }
   }

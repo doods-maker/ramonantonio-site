@@ -50,7 +50,7 @@ const jsonLd = {
 ---
 
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" class={isHome ? 'ilus-ia' : undefined}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -83,22 +83,22 @@ const jsonLd = {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     {/* Fontes carregadas de forma assíncrona (não bloqueiam a primeira pintura).
-        Mesmas famílias/pesos de antes — display=swap mostra o texto na hora. */}
+        Cormorant (marca, agora com itálico) + Manrope no corpo — display=swap mostra o texto na hora. */}
     <link
       rel="preload"
       as="style"
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Manrope:wght@400;500;600;700&display=swap"
     />
     <link
       rel="stylesheet"
       media="print"
       onload="this.media='all'"
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Manrope:wght@400;500;600;700&display=swap"
     />
     <noscript>
       <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Manrope:wght@400;500;600;700&display=swap"
       />
     </noscript>
 
@@ -109,6 +109,7 @@ const jsonLd = {
   </head>
   <body class={isHome ? 'is-home' : ''}>
     <a href="#main" class="sr-only">Pular para o conteúdo</a>
+    <div class="progresso" aria-hidden="true"></div>
     <Header />
     <main id="main">
       <slot />
@@ -133,6 +134,11 @@ const jsonLd = {
         ['.ig__cell', true],
         ['.contato__list li', true],
         ['.contato__map', false],
+        ['.steps__item', true],
+        ['.mapa-sc', false],
+        ['.bento__card', true],
+        ['.area-tile', true],
+        ['.arte', false],
       ];
       groups.forEach(([sel, stagger]) => {
         document.querySelectorAll(sel).forEach((el, i) => {
@@ -142,6 +148,27 @@ const jsonLd = {
         });
       });
       document.querySelectorAll('.section .divider').forEach((d) => d.classList.add('grow'));
+
+      // 1c) Barra fina de progresso de leitura no topo
+      const prog = document.querySelector<HTMLElement>('.progresso');
+      if (!reduce) {
+        let tick = false;
+        const girar = () => {
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          prog?.style.setProperty('--p', String(max > 0 ? window.scrollY / max : 0));
+          tick = false;
+        };
+        window.addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(girar); } }, { passive: true });
+      }
+
+      // 1d) Luz que acompanha o mouse nos cartões
+      document.querySelectorAll<HTMLElement>('.spot').forEach((el) => {
+        el.addEventListener('pointermove', (e) => {
+          const b = el.getBoundingClientRect();
+          el.style.setProperty('--mx', `${e.clientX - b.left}px`);
+          el.style.setProperty('--my', `${e.clientY - b.top}px`);
+        });
+      });
 
       // 2) Contadores
       function animateCount(el: HTMLElement) {

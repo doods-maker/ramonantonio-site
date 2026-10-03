@@ -25,7 +25,7 @@
 
   /* Tipografia */
   --font-serif: 'Cormorant Garamond', 'Georgia', 'Times New Roman', serif;
-  --font-sans:  'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-sans:  'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 
   /* Layout */
   --container: 1180px;
@@ -55,13 +55,17 @@ ul { list-style: none; padding: 0; }
 
 h1, h2, h3, h4 {
   font-family: var(--font-serif);
-  font-weight: 600;
-  line-height: 1.12;
+  font-weight: 500;
+  line-height: 1.04;
   color: var(--bronze-dk);
-  letter-spacing: .2px;
+  letter-spacing: -.01em;
+  text-wrap: balance;
 }
 h1 { font-size: clamp(2.4rem, 5.5vw, 4rem); }
-h2 { font-size: clamp(1.9rem, 4vw, 2.9rem); }
+h2 { font-size: clamp(2.2rem, 4.6vw, 3.5rem); }
+/* Palavra-chave do título em itálico bronze (assinatura da tipografia) */
+h2 em { font-style: italic; color: var(--bronze); }
+.section--dark h2 em { color: var(--bronze-pl); }
 h3 { font-size: clamp(1.25rem, 2.2vw, 1.6rem); }
 
 /* ── Utilitários ──────────────────────────────────────────────────────── */
@@ -195,3 +199,77 @@ html.js-reveal .divider.grow.in { transform: scaleX(1); }
   html.js-reveal .reveal { opacity: 1 !important; transform: none !important; }
   html.js-reveal .divider.grow { transform: scaleX(1) !important; }
 }
+
+/* ════════════════════════════════════════════════════════════════════════
+   REPAGINADA (out/2026) — desenhos e efeitos
+   ════════════════════════════════════════════════════════════════════════ */
+
+/* Luz que segue o mouse — usar a classe .spot no cartão (JS no Base.astro) */
+.spot { position: relative; isolation: isolate; }
+.spot::after {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: -1;
+  background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 0%), rgba(196,168,130,.22), transparent 60%);
+  opacity: 0; transition: opacity .4s ease;
+}
+.spot:hover::after { opacity: 1; }
+
+/* Ilustração de traço que "se desenha" quando entra na tela (paths com pathLength="1") */
+html.js-reveal .draw path, html.js-reveal .draw circle, html.js-reveal .draw rect {
+  stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.6s var(--ease) .25s;
+}
+html.js-reveal .in .draw path, html.js-reveal .in .draw circle, html.js-reveal .in .draw rect { stroke-dashoffset: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  html.js-reveal .draw path, html.js-reveal .draw circle, html.js-reveal .draw rect { stroke-dashoffset: 0 !important; }
+}
+
+/* Barra fina de progresso de leitura (JS em Base.astro atualiza --p) */
+.progresso {
+  position: fixed; inset: 0 0 auto 0; height: 2px; z-index: 70; pointer-events: none;
+  background: linear-gradient(90deg, var(--bronze), var(--bronze-pl));
+  transform-origin: left; transform: scaleX(var(--p, 0));
+}
+
+/* Grão fotográfico sutil nos blocos escuros (permitido no manual da marca) */
+.grao { position: relative; isolation: isolate; }
+.grao::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .09; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   TEMA MARROM: a seção com a classe .tom-marrom (hoje só as Áreas) troca os
+   tokens claros pelos marrons, deixando o site intercalado claro/marrom.
+   html.marrom aplica em todas as seções (opção "tudo marrom", fora de uso).
+   ════════════════════════════════════════════════════════════════════════ */
+html.marrom body { background: #1b140f; }
+html.marrom main > section:not(.hero),
+main > section.tom-marrom {
+  --cream-lt: #1b140f;                    /* fundo das seções */
+  --cream:    #261c15;                    /* seções alternadas e cartões */
+  --cream-dk: rgba(196, 168, 130, .16);   /* bordas */
+  --text:     #ede0c8;
+  --text-soft: rgba(237, 224, 200, .66);
+  --bronze-dk: #f1e3c9;                   /* títulos */
+  --bronze:    #c49a6c;                   /* destaques e botões (mais claro p/ ler no escuro) */
+  --bronze-lt: #b08a5e;
+  --shadow: 0 14px 40px rgba(0, 0, 0, .35);
+  --shadow-lg: 0 24px 60px rgba(0, 0, 0, .5);
+  color: var(--text);
+}
+:is(html.marrom main > section, .tom-marrom) .btn--primary { color: #1b140f; }
+:is(html.marrom main > section, .tom-marrom) .btn--primary:hover { background: var(--bronze-pl); color: #1b140f; }
+/* cartões que eram brancos */
+:is(html.marrom main > section, .tom-marrom) .area-card:not(.area-card--destaque),
+:is(html.marrom main > section, .tom-marrom) .bento__transp { background: #221911; }
+:is(html.marrom main > section, .tom-marrom) .area-card--destaque, :is(html.marrom main > section, .tom-marrom) .mapa-sc { background: #120d0a; border-color: rgba(196,168,130,.18); }
+html.marrom .section--dark { background: #120d0a; }
+/* mapa do contato em tom escuro */
+:is(html.marrom main > section, .tom-marrom) .contato__map { border-color: rgba(196,168,130,.18); }
+:is(html.marrom main > section, .tom-marrom) .contato__map iframe { filter: invert(.92) hue-rotate(180deg) sepia(.35) saturate(.8) brightness(.9); }
+:is(html.marrom main > section, .tom-marrom) .contato__map:hover iframe { filter: invert(.92) hue-rotate(180deg) sepia(.1); }
+/* textos que usavam o creme como COR de letra (o token virou fundo no tema marrom) */
+html.marrom .section--dark h2, html.marrom .section--dark h3,
+:is(html.marrom main > section, .tom-marrom) .area-card--destaque h3, :is(html.marrom main > section, .tom-marrom) .mapa-sc figcaption strong { color: #f6ecdc !important; }
+:is(html.marrom main > section, .tom-marrom) .mapa-sc__cidades circle { fill: #ede0c8 !important; }
+:is(html.marrom main > section, .tom-marrom) .area-tile > a:hover { color: #fff; }

@@ -6,14 +6,14 @@ import { site, waLink } from '../data/site.ts';
 const videoSrc = '/videos/institucional.mp4';
 ---
 
-<section class="hero" id="inicio">
+<section class="hero grao" id="inicio">
   <div class="hero__bg" aria-hidden="true"></div>
 
   <div class="container hero__inner">
     <div class="hero__content">
       <span class="eyebrow reveal">Sede em {site.endereco.cidade}/{site.endereco.uf} • Atuação em todo o estado de Santa Catarina</span>
-      <h1 class="reveal" data-d="1">{site.slogan}<span class="hero__accent">.</span></h1>
-      <p class="hero__lead reveal" data-d="2">{site.destaque}</p>
+      <h1 class="hero__titulo"><span class="w"><span style="--i:0">Especialistas</span></span> <span class="w"><span style="--i:1">em</span></span> <span class="w"><span style="--i:2">Direito</span></span> <span class="w"><em style="--i:3">Previdenciário<span class="hero__accent">.</span></em></span></h1>
+      <p class="hero__lead reveal" data-d="2">Aposentadorias, auxílios, BPC/LOAS, pensões e revisões. Cuidamos de cada etapa junto ao INSS ou na Justiça, com atendimento próximo e explicação clara.</p>
       <div class="hero__actions reveal" data-d="3">
         <a href={waLink} class="btn btn--light" target="_blank" rel="noopener">Fale com um especialista
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
@@ -28,12 +28,14 @@ const videoSrc = '/videos/institucional.mp4';
     </div>
 
     <!-- Card de vídeo (clique para ampliar) -->
-    <div class="hero__media reveal" data-d="2" role="button" tabindex="0" aria-label="Assistir ao vídeo institucional">
-      <video class="hero__video" autoplay muted loop playsinline preload="auto">
-        <source src={videoSrc} type="video/mp4" />
-      </video>
-      <div class="hero__media-play" aria-hidden="true"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
-      <span class="hero__media-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> Assistir vídeo institucional</span>
+    <div class="hero__mediawrap reveal" data-d="2">
+      <div class="hero__media" role="button" tabindex="0" aria-label="Assistir ao vídeo institucional">
+        <video class="hero__video" autoplay muted loop playsinline preload="auto">
+          <source src={videoSrc} type="video/mp4" />
+        </video>
+        <div class="hero__media-play" aria-hidden="true"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <span class="hero__media-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> Assistir vídeo institucional</span>
+      </div>
     </div>
   </div>
 
@@ -76,14 +78,36 @@ const videoSrc = '/videos/institucional.mp4';
     display: grid; grid-template-columns: 1.05fr .95fr;
     gap: clamp(2rem, 5vw, 4.5rem); align-items: start;
   }
-  .hero__content { max-width: 640px; }
-  .hero h1 { color: #fff; margin-bottom: 1.4rem; }
+  .hero__content { max-width: 680px; }
+  .hero h1 { color: #fff; margin-bottom: 1.4rem; font-size: clamp(2.8rem, 6.2vw, 5rem); }
+  /* Cada palavra sobe de dentro de uma "janela" (overflow) — só com JS ativo */
+  .hero__titulo .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .12em; margin-bottom: -.12em; }
+  .hero__titulo .w > * { display: inline-block; }
+  :global(html.js-reveal) .hero__titulo .w > * { transform: translateY(110%); animation: subir .95s var(--ease) forwards; animation-delay: calc(.15s + var(--i) * .09s); }
+  @keyframes subir { to { transform: none; } }
+  .hero h1 em {
+    font-style: italic; font-weight: 500; padding-right: .06em;
+    background: linear-gradient(100deg, var(--bronze-pl) 0%, #f6e7cb 40%, var(--bronze-pl) 60%, var(--bronze-lt) 100%);
+    background-size: 250% 100%; background-position: 100% 0;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: brilho 3.2s var(--ease) .6s both;
+  }
+  @keyframes brilho { from { background-position: 100% 0; } to { background-position: 0% 0; } }
+  :global(html.js-reveal) .hero__titulo .w > em { animation: subir .95s var(--ease) calc(.15s + 3 * .09s) forwards, brilho 3.2s var(--ease) 1s both; }
+
+
   .hero__accent { color: var(--bronze-pl); }
   .hero__lead { font-size: clamp(1.1rem, 1.9vw, 1.35rem); color: rgba(237,224,200,.82); max-width: 52ch; margin-bottom: 2.2rem; }
   .hero__actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 3.2rem; }
 
+  .hero__mediawrap { position: relative; align-self: start; justify-self: end; }
+  /* Moldura "passe-partout" deslocada atrás do vídeo */
+  .hero__mediawrap::before {
+    content: ''; position: absolute; inset: 18px -18px -18px 18px; z-index: -1;
+    border: 1px solid rgba(196,168,130,.38); border-radius: 22px;
+  }
   .hero__media {
-    position: relative; align-self: start; justify-self: end;
+    position: relative; display: block;
     aspect-ratio: 9 / 16; height: min(82vh, 720px); width: auto; max-width: 100%;
     border-radius: 20px; overflow: hidden; cursor: pointer;
     background: #000; box-shadow: var(--shadow-lg); border: 1px solid rgba(196,168,130,.28);
@@ -123,9 +147,12 @@ const videoSrc = '/videos/institucional.mp4';
   }
   .hero__media-badge svg { width: 13px; height: 13px; fill: var(--bronze-pl); }
 
-  .hero__stats { display: flex; flex-wrap: wrap; gap: clamp(1.6rem, 5vw, 3.4rem); padding-top: 2.1rem; border-top: 1px solid var(--ink-ghost); }
-  .hero__stats strong { display: block; font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 2.7rem); color: var(--bronze-pl); line-height: 1; }
-  .hero__stats span { font-size: .9rem; color: rgba(237,224,200,.7); margin-top: .35rem; display: block; }
+
+
+  .hero__stats { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: clamp(1.4rem, 3.4vw, 2.6rem); padding-top: 2.1rem; border-top: 1px solid var(--ink-ghost); }
+  .hero__stats > div + div { padding-left: clamp(1.4rem, 3.4vw, 2.6rem); border-left: 1px solid var(--ink-ghost); }
+  .hero__stats strong { display: block; font-family: var(--font-serif); font-weight: 500; font-size: clamp(2.2rem, 4.4vw, 3rem); color: var(--bronze-pl); line-height: 1; }
+  .hero__stats span { white-space: nowrap; font-size: .9rem; color: rgba(237,224,200,.7); margin-top: .35rem; display: block; }
 
   .hero__cue {
     position: absolute; bottom: 1.6rem; left: 50%; transform: translateX(-50%);
@@ -139,7 +166,11 @@ const videoSrc = '/videos/institucional.mp4';
     .hero { min-height: 0; }
     .hero__inner { grid-template-columns: 1fr; gap: 2.4rem; padding-block: calc(var(--header-h) + 2.5rem) 3.5rem; }
     .hero__content { max-width: none; }
-    .hero__media { order: -1; justify-self: center; height: auto; width: min(74%, 290px); }
+    .hero__mediawrap { order: -1; justify-self: center; width: min(74%, 290px); }
+    .hero__media { height: auto; width: 100%; }
+    .hero__stats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+    .hero__stats > div + div { padding-left: 1rem; }
+    .hero__stats span { white-space: normal; font-size: .82rem; }
   }
 
   /* Lightbox */
@@ -166,7 +197,7 @@ const videoSrc = '/videos/institucional.mp4';
   .video-modal__close:hover { background: var(--bronze); transform: rotate(90deg); }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero__video, .hero__cue span { animation: none !important; }
+    .hero__video, .hero__cue span, .hero h1 em, .hero__titulo .w > * { animation: none !important; transform: none !important; }
   }
 </style>
 

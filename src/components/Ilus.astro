@@ -1,0 +1,46 @@
+---
+// Ilustrações de traço (estilo da marca: linha fina, pontas arredondadas). Cada traço
+// tem pathLength="1" para "se desenhar" ao entrar na tela (classe .draw em global.css).
+interface Props { nome: string; size?: number; }
+const { nome, size = 44 } = Astro.props;
+
+const P = (d: string) => `<path pathLength="1" d="${d}"/>`;
+const C = (cx: number, cy: number, r: number) => `<circle pathLength="1" cx="${cx}" cy="${cy}" r="${r}"/>`;
+
+const desenhos: Record<string, string> = {
+  // Ampulheta (ecoa os acentos do monograma) — aposentadorias
+  ampulheta: P('M6.5 3h11M6.5 21h11') + P('M8 3c0 5 8 6 8 9s-8 4-8 9') + P('M16 3c0 5-8 6-8 9s8 4 8 9') + P('M10 18.5h4'),
+  // Capacete de obra — auxílio-doença / auxílio-acidente
+  capacete: P('M3 18.5h18') + P('M5 18.5V17a7 7 0 0 1 14 0v1.5') + P('M10 10.5V7.2a2 2 0 0 1 4 0v3.3') + P('M7.5 14.5c.3-1.6 1.1-2.9 2.5-3.8M16.5 14.5c-.3-1.6-1.1-2.9-2.5-3.8'),
+  // Mãos acolhendo um coração — BPC/LOAS
+  acolher: P('M12 11.5s-3.6-2.2-3.6-4.8A2 2 0 0 1 12 5.6a2 2 0 0 1 3.6 1.1c0 2.6-3.6 4.8-3.6 4.8z') + P('M3 14.5l3.2-1.4a3 3 0 0 1 2.4 0l3.4 1.5h3a1.5 1.5 0 0 1 0 3H11') + P('M15 17.6l4.4-2a1.6 1.6 0 0 1 1.6 2.7L14.6 21a3 3 0 0 1-2.3.2L7 19.6H3'),
+  // Carrinho de bebê — salário-maternidade
+  carrinho: P('M3 5h2l1.6 8.5h11.9a6.5 6.5 0 0 0-6.5-6.5v6.5') + C(8.5, 18.5, 1.8) + C(16.5, 18.5, 1.8) + P('M6.6 13.5l1.2 3.2M18.5 13.5l-1.2 3.2'),
+  // Duas alianças — pensão por morte
+  aliancas: C(9, 14, 5) + C(15, 14, 5) + P('M10.5 5.5l1.5-2.5 1.5 2.5-1.5 1.5z'),
+  // Calculadora — revisão e recálculo
+  calculadora: P('M7 2.5h10a1.5 1.5 0 0 1 1.5 1.5v16a1.5 1.5 0 0 1-1.5 1.5H7A1.5 1.5 0 0 1 5.5 20V4A1.5 1.5 0 0 1 7 2.5z') + P('M8.5 5.5h7v3.5h-7z') + P('M9 12.5h.01M12 12.5h.01M15 12.5h.01M9 15.5h.01M12 15.5h.01M15 15.5v3M9 18.5h.01M12 18.5h.01'),
+  // Placa de direção — planejamento previdenciário
+  placa: P('M12 21.5V2.5') + P('M12 4.5h6.5l2.2 2.5-2.2 2.5H12') + P('M12 12H5.5l-2.2 2.5L5.5 17H12') + P('M9 21.5h6'),
+  // Contrato com assinatura e caneta — direito civil
+  contrato: P('M15 21.5H5.5A1.5 1.5 0 0 1 4 20V4a1.5 1.5 0 0 1 1.5-1.5h9L19 7v6') + P('M14.5 2.5V7H19') + P('M7 9.5h7M7 12.5h5') + P('M7 17.5c1-1.5 1.8-1.5 2.2 0s1.2 1.5 2.3 0') + P('M21 14.5l-5.5 5.5-2 .5.5-2 5.5-5.5a1.06 1.06 0 0 1 1.5 1.5z'),
+  // Maleta de trabalho com crachá — direito do trabalho
+  maleta: P('M4.5 7.5h15A1.5 1.5 0 0 1 21 9v9.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5V9a1.5 1.5 0 0 1 1.5-1.5z') + P('M9 7.5V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5v2') + P('M3 12.5h18') + P('M10.5 11.5h3v2.5h-3z'),
+  // Carteira de trabalho (CTPS) — símbolo do previdenciário
+  ctps: P('M6 2.5h11a1.5 1.5 0 0 1 1.5 1.5v16a1.5 1.5 0 0 1-1.5 1.5H6A1.5 1.5 0 0 1 4.5 20V4A1.5 1.5 0 0 1 6 2.5z') + P('M7.5 2.5v19') + C(13, 9, 2.6) + P('M10.5 14.5h5M11 17h4'),
+  // Casa com coração — família e sucessões
+  casa: P('M3.5 11 12 4l8.5 7') + P('M5.5 9.5V20h13V9.5') + P('M12 17.3s-3-1.8-3-3.8a1.6 1.6 0 0 1 3-.8 1.6 1.6 0 0 1 3 .8c0 2-3 3.8-3 3.8z'),
+  // Balança — responsabilidade civil
+  balanca: P('M12 3.5v17M8 20.5h8M4.5 6.5h15') + P('M6.5 6.5 3.5 13h6z') + P('M17.5 6.5 14.5 13h6z') + P('M3.5 13a3 2.2 0 0 0 6 0M14.5 13a3 2.2 0 0 0 6 0'),
+  // Relógio — horas extras
+  relogio: C(12, 13, 8) + P('M12 9v4l2.6 2') + P('M9.5 2.5h5M12 2.5V5'),
+  // Moeda — verbas rescisórias
+  moeda: C(12, 12, 8.5) + P('M14.5 9.3c-.4-.9-1.4-1.4-2.5-1.4-1.4 0-2.5.8-2.5 1.9 0 2.5 5.2 1.4 5.2 4 0 1.1-1.2 1.9-2.7 1.9-1.2 0-2.2-.5-2.6-1.4') + P('M12 6.4v1.5M12 16.1v1.5'),
+  // Documento com selo — especialização (CNIS conferido)
+  documento: P('M14 2.5H6A1.5 1.5 0 0 0 4.5 4v16A1.5 1.5 0 0 0 6 21.5h7') + P('M14 2.5V7h4.5') + P('M18.5 7v4') + P('M7.5 10h7M7.5 13h5M7.5 16h3') + C(17, 16.5, 3) + P('M15.4 19l-.8 3 2.4-1.2 2.4 1.2-.8-3'),
+  // Duas conversas — transparência
+  conversa: P('M3 5.5A1.5 1.5 0 0 1 4.5 4h10A1.5 1.5 0 0 1 16 5.5v6a1.5 1.5 0 0 1-1.5 1.5H8l-3.5 3v-3A1.5 1.5 0 0 1 3 11.5z') + P('M18.5 9h1A1.5 1.5 0 0 1 21 10.5v6a1.5 1.5 0 0 1-1.5 1.5v3L16 18h-5.5A1.5 1.5 0 0 1 9 16.5V16') + P('M6.5 8h6M6.5 10.5h4'),
+};
+---
+<svg class="draw ilus" viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor"
+     stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={desenhos[nome] ?? ''} />

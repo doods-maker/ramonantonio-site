@@ -1,0 +1,140 @@
+---
+// "Como funciona": os 4 passos reais do atendimento, ligados por um caminho que
+// se desenha conforme a rolagem. Ilustrações de traço que "se desenham" (classe .draw).
+import { waLink } from '../data/site.ts';
+
+const passos = [
+  {
+    titulo: 'Você conta o que aconteceu',
+    texto: 'Pelo WhatsApp ou aqui no escritório, em Tubarão. Sem juridiquês e sem compromisso.',
+    svg: '<path pathLength="1" d="M4 4h16a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H10l-5 4v-4H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path pathLength="1" d="M7.5 9h9M7.5 12.5h6"/>',
+  },
+  {
+    titulo: 'Analisamos os seus documentos',
+    texto: 'CNIS, carteira de trabalho, laudos. Conferimos o histórico e explicamos com clareza se há direito e qual é o caminho.',
+    svg: '<path pathLength="1" d="M13 21H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h8l4 4v6"/><path pathLength="1" d="M14 2v4h4"/><path pathLength="1" d="M8 8h5M8 11.5h4"/><circle pathLength="1" cx="17" cy="17" r="3"/><path pathLength="1" d="m19.2 19.2 2.3 2.3"/>',
+  },
+  {
+    titulo: 'Fazemos o pedido',
+    texto: 'No INSS ou na Justiça, conforme o seu caso, com a documentação organizada pela nossa equipe.',
+    svg: '<path pathLength="1" d="M12 2.5 21 7.5H3z"/><path pathLength="1" d="M5 10v8M9.7 10v8M14.3 10v8M19 10v8"/><path pathLength="1" d="M3 21h18"/>',
+  },
+  {
+    titulo: 'Acompanhamos até o fim',
+    texto: 'Você é avisado de cada fase do processo, do protocolo à decisão.',
+    svg: '<rect pathLength="1" x="3" y="5" width="18" height="16" rx="2"/><path pathLength="1" d="M3 10h18M8 3v4M16 3v4"/><path pathLength="1" d="m9 15.5 2 2 4-4"/>',
+  },
+];
+// Caminho sinuoso que passa pelo centro dos 4 círculos (x em %, y em px — ver CSS)
+const trilha = 'M125 64 C 250 64 250 232 375 232 S 500 64 625 64 S 750 232 875 232';
+---
+
+<section class="section steps" id="como-funciona">
+  <div class="container">
+    <div class="text-center">
+      <span class="eyebrow">Como funciona</span>
+      <h2>Do primeiro contato à <em>decisão</em></h2>
+      <hr class="divider" />
+    </div>
+
+    <div class="steps__palco">
+      <svg class="steps__trilha" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true">
+        <path class="steps__trilha-base" d={trilha} />
+        <path class="steps__trilha-viva" d={trilha} pathLength="1" />
+      </svg>
+
+      <ol class="steps__lista">
+        {passos.map((p, i) => (
+          <li class={`steps__item${i % 2 ? ' steps__item--baixo' : ''}`}>
+            <div class="steps__ilus">
+              <span class="steps__num" aria-hidden="true">{i + 1}</span>
+              <svg class="draw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={p.svg} />
+            </div>
+            <div class="steps__ia" aria-hidden="true">
+              <span class="steps__num">{i + 1}</span>
+              <img src={`/images/ilustracoes/passo${i + 1}.webp`} alt="" loading="lazy" />
+            </div>
+            <h3><span class="sr-only">Passo {i + 1}: </span>{p.titulo}</h3>
+            <p>{p.texto}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+
+    <div class="text-center">
+      <a href={waLink} class="btn btn--primary" target="_blank" rel="noopener">Começar pelo WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .steps__palco { position: relative; margin-block: 3rem 2.6rem; }
+  .steps__trilha { position: absolute; left: 0; top: 0; width: 100%; height: 300px; overflow: visible; pointer-events: none; }
+  .steps__trilha path { fill: none; vector-effect: non-scaling-stroke; }
+  .steps__trilha-base { stroke: var(--bronze-pl); stroke-width: 1.5; stroke-dasharray: 2 7; stroke-linecap: round; opacity: .8; }
+  .steps__trilha-viva { stroke: var(--bronze); stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
+
+  .steps__lista { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem; position: relative; }
+  .steps__item { text-align: center; }
+  .steps__item--baixo { margin-top: 168px; }
+  .steps__ilus {
+    position: relative; width: 128px; height: 128px; margin: 0 auto 1.3rem;
+    display: grid; place-items: center; border-radius: 50%;
+    background: var(--cream); color: var(--bronze);
+    box-shadow: 0 0 0 1px var(--cream-dk), 0 0 0 9px var(--cream-lt), 0 18px 40px rgba(59,32,16,.12);
+    transition: transform .45s var(--ease), background .4s ease, color .4s ease;
+  }
+  .steps__item:hover .steps__ilus { transform: translateY(-5px) rotate(-2deg); }
+  .steps__ilus svg { width: 62px; height: 62px; position: relative; }
+  /* Número grande em itálico atrás do desenho — a ordem importa aqui */
+  .steps__num {
+    position: absolute; right: -14px; top: -26px; font-family: var(--font-serif); font-style: italic; font-weight: 500;
+    font-size: 4.6rem; line-height: 1; color: var(--bronze); opacity: .9;
+    text-shadow: 3px 3px 0 var(--cream-lt), -3px -3px 0 var(--cream-lt), 3px -3px 0 var(--cream-lt), -3px 3px 0 var(--cream-lt);
+  }
+  /* TESTE: ilustrações exclusivas (motor de marketing) no lugar dos círculos — liga com html.ilus-ia */
+  .steps__ia { display: none; position: relative; width: fit-content; max-width: 100%; margin: -11px auto 1rem; }
+  .steps__ia img { height: 150px; width: auto; max-width: 100%; object-fit: contain; }
+  .steps__ia .steps__num { right: -18px; top: -14px; font-size: 3.4rem; }
+  :global(html.ilus-ia) .steps__ia { display: block; }
+  :global(html.ilus-ia) .steps__ilus { display: none; }
+  .steps__item h3 { margin-bottom: .5rem; font-size: 1.45rem; }
+  .steps__item p { color: var(--text-soft); font-size: .95rem; max-width: 30ch; margin-inline: auto; }
+
+  @media (max-width: 900px) {
+    .steps__trilha { display: none; }
+    .steps__lista { grid-template-columns: minmax(0, 1fr); gap: 2.2rem; }
+    .steps__lista::before { content: ''; position: absolute; left: 47px; top: 40px; bottom: 40px; border-left: 1.5px dashed var(--bronze-pl); }
+    .steps__item--baixo { margin-top: 0; }
+    .steps__item { display: grid; grid-template-columns: 96px minmax(0, 1fr); column-gap: 1.2rem; text-align: left; align-items: center; }
+    .steps__ilus { width: 96px; height: 96px; margin: 0; grid-row: span 2; }
+    .steps__ia { margin: 0; grid-row: span 2; width: 96px; }
+    .steps__ia img { height: auto; width: 96px; max-height: 110px; }
+    .steps__ia .steps__num { font-size: 2.4rem; right: -8px; top: -12px; }
+    .steps__ilus svg { width: 46px; height: 46px; }
+    .steps__num { font-size: 3.2rem; right: -10px; top: -18px; }
+    .steps__item h3 { align-self: end; margin-bottom: .2rem; }
+    .steps__item p { margin: 0; align-self: start; }
+  }
+</style>
+
+<script>
+  // O caminho se desenha conforme a seção passa pela tela (parou de rolar, parou)
+  const palco = document.querySelector<HTMLElement>('.steps__palco');
+  const viva = document.querySelector<SVGPathElement>('.steps__trilha-viva');
+  const reduzir = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (palco && viva && !reduzir) {
+    let tick = false;
+    const atualizar = () => {
+      const r = palco.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const p = Math.min(1, Math.max(0, (vh * 0.85 - r.top) / (r.height + vh * 0.25)));
+      viva.style.strokeDashoffset = (1 - p).toFixed(3);
+      tick = false;
+    };
+    viva.style.strokeDashoffset = '1';
+    window.addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(atualizar); } }, { passive: true });
+    atualizar();
+  }
+</script>

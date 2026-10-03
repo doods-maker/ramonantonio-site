@@ -18,7 +18,16 @@ const iniciais = nome.split(' ').slice(0, 2).map((p) => p[0]).join('').toUpperCa
 </article>
 
 <style>
-  .team-card { text-align: center; }
+  .team-card { text-align: center; position: relative; }
+  /* Moldura bronze deslocada que aparece no hover */
+  .team-card::before {
+    content: ''; position: absolute; left: 0; right: 0; top: 0; aspect-ratio: 4 / 5; z-index: 0;
+    border: 1px solid var(--bronze-pl); border-radius: 16px;
+    opacity: 0; transition: transform .45s var(--ease), opacity .3s ease;
+  }
+  .team-card:hover::before { transform: translate(8px, 8px); opacity: 1; }
+  .team-card__photo { z-index: 1; transition: transform .45s var(--ease); }
+  .team-card:hover .team-card__photo { transform: translate(-4px, -4px); }
   .team-card__photo {
     position: relative; aspect-ratio: 4 / 5; border-radius: 16px; overflow: hidden; margin-bottom: 1.1rem;
     background: linear-gradient(160deg, var(--dark-3), var(--dark));
@@ -26,10 +35,10 @@ const iniciais = nome.split(' ').slice(0, 2).map((p) => p[0]).join('').toUpperCa
   }
   .team-card__photo img {
     width: 100%; height: 100%; object-fit: cover; object-position: center top;
-    filter: grayscale(.5) contrast(1.02);
+    filter: none;
     transition: transform .6s var(--ease), filter .5s ease;
   }
-  .team-card:hover .team-card__photo img { transform: scale(1.06); filter: grayscale(0); }
+  .team-card:hover .team-card__photo img { transform: scale(1.06); }
   .team-card__photo::after {
     content: ''; position: absolute; inset: 0;
     background: linear-gradient(0deg, rgba(20,15,12,.55), transparent 45%);
@@ -37,6 +46,6 @@ const iniciais = nome.split(' ').slice(0, 2).map((p) => p[0]).join('').toUpperCa
   }
   .team-card:hover .team-card__photo::after { opacity: .35; }
   .team-card__initials { font-family: var(--font-serif); font-size: 2.6rem; color: var(--bronze-pl); }
-  .team-card h3 { font-size: 1.18rem; margin-bottom: .15rem; }
+  .team-card h3 { font-size: 1.4rem; margin-bottom: .15rem; }
   .team-card p { font-size: .9rem; color: var(--text-soft); }
 </style>

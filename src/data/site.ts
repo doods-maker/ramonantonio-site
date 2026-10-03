@@ -42,6 +42,9 @@ export const site = {
   redes: {
     instagram: 'https://www.instagram.com/ramonantonioadvogados/',
     instagramHandle: '@ramonantonioadvogados',
+    // Recorte da bio do Instagram (texto do perfil em 03/10/2026, sem os emojis)
+    instagramBio: ['Advocacia Previdenciária desde 2003', 'Seus direitos no INSS não são favor. São lei.'],
+    instagramLocal: 'Tubarão-SC | Atendimento em todo o Brasil',
     facebook: 'https://www.facebook.com/ramonantonioadvogados/',
   },
 } as const;
@@ -63,6 +66,7 @@ export const areas = [
     titulo: 'Direito Previdenciário',
     destaque: true,
     icone: 'shield',
+    ilus: 'ctps',
     descricao:
       'Nossa especialidade. Aposentadorias, auxílios, pensões, revisões de benefícios e ações contra o INSS — com mais de duas décadas de atuação dedicada.',
     itens: [
@@ -78,6 +82,7 @@ export const areas = [
   {
     titulo: 'Direito Civil',
     icone: 'scale',
+    ilus: 'contrato',
     descricao:
       'Contratos, responsabilidade civil, questões de família e sucessões com atendimento próximo e personalizado.',
     itens: ['Contratos', 'Responsabilidade civil', 'Família e sucessões'],
@@ -85,16 +90,10 @@ export const areas = [
   {
     titulo: 'Direito do Trabalho',
     icone: 'briefcase',
+    ilus: 'maleta',
     descricao:
       'Defesa dos direitos do trabalhador em rescisões, verbas e reconhecimento de vínculo.',
     itens: [{ texto: 'Reclamatórias trabalhistas', href: '/lp/trabalhista-geral/' }, 'Rescisões e verbas', 'Reconhecimento de vínculo'],
-  },
-  {
-    titulo: 'Direito Administrativo',
-    icone: 'building',
-    descricao:
-      'Atuação junto a órgãos públicos, servidores e processos administrativos.',
-    itens: ['Servidores públicos', 'Processos administrativos'],
   },
 ] as const;
 
@@ -110,6 +109,15 @@ export const equipe = [
 ] as const;
 
 // ── Depoimentos (substitua por depoimentos reais autorizados) ───────────────
+// ── Avaliações do Google (perfil do escritório) ─────────────────────────────
+// Preencher com os dados REAIS do perfil (nota, total e até 3 comentários).
+// Enquanto `nota` for null, o site mostra só a faixa com os links do Google.
+export const google = {
+  nota: null as number | null,       // ex.: 4.9
+  total: null as number | null,      // ex.: 87
+  avaliacoes: [] as { autor: string; nota: number; texto: string; quando: string }[],
+};
+
 export const depoimentos = [
   {
     texto:

@@ -6,6 +6,10 @@ import TeamCard from '../components/TeamCard.astro';
 import Testimonial from '../components/Testimonial.astro';
 import InstagramFeed from '../components/InstagramFeed.astro';
 import Icon from '../components/Icon.astro';
+import Steps from '../components/Steps.astro';
+import GoogleAvaliacoes from '../components/GoogleAvaliacoes.astro';
+import MapaSC from '../components/MapaSC.astro';
+import Ilus from '../components/Ilus.astro';
 import { site, areas, equipe, depoimentos, waLink, mapsLink } from '../data/site.ts';
 ---
 
@@ -13,11 +17,12 @@ import { site, areas, equipe, depoimentos, waLink, mapsLink } from '../data/site
   <Hero />
 
   <!-- ── Sobre ──────────────────────────────────────────────────────────── -->
-  <section class="section" id="sobre">
+  <section class="section section--compacta" id="sobre">
     <div class="container sobre__grid">
       <div>
+        <img class="sobre__ia" src="/images/ilustracoes/sobre.webp" alt="" loading="lazy" />
         <span class="eyebrow">Sobre o escritório</span>
-        <h2>Mais de duas décadas dedicadas a quem precisa do INSS</h2>
+        <h2>Mais de duas décadas dedicadas a quem precisa do <em>INSS</em></h2>
         <hr class="divider" />
         <p class="lead">
           O <strong>{site.nomeCompleto}</strong> é referência em Direito Previdenciário
@@ -34,37 +39,57 @@ import { site, areas, equipe, depoimentos, waLink, mapsLink } from '../data/site
           Agende uma avaliação
         </a>
       </div>
-      <ul class="sobre__pillars">
-        <li><strong>Especialização real</strong><span>Foco em previdenciário, não generalismo.</span></li>
-        <li><strong>Transparência</strong><span>Você acompanha cada fase do seu processo.</span></li>
-        <li><strong>Atuação estadual</strong><span>Sede em {site.endereco.cidade} • Atendemos todo o estado de Santa Catarina</span></li>
-      </ul>
+      <div class="bento">
+        <div class="bento__mapa"><MapaSC /></div>
+
+        <div class="bento__card bento__esp">
+          <ul class="bento__icones" aria-hidden="true">
+            {['ampulheta', 'capacete', 'acolher', 'carrinho', 'aliancas', 'calculadora'].map((n) => <li><Ilus nome={n} size={30} /></li>)}
+          </ul>
+          <strong>Especialização real</strong>
+          <span>O previdenciário é o centro do escritório: aposentadorias, auxílios, BPC/LOAS, pensões e revisões, todos os dias.</span>
+        </div>
+
+        <div class="bento__card bento__transp">
+          <ol class="fases" aria-label="Exemplo de acompanhamento do processo">
+            <li class="fases__ok">Pedido protocolado</li>
+            <li class="fases__ok">Em análise</li>
+            <li class="fases__agora">Decisão</li>
+          </ol>
+          <strong>Transparência</strong>
+          <span>Você acompanha cada fase do seu processo e entende o que está acontecendo.</span>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- ── Áreas ──────────────────────────────────────────────────────────── -->
-  <section class="section section--cream" id="areas">
+  <section class="section section--cream section--compacta tom-marrom" id="areas">
     <div class="container">
       <div class="text-center">
         <span class="eyebrow">Áreas de atuação</span>
-        <h2>Como podemos ajudar você</h2>
+        <h2>Como podemos <em>ajudar</em> você</h2>
         <hr class="divider" />
       </div>
-      <div class="grid grid--3 areas__grid">
+      <div class="grid grid--2 areas__grid">
         {areas.map((a) => (
           <AreaCard titulo={a.titulo} descricao={a.descricao} icone={a.icone}
+                    ilus={'ilus' in a ? a.ilus : undefined}
                     itens={a.itens} destaque={'destaque' in a ? a.destaque : false} />
         ))}
       </div>
     </div>
   </section>
 
+  <!-- ── Como funciona ──────────────────────────────────────────────────── -->
+  <Steps />
+
   <!-- ── Equipe ─────────────────────────────────────────────────────────── -->
-  <section class="section" id="equipe">
+  <section class="section section--cream" id="equipe">
     <div class="container">
       <div class="text-center">
         <span class="eyebrow">Nossa equipe</span>
-        <h2>Profissionais ao seu lado</h2>
+        <h2>Profissionais <em>ao seu lado</em></h2>
         <hr class="divider" />
       </div>
       <div class="grid grid--4 equipe__grid">
@@ -74,28 +99,26 @@ import { site, areas, equipe, depoimentos, waLink, mapsLink } from '../data/site
   </section>
 
   <!-- ── Depoimentos ────────────────────────────────────────────────────── -->
-  <section class="section section--dark" id="depoimentos">
+  <section class="section section--dark depo grao" id="depoimentos">
     <div class="container">
       <div class="text-center">
         <span class="eyebrow">Depoimentos</span>
-        <h2>Quem confia no nosso trabalho</h2>
+        <h2>Quem <em>confia</em> no nosso trabalho</h2>
         <hr class="divider" />
       </div>
       <div class="grid grid--3" style="margin-top:2.6rem">
         {depoimentos.map((d) => <Testimonial texto={d.texto} autor={d.autor} />)}
       </div>
+      <GoogleAvaliacoes />
     </div>
   </section>
-
-  <!-- ── Instagram ──────────────────────────────────────────────────────── -->
-  <InstagramFeed />
 
   <!-- ── Contato ────────────────────────────────────────────────────────── -->
   <section class="section" id="contato">
     <div class="container contato__grid">
       <div>
         <span class="eyebrow">Fale conosco</span>
-        <h2>Entre em contato</h2>
+        <h2>Entre em <em>contato</em></h2>
         <hr class="divider" />
         <p class="lead">Sede em {site.endereco.cidade}, com atuação em todo o estado de Santa Catarina. Tire suas dúvidas sem compromisso.</p>
 
@@ -125,21 +148,56 @@ import { site, areas, equipe, depoimentos, waLink, mapsLink } from '../data/site
       </div>
     </div>
   </section>
+
+  <!-- ── Instagram (discreto, depois do contato) ────────────────────────── -->
+  <InstagramFeed />
 </Base>
 
 <style>
-  .sobre__grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 3rem; align-items: start; }
-  .sobre__pillars { display: grid; gap: 1rem; }
-  .sobre__pillars li {
-    background: #fff; border: 1px solid var(--cream-dk); border-left: 3px solid var(--bronze);
-    border-radius: var(--radius); padding: 1.1rem 1.3rem;
-    transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-left-color .3s ease;
+  .sobre__grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+  #sobre { position: relative; isolation: isolate; overflow: hidden; }
+  .sobre__aside { position: relative; }
+  /* Bento: mapa em cima (largura toda), dois cartões embaixo */
+  /* Sobre e Áreas mais baixos */
+  .section--compacta { padding-block: clamp(3rem, 6vw, 4.6rem); }
+  #sobre h2 { font-size: clamp(2rem, 3.6vw, 2.9rem); }
+  #sobre .lead { font-size: 1.04rem; }
+  #areas .areas__grid { margin-top: 2rem; }
+  /* TESTE: ilustração exclusiva no topo do Sobre — liga com html.ilus-ia */
+  .sobre__ia { display: none; height: 170px; width: auto; max-width: 100%; margin-bottom: 1.2rem; }
+  :global(html.ilus-ia) .sobre__ia { display: block; }
+  .bento { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .bento__mapa { grid-column: 1 / -1; }
+  .bento__card {
+    display: flex; flex-direction: column; gap: .35rem; padding: 1.15rem 1.2rem; border-radius: 20px;
+    transition: transform .35s var(--ease), box-shadow .35s var(--ease);
   }
-  .sobre__pillars li:hover { transform: translateX(6px); box-shadow: var(--shadow); border-left-color: var(--bronze-pl); }
-  .sobre__pillars strong { display: block; color: var(--bronze-dk); font-family: var(--font-serif); font-size: 1.15rem; }
-  .sobre__pillars span { font-size: .92rem; color: var(--text-soft); }
+  .bento__card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+  .bento__card strong { font-family: var(--font-serif); font-size: 1.35rem; font-weight: 500; line-height: 1.15; color: var(--bronze-dk); margin-top: auto; padding-top: .7rem; }
+  .bento__card > span { font-size: .9rem; color: var(--text-soft); }
+  .bento__esp { background: var(--cream); }
+  .bento__icones { display: grid; grid-template-columns: repeat(6, 1fr); gap: .35rem; }
+  .bento__icones li { display: grid; place-items: center; aspect-ratio: 1; border-radius: 50%; background: var(--cream-lt); color: var(--bronze); max-width: 58px; }
+  .bento__transp { background: #fff; border: 1px solid var(--cream-dk); }
+  /* Mini "rastreio" do processo: duas fases concluídas + a atual pulsando */
+  .fases { list-style: none; padding: 0; margin: 0; display: grid; gap: .55rem; position: relative; }
+  .fases::before { content: ''; position: absolute; left: 7px; top: 9px; bottom: 9px; width: 1.5px; background: var(--cream-dk); }
+  .fases li { position: relative; padding-left: 1.7rem; font-size: .82rem; font-weight: 600; color: var(--text); }
+  .fases li::before { content: ''; position: absolute; left: 0; top: .2em; width: 16px; height: 16px; border-radius: 50%; box-sizing: border-box; }
+  .fases__ok::before { background: var(--bronze) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m4.5 8.2 2.2 2.2 4.8-4.8' fill='none' stroke='%23fdfbf7' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 100% no-repeat; }
+  .fases__agora { color: var(--bronze); }
+  .fases__agora::before { background: #fff; border: 2px solid var(--bronze); box-shadow: 0 0 0 0 rgba(117,77,42,.4); animation: faseAgora 2s ease-out infinite; }
+  @keyframes faseAgora { to { box-shadow: 0 0 0 9px rgba(117,77,42,0); } }
+  @media (prefers-reduced-motion: reduce) { .fases__agora::before { animation: none; } }
+  @media (max-width: 520px) { .bento { grid-template-columns: minmax(0, 1fr); } }
+
+  .depo { position: relative; isolation: isolate; overflow: hidden; }
+
 
   .areas__grid, .equipe__grid { margin-top: 2.6rem; }
+  /* 7 pessoas: flex centraliza a última fileira (grid deixava buraco à direita) */
+  .equipe__grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem 1.5rem; }
+  .equipe__grid > :global(*) { flex: 0 1 calc((100% - 4.5rem) / 4); min-width: 160px; }
 
   .contato__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
   .contato__list { display: grid; gap: 1rem; margin-top: 1.8rem; }
@@ -149,7 +207,8 @@ import { site, areas, equipe, depoimentos, waLink, mapsLink } from '../data/site
     transition: transform .3s var(--ease), background .3s ease, color .3s ease; }
   .contato__list li:hover .contato__ic { transform: translateY(-3px); background: var(--bronze); color: var(--cream-lt); }
   .contato__map { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--cream-dk); }
-  .contato__map iframe { width: 100%; height: 420px; border: 0; display: block; }
+  .contato__map iframe { width: 100%; height: 420px; border: 0; display: block; filter: grayscale(1) sepia(.45) contrast(.92) brightness(1.02); transition: filter .5s ease; }
+  .contato__map:hover iframe { filter: none; }
 
   @media (max-width: 860px) {
     .sobre__grid, .contato__grid { grid-template-columns: 1fr; gap: 2rem; }
