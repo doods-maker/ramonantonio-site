@@ -1,7 +1,7 @@
 ---
 // Avaliações do Google (perfil do escritório). Sem `nota` preenchida em site.ts,
 // mostra só a faixa com os links (ver avaliações / avaliar) — nada inventado.
-import { google, mapsLink } from '../data/site.ts';
+import { google } from '../data/site.ts';
 
 const estrelas = (n: number) => '★★★★★'.slice(0, Math.round(n)) + '☆☆☆☆☆'.slice(0, 5 - Math.round(n));
 ---
@@ -20,7 +20,7 @@ const estrelas = (n: number) => '★★★★★'.slice(0, Math.round(n)) + '☆
         : <><strong>Avaliações no Google</strong><span>Veja o que os clientes dizem do escritório no perfil do Google.</span></>}
     </div>
     <div class="gav__acoes">
-      <a class="btn btn--outline-light" href={mapsLink} target="_blank" rel="noopener">Ver avaliações</a>
+      <a class="btn btn--outline-light" href={google.link} target="_blank" rel="noopener">Ver avaliações</a>
       <a class="btn btn--light" href="/avalie">Avaliar o escritório</a>
     </div>
   </div>

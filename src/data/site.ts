@@ -113,6 +113,8 @@ export const equipe = [
 // Preencher com os dados REAIS do perfil (nota, total e até 3 comentários).
 // Enquanto `nota` for null, o site mostra só a faixa com os links do Google.
 export const google = {
+  // Perfil do escritório no Google (link de compartilhamento do próprio perfil)
+  link: 'https://share.google/mAMVyyqSZQok454q7',
   nota: null as number | null,       // ex.: 4.9
   total: null as number | null,      // ex.: 87
   avaliacoes: [] as { autor: string; nota: number; texto: string; quando: string }[],

@@ -10,8 +10,8 @@ const C = (cx: number, cy: number, r: number) => `<circle pathLength="1" cx="${c
 const desenhos: Record<string, string> = {
   // Ampulheta (ecoa os acentos do monograma) — aposentadorias
   ampulheta: P('M6.5 3h11M6.5 21h11') + P('M8 3c0 5 8 6 8 9s-8 4-8 9') + P('M16 3c0 5-8 6-8 9s8 4 8 9') + P('M10 18.5h4'),
-  // Capacete de obra — auxílio-doença / auxílio-acidente
-  capacete: P('M3 18.5h18') + P('M5 18.5V17a7 7 0 0 1 14 0v1.5') + P('M10 10.5V7.2a2 2 0 0 1 4 0v3.3') + P('M7.5 14.5c.3-1.6 1.1-2.9 2.5-3.8M16.5 14.5c-.3-1.6-1.1-2.9-2.5-3.8'),
+  // Curativo (band-aid) — auxílio-doença / auxílio-acidente
+  curativo: '<g transform="rotate(-45 12 12)"><rect pathLength="1" x="1.5" y="7.5" width="21" height="9" rx="4.5"/><rect pathLength="1" x="8.5" y="7.5" width="7" height="9"/></g>' + C(10.6, 10.6, .45) + C(13.4, 13.4, .45) + C(13.4, 10.6, .45) + C(10.6, 13.4, .45),
   // Mãos acolhendo um coração — BPC/LOAS
   acolher: P('M12 11.5s-3.6-2.2-3.6-4.8A2 2 0 0 1 12 5.6a2 2 0 0 1 3.6 1.1c0 2.6-3.6 4.8-3.6 4.8z') + P('M3 14.5l3.2-1.4a3 3 0 0 1 2.4 0l3.4 1.5h3a1.5 1.5 0 0 1 0 3H11') + P('M15 17.6l4.4-2a1.6 1.6 0 0 1 1.6 2.7L14.6 21a3 3 0 0 1-2.3.2L7 19.6H3'),
   // Carrinho de bebê — salário-maternidade

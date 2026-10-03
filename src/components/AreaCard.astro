@@ -15,7 +15,7 @@ const { titulo, descricao, icone, itens = [], destaque = false, ilus: desenho } 
 const norm = (i: Item) => (typeof i === 'string' ? { texto: i, href: null } : i);
 // Ilustração de cada benefício (cartão em destaque), pelo começo do texto
 const ilus: [string, string][] = [
-  ['Aposentadoria', 'ampulheta'], ['Auxílio', 'capacete'], ['BPC', 'acolher'], ['Salário-maternidade', 'carrinho'],
+  ['Aposentadoria', 'ampulheta'], ['Auxílio', 'curativo'], ['BPC', 'acolher'], ['Salário-maternidade', 'carrinho'],
   ['Pensão', 'aliancas'], ['Revisão', 'calculadora'], ['Planejamento', 'placa'],
 ];
 const ilusDe = (t: string) => ilus.find(([k]) => t.startsWith(k))?.[1] ?? 'documento';
