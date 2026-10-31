@@ -2,7 +2,9 @@
 import Base from '../layouts/Base.astro';
 import { site } from '../data/site.ts';
 
-const atualizacao = '28 de setembro de 2026';
+const atualizacao = '31 de outubro de 2026';
+// Canal LGPD do encarregado (caixa do domínio, diferente do e-mail geral de contato).
+const emailLgpd = 'admin@ramonantonio.adv.br';
 ---
 
 <Base
@@ -22,10 +24,10 @@ const atualizacao = '28 de setembro de 2026';
           (CNPJ {site.cnpj}, {site.oab}), com sede na {site.endereco.logradouro},
           {site.endereco.bairro}, {site.endereco.cidade}/{site.endereco.uf},
           CEP {site.endereco.cep} ("nós" ou "escritório"), coleta, utiliza, armazena e
-          protege os dados pessoais de quem visita nosso site, nossas páginas de captação
-          ou entra em contato conosco pelo WhatsApp, Instagram, Facebook, telefone ou e-mail,
-          em conformidade com a Lei Geral de Proteção de Dados Pessoais
-          (Lei nº 13.709/2018 — LGPD).
+          protege os dados pessoais de quem visita nosso site e nossas páginas de captação,
+          entra em contato conosco pelo WhatsApp, Instagram, Facebook, telefone ou e-mail, ou
+          usa o <strong>Painel do Cliente</strong> (cliente.ramonantonio.adv.br), em
+          conformidade com a Lei Geral de Proteção de Dados Pessoais (Lei nº 13.709/2018 — LGPD).
         </p>
 
         <h2>1. Quais dados coletamos</h2>
@@ -33,103 +35,168 @@ const atualizacao = '28 de setembro de 2026';
         <ul>
           <li>
             <strong>Dados de contato e identificação</strong> — nome, telefone/WhatsApp,
-            e-mail e cidade, informados por você em formulários do site, em páginas de
-            captação ou em conversas conosco.
+            e-mail e cidade, informados em formulários do site, em páginas de captação ou em
+            conversas conosco. De clientes, também o CPF.
           </li>
           <li>
-            <strong>Dados sobre o seu caso</strong> — informações que você nos relata para
-            análise da sua situação previdenciária ou trabalhista (histórico de trabalho,
-            benefícios, documentos e, quando necessário à análise, <strong>dados de
-            saúde</strong>, que são dados pessoais sensíveis e recebem proteção reforçada).
+            <strong>Dados sobre o seu caso</strong> — o que você nos relata para a análise da sua
+            situação previdenciária ou trabalhista (histórico de trabalho, benefícios, documentos
+            e, quando necessário, <strong>dados de saúde</strong>, como laudos, exames e receitas,
+            que são dados pessoais sensíveis e recebem proteção reforçada).
           </li>
           <li>
-            <strong>Dados de mensagens</strong> — o conteúdo das conversas mantidas com o
-            escritório pelo WhatsApp e pelo Instagram/Facebook, recebidas por meio da
-            plataforma oficial da Meta (WhatsApp Business Platform e Messenger/Instagram).
+            <strong>Dados de mensagens</strong> — o conteúdo das conversas com o escritório pelo
+            WhatsApp e pelo Instagram/Facebook, recebidas pela plataforma oficial da Meta. Os
+            áudios que você envia são transcritos em texto no nosso próprio servidor.
           </li>
           <li>
-            <strong>Dados de navegação</strong> — cookies e identificadores coletados por
-            ferramentas de medição e publicidade (como o Pixel da Meta), usados de forma
-            agregada para medir o desempenho do site e de campanhas.
+            <strong>Dados de navegação</strong> — cookies e identificadores de ferramentas de
+            medição e publicidade (como o Pixel da Meta), usados para medir o desempenho do site
+            e das campanhas.
+          </li>
+          <li>
+            <strong>No Painel do Cliente</strong> — os dados de acesso (a sua senha, guardada de
+            forma protegida, sem que ninguém da equipe consiga lê-la; a data e a hora em que você
+            aceitou os termos; os registros de acesso), os dados dos seus processos copiados do
+            nosso sistema de gestão de processos (tipo, fase, andamentos, datas e advogado(a)
+            responsável) e os documentos que você envia.
+          </li>
+          <li>
+            <strong>Na assinatura eletrônica</strong> — a plataforma de assinatura registra o seu
+            nome, o e-mail ou o CPF informado, o endereço IP, a data e a hora, o aparelho usado, a
+            imagem da assinatura desenhada na tela e, se o aparelho permitir, a localização
+            aproximada. Esses registros comprovam a validade da assinatura. Não pedimos selfie
+            nem foto de documento na assinatura.
           </li>
         </ul>
 
         <h2>2. Para que usamos os seus dados</h2>
         <ul>
-          <li>Responder ao seu contato e prestar atendimento;</li>
-          <li>Analisar seu caso e verificar se você tem direito a algum benefício;</li>
-          <li>Prestar os serviços advocatícios contratados;</li>
+          <li>Responder ao seu contato, prestar atendimento e agendar conversas;</li>
+          <li>Analisar o seu caso e verificar se você tem direito a algum benefício;</li>
+          <li>Prestar os serviços advocatícios contratados, colher a sua assinatura e receber os documentos do caso;</li>
+          <li>Mostrar o andamento do seu caso no Painel do Cliente e avisar você sobre novidades por e-mail e WhatsApp;</li>
           <li>Cumprir obrigações legais e regulatórias da advocacia;</li>
-          <li>Medir e melhorar nosso site, conteúdo e campanhas de divulgação.</li>
+          <li>Medir e melhorar o site, o conteúdo e as campanhas de divulgação.</li>
         </ul>
         <p>
-          Tratamos dados com base no consentimento (art. 7º, I), na execução de contrato ou
-          de procedimentos preliminares (art. 7º, V), no cumprimento de obrigação legal
-          (art. 7º, II), no exercício regular de direitos (art. 7º, VI) e no legítimo
-          interesse (art. 7º, IX) da LGPD. Dados sensíveis, como dados de saúde, são
-          tratados apenas com seu consentimento ou para o exercício regular de direitos
-          (art. 11 da LGPD).
+          Os dados do Painel do Cliente, dos processos e dos documentos enviados não são usados
+          para publicidade. <strong>Não vendemos nem alugamos seus dados pessoais.</strong>
         </p>
 
-        <h2>3. Com quem compartilhamos</h2>
+        <h2>3. Uso de inteligência artificial</h2>
         <p>
-          <strong>Não vendemos nem alugamos seus dados pessoais.</strong> Compartilhamos
-          dados apenas quando necessário:
+          <strong>No atendimento.</strong> O primeiro atendimento pelo WhatsApp e pelas redes
+          sociais conta com um assistente de inteligência artificial do escritório, que responde
+          às dúvidas iniciais, faz as perguntas para entender o seu caso e ajuda a marcar a
+          conversa com a equipe. A equipe acompanha as conversas e pode assumir a qualquer
+          momento; se preferir falar com uma pessoa, é só pedir. A equipe também usa
+          inteligência artificial para resumir conversas, organizar as informações do caso e
+          preparar rascunhos. A análise jurídica do seu caso e a decisão de atendê-lo são sempre
+          de pessoas do escritório; a inteligência artificial não toma decisões sobre o seu caso.
         </p>
+        <p>
+          Usamos os serviços de inteligência artificial da <strong>DeepSeek</strong> (empresa com
+          sede na China) e da <strong>Anthropic</strong> (Estados Unidos), que processam o texto
+          da conversa fora do Brasil (veja o item 5).
+        </p>
+        <p>
+          <strong>No Painel do Cliente (somente com a sua autorização).</strong> Se você
+          autorizar, as anotações internas da equipe sobre os documentos que faltam no seu caso
+          passam pelo DeepSeek, que as transforma numa lista simples para você. Esse uso depende
+          da sua autorização específica e em destaque, pedida no próprio painel (LGPD, art. 33,
+          VIII). A autorização é opcional: sem ela, mostramos o pedido de documentos de forma
+          resumida e a equipe passa os detalhes pelo WhatsApp. Você pode retirar a autorização
+          quando quiser, falando com a equipe. Antes do envio, retiramos o seu nome, CPF, RG,
+          e-mail, telefone, CEP e endereço (pseudonimização). Mesmo assim, o texto enviado
+          continua sendo dado pessoal para a lei, porque descreve documentos do seu caso e pode
+          mencionar informações de saúde.
+        </p>
+
+        <h2>4. Com quem compartilhamos</h2>
+        <p>Compartilhamos dados apenas com quem trata os dados em nosso nome, para as finalidades desta política, ou quando a lei exige:</p>
         <ul>
           <li>
-            <strong>Meta Platforms</strong> (WhatsApp, Instagram, Facebook) — para viabilizar
-            a troca de mensagens pelos canais oficiais e a veiculação de anúncios. O
-            tratamento feito pela Meta segue as políticas de privacidade dela;
+            <strong>Meta Platforms</strong> (WhatsApp, Instagram, Facebook) — troca de mensagens
+            pelos canais oficiais e veiculação e medição de anúncios. O tratamento feito pela Meta
+            segue as políticas de privacidade dela;
+          </li>
+          <li><strong>Contabo</strong> — servidor contratado pelo escritório, na França (União Europeia), onde funcionam o nosso sistema de atendimento e o Painel do Cliente;</li>
+          <li><strong>HostGator</strong> — hospedagem deste site e das páginas de captação;</li>
+          <li><strong>ADVBOX</strong> — o nosso sistema de gestão de processos;</li>
+          <li><strong>Google</strong> — armazenamento dos documentos (Google Drive), agenda das conversas marcadas (Google Agenda) e formulários de contato em eventos (Google Formulários);</li>
+          <li><strong>ZapSign</strong> — assinatura eletrônica de contratos e documentos;</li>
+          <li><strong>Titan</strong> — e-mail do nosso domínio, usado para enviar convites, códigos de acesso e avisos;</li>
+          <li><strong>DeepSeek</strong> e <strong>Anthropic</strong> — inteligência artificial (item 3);</li>
+          <li>
+            <strong>Órgãos públicos e Poder Judiciário</strong> — quando necessário à prestação
+            do serviço advocatício (por exemplo, INSS e Justiça Federal) ou por obrigação legal.
+          </li>
+        </ul>
+        <p>Todos os fornecedores são contratados com dever de segurança e confidencialidade.</p>
+
+        <h2>5. Transferência internacional</h2>
+        <p>
+          Alguns fornecedores tratam dados fora do Brasil: o nosso servidor fica na França; a
+          Meta, o Google e a Anthropic processam dados nos Estados Unidos e em outros países; e o
+          DeepSeek, na China. Essas transferências são necessárias para responder ao seu contato,
+          para os procedimentos que antecedem a contratação, pedidos por você, para executar o
+          contrato e para defender os seus direitos no processo (LGPD, art. 33, IX, com o art. 7º,
+          V e VI). O uso de inteligência artificial no Painel do Cliente depende da sua
+          autorização (art. 33, VIII). Usamos fornecedores que adotam medidas de segurança
+          compatíveis com a lei.
+        </p>
+
+        <h2>6. Base legal</h2>
+        <p>
+          Tratamos dados com base na execução de contrato ou de procedimentos preliminares a
+          pedido do titular (art. 7º, V), no cumprimento de obrigação legal (art. 7º, II), no
+          exercício regular de direitos em processo administrativo ou judicial (art. 7º, VI), no
+          legítimo interesse, para medir e melhorar o site e as campanhas (art. 7º, IX), e no
+          consentimento (art. 7º, I), como no uso de inteligência artificial no Painel do Cliente.
+          Dados de saúde são tratados para o exercício regular de direitos (art. 11, II, "d") ou
+          com o seu consentimento (art. 11, I).
+        </p>
+
+        <h2>7. Por quanto tempo guardamos</h2>
+        <ul>
+          <li>
+            <strong>Clientes</strong> — dados do caso, do Painel do Cliente e documentos enviados:
+            enquanto durar o contrato e por 5 anos depois do encerramento do caso, prazo em que
+            ainda podem ser necessários para cumprir obrigações legais e defender direitos (LGPD,
+            art. 16). Depois disso, são apagados. Quando o caso terminar, o acesso ao painel pode
+            ser desativado.
           </li>
           <li>
-            <strong>Fornecedores de tecnologia</strong> — hospedagem do nosso sistema de
-            atendimento, armazenamento em nuvem, assinatura eletrônica de contratos e gestão
-            de processos, contratados com dever de segurança e confidencialidade;
+            <strong>Quem não se tornou cliente</strong> — os dados de contato e as conversas são
+            mantidos apenas pelo período necessário ao atendimento e depois eliminados ou
+            anonimizados.
           </li>
           <li>
-            <strong>Ferramentas de inteligência artificial</strong> — usadas pela equipe para
-            resumir conversas, organizar as informações do seu caso e preparar rascunhos de
-            resposta. A análise do caso, os valores e as orientações jurídicas são sempre
-            feitos por pessoas do escritório. Mensagens automáticas, quando usadas, se limitam
-            a assuntos operacionais (como confirmação de horário e pedido de documentos), e
-            você pode pedir atendimento humano a qualquer momento;
-          </li>
-          <li>
-            <strong>Órgãos públicos e Poder Judiciário</strong> — quando necessário à
-            prestação do serviço advocatício (por exemplo, INSS e Justiça Federal) ou por
-            obrigação legal.
+            <strong>Registros de acesso ao Painel do Cliente</strong> (data, hora e endereço IP):
+            6 meses, como exige o Marco Civil da Internet (Lei nº 12.965/2014, art. 15). Depois
+            disso, são apagados automaticamente.
           </li>
         </ul>
 
-        <h2>4. Transferência internacional</h2>
-        <p>
-          Alguns dos nossos fornecedores tratam dados fora do Brasil: o servidor do nosso
-          sistema de atendimento fica na Alemanha, e a Meta e as ferramentas de inteligência
-          artificial processam dados nos Estados Unidos e em outros países. Essas
-          transferências acontecem apenas para viabilizar o atendimento e os serviços
-          contratados, nas hipóteses do art. 33 da LGPD, com fornecedores que adotam medidas
-          de segurança e confidencialidade compatíveis com esta política.
-        </p>
-
-        <h2>5. Por quanto tempo guardamos</h2>
-        <p>
-          Mantemos seus dados pelo tempo necessário às finalidades desta política: durante o
-          atendimento e a prestação do serviço e, depois, pelos prazos de guarda exigidos
-          pela legislação e pelos prazos prescricionais aplicáveis. Dados de contato de quem
-          não se tornou cliente são mantidos apenas pelo período necessário ao atendimento e
-          eliminados ou anonimizados em seguida.
-        </p>
-
-        <h2>6. Como protegemos</h2>
+        <h2>8. Como protegemos</h2>
         <p>
           Adotamos medidas técnicas e administrativas de segurança para proteger seus dados
-          contra acessos não autorizados, perda ou alteração — incluindo controle de acesso,
-          criptografia em trânsito e sigilo profissional, que é dever de todo advogado
-          (art. 34, VII, da Lei nº 8.906/94).
+          contra acessos não autorizados, perda ou alteração — incluindo controle de acesso por
+          pessoa da equipe, senhas guardadas de forma protegida, criptografia em trânsito e
+          sigilo profissional, que é dever de todo advogado (art. 34, VII, da Lei nº 8.906/94).
         </p>
 
-        <h2>7. Seus direitos</h2>
+        <h2>9. Cookies</h2>
+        <p>
+          Este site e as páginas de captação usam cookies essenciais ao funcionamento e cookies de
+          medição e publicidade (como o Pixel da Meta). O Painel do Cliente usa só cookies
+          essenciais, que mantêm você conectado no aparelho por até 30 dias, sem cookies de
+          publicidade. Você pode bloquear ou apagar cookies nas configurações do navegador; o site
+          continua funcionando normalmente.
+        </p>
+
+        <h2>10. Seus direitos</h2>
         <p>
           Como titular de dados, você pode, a qualquer momento e gratuitamente, nos pedir
           (art. 18 da LGPD):
@@ -139,33 +206,28 @@ const atualizacao = '28 de setembro de 2026';
           <li>Correção de dados incompletos, inexatos ou desatualizados;</li>
           <li>
             <strong>Eliminação dos seus dados</strong> — inclusive dos dados recebidos pelo
-            WhatsApp e Instagram —, ressalvadas as hipóteses de guarda legal;
+            WhatsApp e pelo Instagram —, ressalvadas as hipóteses de guarda legal;
           </li>
           <li>Anonimização, bloqueio ou eliminação de dados desnecessários;</li>
-          <li>Portabilidade, informação sobre compartilhamentos e revogação do consentimento.</li>
+          <li>Portabilidade e informação sobre com quem compartilhamos;</li>
+          <li>Revogação do consentimento, incluindo a autorização de uso de inteligência artificial no Painel do Cliente;</li>
+          <li>Encerramento do seu acesso ao Painel do Cliente.</li>
         </ul>
         <p>
-          Para exercer qualquer direito — inclusive <strong>solicitar a exclusão dos seus
-          dados</strong> —, envie um e-mail para
-          <a href={`mailto:${site.email}`}>{site.email}</a> com o assunto
-          "Dados pessoais". Responderemos no prazo da LGPD. Você também pode apresentar
-          reclamação à Autoridade Nacional de Proteção de Dados (ANPD).
+          Alguns dados precisam ser guardados por obrigação legal ou para a defesa do seu próprio
+          processo; nesse caso, explicamos o motivo. Para exercer qualquer direito, escreva para
+          <a href={`mailto:${emailLgpd}`}>{emailLgpd}</a> com o assunto "Dados pessoais".
+          Responderemos no prazo da LGPD. Você também pode apresentar reclamação à Autoridade
+          Nacional de Proteção de Dados (ANPD).
         </p>
 
-        <h2>8. Cookies</h2>
+        <h2>11. Encarregado e contato</h2>
         <p>
-          Usamos cookies essenciais ao funcionamento do site e cookies de medição e
-          publicidade (como o Pixel da Meta). Você pode bloquear ou apagar cookies nas
-          configurações do seu navegador; o site continua funcionando normalmente.
-        </p>
-
-        <h2>9. Contato e encarregado</h2>
-        <p>
-          Dúvidas sobre esta política ou sobre o tratamento dos seus dados podem ser
-          dirigidas ao encarregado de proteção de dados do escritório:
+          O encarregado pelo tratamento de dados pessoais do escritório é
+          <strong>Eduardo Schlata</strong> (OAB/SC 39.859).
         </p>
         <ul>
-          <li><strong>E-mail:</strong> <a href={`mailto:${site.email}`}>{site.email}</a></li>
+          <li><strong>E-mail:</strong> <a href={`mailto:${emailLgpd}`}>{emailLgpd}</a></li>
           <li><strong>Telefone/WhatsApp:</strong> {site.whatsapp.exibicao}</li>
           <li>
             <strong>Endereço:</strong> {site.endereco.logradouro}, {site.endereco.bairro},
@@ -173,7 +235,7 @@ const atualizacao = '28 de setembro de 2026';
           </li>
         </ul>
 
-        <h2>10. Alterações desta política</h2>
+        <h2>12. Alterações desta política</h2>
         <p>
           Esta política pode ser atualizada para refletir mudanças legais ou operacionais.
           A versão vigente estará sempre nesta página, com a data de atualização no topo.
