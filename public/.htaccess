@@ -16,6 +16,10 @@
   # 302 de propósito: o formulário pode ser trocado sem reimprimir o QR. Manter em sincronia
   # com formUrl em src/data/palestra.ts. (/palestra/qrcode/ continua sendo a página do site.)
   RewriteRule ^palestra/?$ https://docs.google.com/forms/d/e/1FAIpQLSdKNU8XpnTYVvs6jwBm3K_lKPseU1fZLL0nTunnl5MeiNG4Dw/viewform [L,R=302,NE]
+
+  # /parceiros → WhatsApp do escritório com mensagem de parceiro (QR do folder institucional).
+  # 302 de propósito: número e mensagem podem ser trocados sem reimprimir o folder.
+  RewriteRule ^parceiros/?$ https://wa.me/5548988554077?text=Ol%C3%A1!%20Sou%20parceiro%20do%20escrit%C3%B3rio%20e%20quero%20encaminhar%20um%20caso. [L,R=302,NE]
 </IfModule>
 
 # Página de erro 404 amigável (Astro gera 404.html)
