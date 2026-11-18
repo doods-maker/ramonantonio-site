@@ -19,7 +19,8 @@
 
   # /parceiros → WhatsApp do escritório com mensagem de parceiro (QR do folder institucional).
   # 302 de propósito: número e mensagem podem ser trocados sem reimprimir o folder.
-  RewriteRule ^parceiros/?$ https://wa.me/5548988554077?text=Ol%C3%A1!%20Sou%20parceiro%20do%20escrit%C3%B3rio%20e%20quero%20encaminhar%20um%20caso. [L,R=302,NE]
+  # Os "%" vão escapados (\%): sem isso o Apache lê "%2" de "%20" como referência e quebra o texto.
+  RewriteRule ^parceiros/?$ https://wa.me/5548988554077?text=Ol\%C3\%A1!\%20Sou\%20parceiro\%20do\%20escrit\%C3\%B3rio\%20e\%20quero\%20encaminhar\%20um\%20caso. [L,R=302,NE]
 </IfModule>
 
 # Página de erro 404 amigável (Astro gera 404.html)
