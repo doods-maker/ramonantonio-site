@@ -1,0 +1,132 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site.ts';
+
+const atualizacao = '20 de novembro de 2026';
+const emailLgpd = 'admin@ramonantonio.adv.br';
+---
+
+<Base
+  title="Termos de Uso"
+  description={`Termos de uso do site, dos canais de atendimento e do Painel do Cliente do ${site.nome}.`}
+>
+  <article class="policy section">
+    <div class="container policy__container">
+      <header class="policy__header">
+        <h1>Termos de Uso</h1>
+        <p class="policy__updated">Última atualização: {atualizacao}</p>
+      </header>
+
+      <div class="policy__body">
+        <p>
+          Estes Termos de Uso valem para quem usa o site e as páginas de captação do
+          <strong>{site.nomeCompleto}</strong> (CNPJ {site.cnpj}, {site.oab}), com sede na
+          {site.endereco.logradouro}, {site.endereco.bairro}, {site.endereco.cidade}/{site.endereco.uf}
+          ("escritório"), conversa com o escritório pelo WhatsApp, Instagram ou Facebook, ou usa o
+          <strong>Painel do Cliente</strong> (cliente.ramonantonio.adv.br). Ao usar esses canais,
+          você concorda com estes termos.
+        </p>
+
+        <h2>1. Conteúdo informativo</h2>
+        <p>
+          Os textos do site, do blog e das redes sociais são informativos e não substituem a
+          análise do seu caso por um advogado. Cada caso depende dos seus documentos e da sua
+          história. O escritório não promete resultado nem prazo de decisão do INSS ou da Justiça.
+        </p>
+
+        <h2>2. Atendimento pelo WhatsApp e pelas redes sociais</h2>
+        <ul>
+          <li>
+            O primeiro atendimento conta com um <strong>assistente de inteligência artificial do
+            escritório</strong>. Ele só trata de assuntos do escritório: tira dúvidas iniciais, faz
+            perguntas para entender o seu caso e ajuda a marcar a conversa com a equipe.
+          </li>
+          <li>
+            A equipe acompanha as conversas e pode assumir a qualquer momento. Se preferir falar
+            com uma pessoa, é só pedir.
+          </li>
+          <li>
+            A análise jurídica e a decisão de atender o seu caso são sempre de advogados do
+            escritório. Respostas do assistente não são parecer jurídico.
+          </li>
+          <li>
+            O escritório só envia mensagens a quem entrou em contato ou é cliente, e você pode
+            pedir para não receber mais mensagens a qualquer momento.
+          </li>
+          <li>
+            O WhatsApp, o Instagram e o Facebook são serviços da Meta, e o uso deles segue também
+            os termos e as políticas da Meta. O escritório não controla a disponibilidade desses
+            aplicativos.
+          </li>
+        </ul>
+
+        <h2>3. Contratação</h2>
+        <p>
+          Conversar com o escritório não cria relação de cliente e advogado. A contratação só
+          acontece com a assinatura do contrato de honorários, que traz as condições do serviço
+          por escrito.
+        </p>
+
+        <h2>4. Painel do Cliente</h2>
+        <ul>
+          <li>O acesso é pessoal. Não compartilhe a sua senha.</li>
+          <li>
+            O painel mostra o andamento do seu caso copiado do sistema do escritório e pode
+            ter atraso em relação ao tribunal ou ao INSS. Em caso de dúvida, fale com a equipe.
+          </li>
+          <li>Envie só documentos seus ou do seu caso.</li>
+          <li>O acesso pode ser desativado quando o caso terminar.</li>
+        </ul>
+
+        <h2>5. Uso adequado</h2>
+        <p>
+          Não é permitido usar os canais do escritório para enviar conteúdo ilegal, ofensivo,
+          falso ou de terceiros sem autorização, nem tentar acessar áreas ou dados que não são
+          seus. O escritório pode encerrar o atendimento ou o acesso em caso de uso indevido.
+        </p>
+
+        <h2>6. Propriedade intelectual</h2>
+        <p>
+          Textos, imagens, marca e materiais do site pertencem ao escritório ou são usados com
+          autorização. Você pode compartilhar links, mas não pode copiar o conteúdo para uso
+          comercial sem autorização.
+        </p>
+
+        <h2>7. Privacidade</h2>
+        <p>
+          O tratamento dos seus dados pessoais segue a nossa
+          <a href="/politica-de-privacidade/">Política de Privacidade</a>, que faz parte destes
+          termos.
+        </p>
+
+        <h2>8. Lei aplicável e foro</h2>
+        <p>
+          Estes termos seguem a lei brasileira. Fica eleito o foro da comarca de
+          {site.endereco.cidade}/{site.endereco.uf}, ressalvado o direito do consumidor de
+          ajuizar no seu domicílio.
+        </p>
+
+        <h2>9. Alterações e contato</h2>
+        <p>
+          Estes termos podem ser atualizados. A versão vigente estará sempre nesta página, com a
+          data no topo. Dúvidas: <a href={`mailto:${emailLgpd}`}>{emailLgpd}</a> ou
+          {site.whatsapp.exibicao}.
+        </p>
+      </div>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .policy__container { max-width: 760px; }
+  .policy__header { margin-bottom: 2rem; }
+  .policy__header h1 { margin-bottom: .5rem; }
+  .policy__updated { color: var(--text-soft); font-size: .9rem; }
+  .policy__body { font-size: 1.05rem; line-height: 1.8; color: var(--text); }
+  .policy__body h2 { margin: 2.2rem 0 .8rem; }
+  .policy__body p { margin-bottom: 1.1rem; }
+  .policy__body ul { margin: 0 0 1.1rem 1.3rem; list-style: disc; }
+  .policy__body li { margin-bottom: .4rem; }
+  .policy__body a { text-decoration: underline; }
+  .policy__body strong { color: var(--bronze-dk); }
+</style>
