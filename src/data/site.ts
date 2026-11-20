@@ -24,6 +24,8 @@ export const site = {
     mensagem: 'Olá! Vim pelo site do escritório e gostaria de falar com a equipe.',
   },
   email: 'ramonantonio.advogados@gmail.com',
+  // Canal LGPD do encarregado e dos termos (caixa do domínio, diferente do e-mail geral).
+  emailLgpd: 'admin@ramonantonio.adv.br',
   horario: 'Segunda a sexta, das 8h30 às 12h e das 13h30 às 18h',
 
   endereco: {
