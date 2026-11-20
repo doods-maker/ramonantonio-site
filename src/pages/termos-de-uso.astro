@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import { site } from '../data/site.ts';
 
 const atualizacao = '20 de novembro de 2026';
-const emailLgpd = 'admin@ramonantonio.adv.br';
+const { emailLgpd } = site;
 ---
 
 <Base
@@ -46,8 +46,7 @@ const emailLgpd = 'admin@ramonantonio.adv.br';
             com uma pessoa, é só pedir.
           </li>
           <li>
-            A análise jurídica e a decisão de atender o seu caso são sempre de advogados do
-            escritório. Respostas do assistente não são parecer jurídico.
+            A análise jurídica do seu caso é sempre feita por advogados do escritório. Respostas do assistente não são parecer jurídico.
           </li>
           <li>
             O escritório só envia mensagens a quem entrou em contato ou é cliente, e você pode
